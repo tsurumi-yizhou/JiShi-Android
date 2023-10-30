@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">Login</string>
+    <string name="main">Main</string>
+    <string name="home">Home</string>
+    <string name="news">News</string>
+    <string name="setting">Settings</string>
+    <string name="qrcode">QRCode</string>
+    <string name="calendar">Calendar</string>
+    <string name="library">Library</string>
+    <string name="classroom">Classrooms</string>
+</resources>

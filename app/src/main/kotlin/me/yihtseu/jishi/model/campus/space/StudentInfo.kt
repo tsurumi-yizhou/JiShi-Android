@@ -7,15 +7,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class StudentInfo(
     @SerialName("XH")
-    val xH: String,
+    val number: String,
     @SerialName("XM")
-    val xM: String,
+    val name: String,
     @SerialName("DWMC")
     val dWMC: String,
-    @SerialName("ZWLB")
-    val zWLB: String,
-    @SerialName("PYCC")
-    val pYCC: String,
     @SerialName("ZYMC")
-    val zYMC: String
+    val major: String
 )

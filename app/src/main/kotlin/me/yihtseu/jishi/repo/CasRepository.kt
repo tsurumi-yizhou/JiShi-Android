@@ -3,11 +3,8 @@ package me.yihtseu.jishi.repo
 import com.drake.net.Get
 import com.drake.net.Post
 import kotlinx.coroutines.coroutineScope
-import me.yihtseu.jishi.error.DataError
-import me.yihtseu.jishi.error.NetworkError
 import me.yihtseu.jishi.utils.crypto.strEnc
 import org.jsoup.Jsoup
-import java.io.IOException
 
 object CasRepository {
     private lateinit var lt: String
@@ -23,7 +20,6 @@ object CasRepository {
     }
 
     suspend fun checkLogin(username: String, passwd: String): Boolean = coroutineScope {
-        try {
             if (check()) return@coroutineScope true
             val rsa = strEnc("${username.trim()}${passwd.trim()}$lt", "1", "2", "3")
             Post<String>("https://cas.jlu.edu.cn/tpass/login") {
@@ -37,10 +33,5 @@ object CasRepository {
                 param("_eventId", event)
             }.await()
             return@coroutineScope check()
-        } catch (e: IOException) {
-            throw NetworkError()
-        } catch (e: Exception) {
-            throw DataError()
-        }
     }
 }

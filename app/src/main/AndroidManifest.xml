@@ -23,7 +23,6 @@
         <activity
                 android:name="me.yihtseu.jishi.MainActivity"
                 android:exported="true"
-                android:label="@string/title_activity_main"
                 android:theme="@style/Theme.JiShi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,6 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service android:name="me.yihtseu.jishi.PushService"
+                 android:exported="false"/>
 
         <meta-data
                 android:name="androidx.lifecycle.ViewModelStoreOwner"

@@ -1,77 +1,15 @@
 <resources>
     <string name="app_name">JiShi</string>
-    <string name="index">Index</string>
-    <string name="news">News</string>
-    <string name="setting">Setting</string>
-    <string name="oa">Office Automation</string>
-    <string name="channel_id" translatable="false">jishi_push_channel_id</string>
-    <string name="channel_name">Default Channel</string>
-    <string name="account">Account</string>
-    <string name="notification">Notification</string>
-    <string name="about">About</string>
-    <string name="study">Study</string>
-    <string name="life">Life</string>
-    <string name="sync_calendar_title">Sync Calendar</string>
-    <string name="sync_calendar_desc">Write class table into system calendar</string>
-    <string name="sync_task_title">Sync Task</string>
-    <string name="sync_task_desc">Write homework tasks into system</string>
-    <string name="query_idle_classrooms">Query for idle classrooms</string>
-    <string name="jlu_qrcode">JLU Auth QRCode</string>
-    <string name="campus_account">Campus Account</string>
-    <string name="chaoxing_account">Chaoxing Account</string>
-    <string name="theme_subscription">Theme Subscription</string>
-    <string name="theme_subscription_desc">Use FCM, APN and HMS to push notifications</string>
-    <string name="about_this">About this app</string>
-    <string name="privacy">End User Privacy Protocol</string>
-    <string name="check_update">Check new version</string>
     <string name="version">Version</string>
-    <string name="source_code">View the source code</string>
-    <string name="contact">Contact us</string>
-    <string name="latest_tag" translatable="false">0.0.1</string>
-    <string name="need_update">Your version is out of date</string>
-    <string name="neednot_update">Your version is up to date</string>
-    <string name="login">Login</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="account">Account</string>
     <string name="passwd">Password</string>
-    <string name="name">Name</string>
-    <string name="school">School</string>
-    <string name="id" translatable="false">ID</string>
-    <string name="personal_profile">Personal Profile</string>
-    <string name="archive_list">Archive List</string>
-    <string name="permission_request">Permission Request</string>
-    <string name="permission_tip">We need those Permissions to launch app:</string>
-    <string name="contact_mail" translatable="false">tongyz2922@mails.jlu.edu.cn</string>
-    <string name="open_source_license">Open Source License</string>
-    <string name="query_idle_classrooms_desc">Support 6 campus</string>
-    <string name="place">Place</string>
-    <string name="time">Time</string>
-    <string name="time_to_start">Start Time</string>
-    <string name="time_to_end">End Time</string>
-    <string name="date_select">Select the Date</string>
+    <string name="success">Success</string>
     <string name="network_error">Network Exception!</string>
     <string name="data_error">Data Error!</string>
-    <string name="success">Success</string>
-    <string name="appearance">Appearance</string>
-    <string name="language">Language</string>
-    <string name="dark_mode">Dark Mode</string>
-    <string name="exam_info">Query Examination Info</string>
-    <string name="gpa_info">Query GPA Info</string>
-    <string name="training_plan_info">Quey Training Plan</string>
-    <string name="feed_orgin">Feed Origins</string>
-    <string name="gpa_info_desc">Don\'t lose heart, this setback is just a hurdle, you can bravely move forward.
-    </string>
-    <string name="language_desc">Can\'t you speak Latin?</string>
-    <string name="card">Campus Card</string>
-    <string name="exam">Exam</string>
-    <string name="lib_seat">Library Seat Reverse</string>
-    <string name="always_light">Always Light</string>
-    <string name="always_dark">Always Dark</string>
-    <string name="follow_system">Follow System</string>
-    <string name="unread">Unread</string>
     <string name="internal_error">Internal Error!</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="unknown_error">Unknown Error!</string>
     <string name="login_error">Login Error!</string>
 </resources>

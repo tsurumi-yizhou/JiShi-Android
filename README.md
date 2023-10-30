@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="200" height="200" style="display: block; border-radius: 50%;" src="app/src/main/ic_launcher-playstore.png">
+    <img style="display: block; border-radius: 50%;" src="app/src/main/ic_launcher-playstore.png" alt="logo">
     <h1>JiShi-Android</h1>
     <img alt="Github Stars" src="https://img.shields.io/github/stars/tsurumi-yizhou/JiShi-Android">
     <img alt="Github Build" src="https://img.shields.io/github/actions/workflow/status/tsurumi-yizhou/JiShi-Android/Nightly.yml">
@@ -20,4 +20,4 @@
 - ❌ 查询培养方案
 
 ## Quote
-- [Library-One-Tap-Android](https://github.com/qhy040404/Library-One-Tap-Android)
+- [Library-One-Tap-Android](https://github.com/qhy040404/Library-One-Tap-Android) (Apache 2.0)

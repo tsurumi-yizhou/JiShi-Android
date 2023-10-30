@@ -6,13 +6,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Repository(
-    val id: Int,
-    @SerialName("node_id")
-    val nodeId: String,
     val name: String,
     @SerialName("full_name")
     val fullName: String,
-    val `private`: Boolean,
     val owner: Owner,
     @SerialName("html_url")
     val htmlUrl: String,
@@ -196,8 +192,6 @@ data class Repository(
         val name: String,
         @SerialName("spdx_id")
         val spdxId: String,
-        val url: String,
-        @SerialName("node_id")
-        val nodeId: String
+        val url: String
     )
 }
