@@ -38,6 +38,10 @@ fun startMin(start: Int): Int {
     }
 }
 
+fun startTime(start: Int): Long {
+    return startHour(start).toLong() * 60 * 60 * 1000 + startMin(start).toLong() * 60 * 1000
+}
+
 fun endHour(end: Int): Int {
     return when(end) {
         1 -> 8
@@ -74,4 +78,8 @@ fun endMin(end: Int): Int {
         13 -> 25
         else -> 0
     }
+}
+
+fun endTime(end: Int): Long {
+    return endHour(end).toLong() * 60 * 60 * 1000 + endMin(end).toLong() * 60 * 1000
 }

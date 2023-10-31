@@ -17,9 +17,13 @@ object Api {
     fun roleUrl(id: String) = "https://iedu.jlu.edu.cn/jwapp/sys/jwpubapp/pub/setJwCommonAppRole.do?ROLEID=$id"
     val termUrl = "https://iedu.jlu.edu.cn/jwapp/sys/wdkb/modules/jshkcb/cxjcs.do"
     fun lessonUrl(year: String, term: String, week: String) = "https://iedu.jlu.edu.cn/jwapp/sys/wdkb/modules/xskcb/cxxszhxqkb.do?XNXQDM=$year-$term&SKZC=$week"
+    fun lessonUrl(year: String, term: String) = "https://iedu.jlu.edu.cn/jwapp/sys/wdkb/modules/xskcb/cxxszhxqkb.do?XNXQDM=$year-$term"
+
     val indexUrl = "https://iedu.jlu.edu.cn/jwapp/sys/emaphome/portal/index.do"
     val cxjwggbbdqxUrl = "https://iedu.jlu.edu.cn/jwapp/sys/jwpubapp/modules/bb/cxjwggbbdqx.do"
     val kxjasUrl = "https://iedu.jlu.edu.cn/jwapp/sys/emappagelog/config/kxjas.do"
     val kxjscxUrl = "https://iedu.jlu.edu.cn/jwapp/sys/kxjas/modules/kxjscx.do?*json=1"
     val cxkxjsUrl = "https://iedu.jlu.edu.cn/jwapp/sys/kxjas/modules/kxjscx/cxkxjs.do"
+
+    val scoreUrl = "https://iedu.jlu.edu.cn/jwapp/sys/cjcx/modules/cjcx/xscjcx.do?querySetting=&pageSize=100&pageNumber=1"
 }

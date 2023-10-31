@@ -10,10 +10,7 @@ import me.yihtseu.jishi.ui.Navigation
 fun AppScreen() {
     val controller = rememberNavController()
 
-    NavHost(controller, startDestination = Navigation.LoginScreen.id.toString()) {
-        composable(Navigation.LoginScreen.id.toString()) {
-            LoginScreen(controller)
-        }
+    NavHost(controller, startDestination = Navigation.MainScreen.id.toString()) {
         composable(Navigation.MainScreen.id.toString()) {
             MainScreen(controller)
         }
@@ -28,6 +25,9 @@ fun AppScreen() {
         }
         composable(Navigation.ClassroomScreen.id.toString()) {
             ClassroomScreen(controller)
+        }
+        composable(Navigation.ScoreScreen.id.toString()) {
+            ScoreScreen(controller)
         }
     }
 }

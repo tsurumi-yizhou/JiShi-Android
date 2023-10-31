@@ -12,4 +12,5 @@
     <string name="internal_error">Internal Error!</string>
     <string name="unknown_error">Unknown Error!</string>
     <string name="login_error">Login Error!</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

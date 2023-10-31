@@ -20,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.yihtseu.jishi.ui.Navigation
+import me.yihtseu.jishi.ui.theme.typography
 
 @Composable
 fun MainScreen(
@@ -48,7 +49,7 @@ fun MainScreen(
                         Icon(Icons.Outlined.Home, null)
                     },
                     label = {
-                        Text(text = stringResource(currentPage.intValue))
+                        Text(text = stringResource(currentPage.intValue), style = typography.bodySmall)
                     },
                     onClick = {
                         currentPage.intValue = Navigation.HomeScreen.id
@@ -64,7 +65,7 @@ fun MainScreen(
                         Icon(Icons.Outlined.Newspaper, null)
                     },
                     label = {
-                        Text(text = stringResource(currentPage.intValue))
+                        Text(text = stringResource(currentPage.intValue), style = typography.bodySmall)
                     },
                     onClick = {
                         currentPage.intValue = Navigation.NewsScreen.id
@@ -80,7 +81,7 @@ fun MainScreen(
                         Icon(Icons.Outlined.Settings, null)
                     },
                     label = {
-                        Text(text = stringResource(currentPage.intValue))
+                        Text(text = stringResource(currentPage.intValue), style = typography.bodySmall)
                     },
                     onClick = {
                         currentPage.intValue = Navigation.SettingScreen.id

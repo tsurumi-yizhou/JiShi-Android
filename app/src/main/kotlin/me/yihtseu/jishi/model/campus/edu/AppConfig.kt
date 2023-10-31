@@ -6,12 +6,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AppConfig(
-    val routeTitle: RouteTitle,
     @SerialName("MODULES")
     val modules: List<MODULES>,
     @SerialName("HEADER")
     val header: HEADER,
-    val schoolId: String,
     @SerialName("APP_ID")
     val appId: String
 ) {

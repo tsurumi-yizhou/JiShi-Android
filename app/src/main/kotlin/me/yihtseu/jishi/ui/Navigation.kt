@@ -23,4 +23,6 @@ sealed class Navigation(
     object LibraryScreen: Navigation(R.string.library)
 
     object ClassroomScreen: Navigation(R.string.classroom)
+
+    object ScoreScreen: Navigation(R.string.score)
 }

@@ -39,7 +39,7 @@ data class LessonResult(
                 @SerialName("DWDM")
                 val schoolCode: String,
                 @SerialName("SKJS")
-                val teacherName: String,
+                val teacherName: String?,
                 @SerialName("JSJC_DISPLAY")
                 val startLessonName: String,
                 @SerialName("KSLXDM_DISPLAY")
@@ -48,10 +48,6 @@ data class LessonResult(
                 val gradeName: String,
                 @SerialName("XNXQDM")
                 val termInfo: String,
-                @SerialName("KBID")
-                val id: String,
-                @SerialName("SKBJ")
-                val studentFromSchools: String?,
                 @SerialName("KSJC_DISPLAY")
                 val endLessonName: String,
                 @SerialName("ZYDM_DISPLAY")
@@ -76,14 +72,8 @@ data class LessonResult(
                 val endLessonNum: Int,
                 @SerialName("XXXQDM")
                 val zoneCode: String,
-                @SerialName("XH")
-                val studentNumber: String,
-                @SerialName("XM")
-                val studentName: String,
-                @SerialName("ISTK")
-                val isTK: Int,
                 @SerialName("KBSKSJ")
-                val startDate: String,
+                val date: String,
                 @SerialName("YPSJDD")
                 val studyWeeks: String,
                 @SerialName("XNXQDM_DISPLAY")

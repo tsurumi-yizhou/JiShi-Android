@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AirlineSeatIndividualSuite
-import androidx.compose.material.icons.outlined.Book
-import androidx.compose.material.icons.outlined.CalendarViewWeek
-import androidx.compose.material.icons.outlined.QrCode
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +29,9 @@ fun HomeScreen(
             EntryCard(stringResource(R.string.study)) {
                 EntryItem(Icons.Outlined.CalendarViewWeek, stringResource(R.string.calendar)) {
                     controller.navigate(Navigation.CalendarScreen.id.toString())
+                }
+                EntryItem(Icons.Outlined.Score, stringResource(R.string.score)) {
+                    controller.navigate(Navigation.ScoreScreen.id.toString())
                 }
             }
             EntryCard(stringResource(R.string.learn)) {

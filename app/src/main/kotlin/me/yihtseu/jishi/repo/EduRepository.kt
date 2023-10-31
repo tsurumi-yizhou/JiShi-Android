@@ -4,13 +4,10 @@ import com.drake.net.Get
 import com.drake.net.Post
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
-import me.yihtseu.jishi.error.DataError
 import me.yihtseu.jishi.model.campus.edu.*
-import me.yihtseu.jishi.utils.time.weeksPast
 
 object EduRepository {
     private val json = Json {
-        prettyPrint = false
         isLenient = true
         ignoreUnknownKeys = true
         coerceInputValues = true
@@ -18,8 +15,8 @@ object EduRepository {
         encodeDefaults = true
     }
 
-    private suspend fun getAppConfig(): AppConfig = coroutineScope {
-        val resp = Get<String>(Api.appConfigUrl("wdkb")).await()
+    private suspend fun getAppConfig(service: String): AppConfig = coroutineScope {
+        val resp = Get<String>(Api.appConfigUrl(service)).await()
         return@coroutineScope json.decodeFromString<AppConfig>(resp)
     }
 
@@ -33,17 +30,18 @@ object EduRepository {
     }
 
     suspend fun getLessons(): List<LessonResult.Datas.studentLessonTable.Row> = coroutineScope {
-        setRole(getAppConfig().header.dropMenu.first().id)
-        val term = getTerm().first()
-        val week = weeksPast(term.startDate)
+        setRole(getAppConfig("wdkb").header.dropMenu.first().id)
 
-        val resultThisWeek = json.decodeFromString<LessonResult>(Get<String>(Api.lessonUrl(term.yearRange, term.term, week.toString())).await())
-        if (resultThisWeek.code.toInt() != 0)   throw DataError()
+        val lessons = mutableListOf<LessonResult.Datas.studentLessonTable.Row>()
 
-        val resultNextWeek = json.decodeFromString<LessonResult>(Get<String>(Api.lessonUrl(term.yearRange, term.term, (week + 1).toString())).await())
-        if (resultNextWeek.code.toInt() != 0)   throw DataError()
+        for(week in 10..20) {
+            val result = json.decodeFromString<LessonResult>(Get<String>(Api.lessonUrl("2023-2024", "1", week.toString())).await())
+            if (result.code.toInt() == 0) {
+                lessons.addAll(result.datas.lessonTable.rows)
+            }
+        }
 
-        return@coroutineScope resultThisWeek.datas.lessonTable.rows + resultNextWeek.datas.lessonTable.rows
+        return@coroutineScope lessons
     }
 
     suspend fun getBuildings(): List<BuildingResult.Datas.Code.Row> = coroutineScope {
@@ -57,10 +55,18 @@ object EduRepository {
         }.await()
         Get<String>(Api.appConfigUrl("kxjas")).await()
         Get<String>(Api.kxjasUrl).await()
-        setRole(getAppConfig().header.dropMenu.first().id)
+        setRole(getAppConfig("kxjas").header.dropMenu.first().id)
 
-        val url = json.decodeFromString<Service>(Get<String>(Api.kxjscxUrl).await()).models.last().controls.first().url
-        return@coroutineScope json.decodeFromString<BuildingResult>(Post<String>("https://iedu.jlu.edu.cn$url").await()).datas.code.rows
+        val url = json.decodeFromString<Service>(Get<String>(Api.kxjscxUrl).await()).search()
+
+        val data = Post<String>("https://iedu.jlu.edu.cn${url}"){
+            Api.headers.forEach { (key, value) ->
+                addHeader(key, value)
+            }
+        }.await()
+
+        return@coroutineScope json.decodeFromString<BuildingResult>(data).datas.code.rows
+
     }
 
     suspend fun getClassrooms(buildings: List<String>, date: String, start: Int, end: Int): List<RoomResult.Datas.Cxkxjs.Row> = coroutineScope {
@@ -77,5 +83,10 @@ object EduRepository {
             param("pageSize", "100")
             param("pageNumber", "1")
         }.await()).datas.cxkxjs.rows
+    }
+
+    suspend fun getScore(): List<ScoreResult.Datas.Xscjcx.Row> = coroutineScope {
+        setRole(getAppConfig("cjcx").header.dropMenu.first().id)
+        return@coroutineScope json.decodeFromString<ScoreResult>(Get<String>(Api.scoreUrl).await()).datas.xscjcx.rows
     }
 }

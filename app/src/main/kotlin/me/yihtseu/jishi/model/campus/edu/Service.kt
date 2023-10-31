@@ -1,6 +1,7 @@
 package me.yihtseu.jishi.model.campus.edu
 
 import kotlinx.serialization.Serializable
+import me.yihtseu.jishi.error.DataError
 
 @Serializable
 data class Service(
@@ -12,7 +13,19 @@ data class Service(
     ) {
         @Serializable
         data class Control(
-            val url: String
+            val name: String,
+            val url: String? = null
         )
+    }
+
+    fun search(): String {
+        for (model in models) {
+            for (control in model.controls) {
+                if (control.name == "JXLDM" && control.url != null) {
+                    return control.url
+                }
+            }
+        }
+        throw DataError()
     }
 }
