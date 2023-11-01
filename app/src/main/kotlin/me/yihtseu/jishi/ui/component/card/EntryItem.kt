@@ -1,4 +1,4 @@
-package me.yihtseu.jishi.ui.component
+package me.yihtseu.jishi.ui.component.card
 
 import android.net.Uri
 import androidx.compose.foundation.clickable

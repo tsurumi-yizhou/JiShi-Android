@@ -8,22 +8,22 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import me.yihtseu.jishi.model.jishi.Result
+import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.repo.HallRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class IdentifyViewModel @Inject constructor(): ViewModel() {
-    private val _state = MutableStateFlow<Result<ByteArray>>(Result.Loading)
+    private val _state = MutableStateFlow<State<ByteArray>>(State.Loading)
     val state = _state.asStateFlow()
 
     fun load(hostState: SnackbarHostState) = viewModelScope.launch {
-        _state.update { Result.Loading }
+        _state.update { State.Loading }
         try {
-            _state.update { Result.Success(HallRepository.qrcode()) }
+            _state.update { State.Success(HallRepository.qrcode()) }
         } catch (e: Exception) {
             hostState.showSnackbar(e.localizedMessage.orEmpty())
-            _state.update { Result.Error(e.localizedMessage) }
+            _state.update { State.Error(e.localizedMessage) }
         }
     }
 }

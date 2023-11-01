@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="floor2">Second Floor</string>
+    <string name="open_space">Open Studying Space</string>
+    <string name="floor3">Third Flood</string>
+    <string name="read_space">Reading Studying Space</string>
+    <string name="floor4">Forth Floor</string>
+    <string name="journal_space">Journal Studying Space</string>
+    <string name="floor5">Fifth Floor</string>
+    <string name="interactif_space">Interactive Studying Space</string>
+</resources>

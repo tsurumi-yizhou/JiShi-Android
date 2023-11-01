@@ -1,4 +1,4 @@
-package me.yihtseu.jishi.ui.component
+package me.yihtseu.jishi.ui.component.card
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth

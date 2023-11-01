@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.Navigation
-import me.yihtseu.jishi.ui.component.EntryCard
-import me.yihtseu.jishi.ui.component.EntryItem
+import me.yihtseu.jishi.ui.component.card.EntryCard
+import me.yihtseu.jishi.ui.component.card.EntryItem
 
 @Composable
 fun HomeScreen(

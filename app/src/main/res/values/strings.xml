@@ -6,11 +6,5 @@
     <string name="delete">Delete</string>
     <string name="account">Account</string>
     <string name="passwd">Password</string>
-    <string name="success">Success</string>
-    <string name="network_error">Network Exception!</string>
-    <string name="data_error">Data Error!</string>
-    <string name="internal_error">Internal Error!</string>
-    <string name="unknown_error">Unknown Error!</string>
-    <string name="login_error">Login Error!</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="reload">Reload</string>
 </resources>

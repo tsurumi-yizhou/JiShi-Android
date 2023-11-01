@@ -35,6 +35,15 @@ data class TermResult(
                 val code: Int,
                 val totalPage: Int
             )
+
+            fun latest(): Row {
+                for (row in rows) {
+                    if (row.yearRange == "2023-2024" && row.term == "1") {
+                        return row
+                    }
+                }
+                throw Exception("No this term!")
+            }
         }
     }
 }

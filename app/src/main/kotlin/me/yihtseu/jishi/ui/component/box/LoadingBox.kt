@@ -1,4 +1,4 @@
-package me.yihtseu.jishi.ui.component
+package me.yihtseu.jishi.ui.component.box
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,7 @@ val awaitSentences = arrayOf(
 )
 
 @Composable
-fun Loading(
+fun LoadingBox(
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()

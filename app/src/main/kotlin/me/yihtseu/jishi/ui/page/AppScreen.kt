@@ -10,7 +10,10 @@ import me.yihtseu.jishi.ui.Navigation
 fun AppScreen() {
     val controller = rememberNavController()
 
-    NavHost(controller, startDestination = Navigation.MainScreen.id.toString()) {
+    NavHost(controller, startDestination = Navigation.LoginScreen.id.toString()) {
+        composable(Navigation.LoginScreen.id.toString()) {
+            LoginScreen(controller)
+        }
         composable(Navigation.MainScreen.id.toString()) {
             MainScreen(controller)
         }

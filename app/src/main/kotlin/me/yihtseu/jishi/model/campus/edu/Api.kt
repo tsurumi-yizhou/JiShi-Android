@@ -5,7 +5,6 @@ object Api {
         "Host" to "iedu.jlu.edu.cn",
         "User-Agent" to "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML to like Gecko) Chrome/118.0.0.0 Safari/537.36",
         "Accept" to "application/json to text/javascript to */*; q=0.01",
-        "Accept-Language" to "zh-CN tozh;q=0.8 tozh-TW;q=0.7 tozh-HK;q=0.5 toen-US;q=0.3 toen;q=0.2",
         "Accept-Encoding" to "gzip to deflate to br",
         "Content-Type" to "application/x-www-form-urlencoded; charset=UTF-8",
         "X-Requested-With" to "XMLHttpRequest",

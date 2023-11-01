@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.model.jishi.Result
-import me.yihtseu.jishi.ui.component.Loading
+import me.yihtseu.jishi.model.jishi.State
+import me.yihtseu.jishi.ui.component.box.LoadingBox
 import me.yihtseu.jishi.vm.IdentifyViewModel
 
 @Composable
@@ -53,8 +53,8 @@ fun IdentifyScreen(
     ) { paddingValue ->
 
         when (state) {
-            is Result.Success -> {
-                val data = (state as Result.Success).data
+            is State.Success -> {
+                val data = (state as State.Success).data
                 Column(
                     modifier = modifier.padding(paddingValue).fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,11 +72,11 @@ fun IdentifyScreen(
                     }
                 }
             }
-            Result.Loading -> Loading(modifier = Modifier.padding(paddingValue).fillMaxSize())
-            is Result.Error -> {
-                Loading(modifier = Modifier.padding(paddingValue).fillMaxSize())
-                LaunchedEffect((state as Result.Error).message) {
-                    (state as Result.Error).message?.let {
+            State.Loading -> LoadingBox(modifier = Modifier.padding(paddingValue).fillMaxSize())
+            is State.Error -> {
+                LoadingBox(modifier = Modifier.padding(paddingValue).fillMaxSize())
+                LaunchedEffect((state as State.Error).message) {
+                    (state as State.Error).message?.let {
                         host.showSnackbar(it)
                     }
                 }

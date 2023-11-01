@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="success">Success</string>
+    <string name="network_error">Network Exception!</string>
+    <string name="data_error">Data Error!</string>
+    <string name="internal_error">Internal Error!</string>
+    <string name="unknown_error">Unknown Error!</string>
+    <string name="login_error">Login Error!</string>
+    <string name="score_result">Your score is %.2f</string>
+</resources>

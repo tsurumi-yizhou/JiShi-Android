@@ -36,7 +36,9 @@ data class ScoreResult(
                 @SerialName("KCM")
                 val name: String,
                 @SerialName("KCLBDM_DISPLAY")
-                val type: String
+                val type: String,
+                @SerialName("XF")
+                val weight: Double
             )
 
             @Serializable

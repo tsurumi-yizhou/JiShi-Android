@@ -3,4 +3,10 @@
     <string name="study">Study</string>
     <string name="learn">Exercise</string>
     <string name="life">Life</string>
+    <string name="week_past">Today is the %dst week of this term.</string>
+    <string name="time">Time</string>
+    <string name="location">Location</string>
+    <string name="date_select">Date Select</string>
+    <string name="start_select">Start Select</string>
+    <string name="end_select">End Select</string>
 </resources>

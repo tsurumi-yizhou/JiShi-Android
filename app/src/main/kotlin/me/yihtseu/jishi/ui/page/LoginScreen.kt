@@ -1,37 +1,40 @@
 package me.yihtseu.jishi.ui.page
 
-import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import me.yihtseu.jishi.MainActivity
-import me.yihtseu.jishi.model.jishi.Result
-import me.yihtseu.jishi.ui.component.Loading
-import me.yihtseu.jishi.ui.component.LoginBox
+import androidx.navigation.NavHostController
+import me.yihtseu.jishi.model.jishi.State
+import me.yihtseu.jishi.ui.Navigation
+import me.yihtseu.jishi.ui.component.box.LoadingBox
+import me.yihtseu.jishi.ui.component.box.LoginBox
 import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
 import me.yihtseu.jishi.ui.theme.VerticalCardPadding
 import me.yihtseu.jishi.vm.LoginViewModel
 
 @Composable
 fun LoginScreen(
+    controller: NavHostController,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val status by viewModel.state.collectAsState()
-    val context = LocalContext.current
+    val host = remember { SnackbarHostState() }
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(host)
+        }
+    ) { paddingValues ->
         when (status) {
-            is Result.Error -> {
+            is State.Error -> (status as State.Error).let {
                 Column(
                     modifier = Modifier.padding(paddingValues),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,17 +51,26 @@ fun LoginScreen(
                         }
                     )
                 }
+                LaunchedEffect(it.message) {
+                    it.message?.let {
+                        host.showSnackbar(it)
+                    }
+                }
             }
 
-            Result.Loading -> Loading(modifier = Modifier.padding(paddingValues).fillMaxSize())
-            is Result.Success -> {
-                val intent = Intent(context, MainActivity::class.java)
-                context.startActivity(intent)
+            State.Loading -> LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize())
+            is State.Success -> (status as State.Success).let {
+                LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize())
+                LaunchedEffect(it.data) {
+                    controller.navigate(Navigation.MainScreen.id.toString()) {
+                        popUpTo(0)
+                    }
+                }
             }
         }
     }
 
     LaunchedEffect(viewModel) {
-        viewModel.preLogin(context)
+        viewModel.preLogin()
     }
 }

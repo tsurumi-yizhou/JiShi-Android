@@ -10,44 +10,44 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.campus.edu.BuildingResult
 import me.yihtseu.jishi.model.campus.edu.RoomResult
-import me.yihtseu.jishi.model.jishi.Result
+import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.repo.EduRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class ClassroomViewModel @Inject constructor(): ViewModel() {
 
-    private val _buildings = MutableStateFlow<Result<List<BuildingResult.Datas.Code.Row>>>(Result.Loading)
+    private val _buildings = MutableStateFlow<State<List<BuildingResult.Datas.Code.Row>>>(State.Loading)
     val buildings = _buildings.asStateFlow()
-    private val _classrooms = MutableStateFlow<Result<List<RoomResult.Datas.Cxkxjs.Row>>>(Result.Loading)
+    private val _classrooms = MutableStateFlow<State<List<RoomResult.Datas.Cxkxjs.Row>>>(State.Loading)
     val classrooms = _classrooms.asStateFlow()
 
-    fun query(buildingCodes: List<String>, date: String, start: Int, end: Int) = viewModelScope.launch {
-        _classrooms.update { Result.Loading }
+    fun query(zone: String, code: String, date: String, start: Int, end: Int) = viewModelScope.launch {
+        _classrooms.update { State.Loading }
         try {
             _classrooms.update {
-                Result.Success(
-                    EduRepository.getClassrooms(buildingCodes, date, start, end)
+                State.Success(
+                    EduRepository.getClassrooms(zone, code, date, start, end)
                 )
             }
         } catch (e: Exception) {
             _classrooms.update {
-                Result.Error(e.localizedMessage)
+                State.Error(e.localizedMessage)
             }
         }
     }
 
     fun init() = viewModelScope.launch {
-        _buildings.update { Result.Loading }
+        _buildings.update { State.Loading }
         try {
             _buildings.update {
-                Result.Success(
+                State.Success(
                     EduRepository.getBuildings()
                 )
             }
         } catch (e: Exception) {
             Log.d("error", e.toString())
-            _buildings.update { Result.Error(e.localizedMessage) }
+            _buildings.update { State.Error(e.localizedMessage) }
         }
     }
 }

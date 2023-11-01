@@ -1,14 +1,15 @@
 @file:OptIn(ExperimentalComposeUiApi::class)
 
-package me.yihtseu.jishi.ui.component
+package me.yihtseu.jishi.ui.component.box
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Key
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -17,7 +18,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import me.yihtseu.jishi.R
+import me.yihtseu.jishi.ui.component.autofill
 import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
 import me.yihtseu.jishi.ui.theme.VerticalCardPadding
 import me.yihtseu.jishi.ui.theme.shapes
@@ -49,6 +53,10 @@ fun LoginBox(
                 label = {
                     Text(text = stringResource(R.string.account), style = typography.labelMedium)
                 },
+                leadingIcon = {
+                    Icon(Icons.Outlined.AccountCircle, null)
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 singleLine = true,
                 shape = shapes.large
             )
@@ -62,6 +70,11 @@ fun LoginBox(
                 label = {
                     Text(text = stringResource(R.string.passwd), style = typography.labelMedium)
                 },
+                leadingIcon = {
+                    Icon(Icons.Outlined.Key, null)
+                },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 singleLine = true,
                 shape = shapes.large
             )
