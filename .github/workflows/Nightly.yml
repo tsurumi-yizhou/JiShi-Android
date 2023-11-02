@@ -1,7 +1,8 @@
 name: Nightly
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "23 0 * * *"
+  push
 
 jobs:
   build:
