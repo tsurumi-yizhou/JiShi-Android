@@ -8,6 +8,17 @@
 </div>
 
 ## Proprietates
+<div style="display: flex; justify-content: space-between;">
+    <img src="docs/1.jpg" style="width: 30%;">
+    <img src="docs/2.jpg" style="width: 30%;">
+    <img src="docs/3.jpg" style="width: 30%;">
+</div>
+<div style="display: flex; justify-content: space-between;">
+    <img src="docs/4.jpg" style="width: 30%;">
+    <img src="docs/5.jpg" style="width: 30%;">
+    <img src="docs/6.jpg" style="width: 30%;">
+</div>
+
 - ❌ 查看、收藏各网站通知
 - ✅ 出示吉大码
 - ✅ 同步教学日历
