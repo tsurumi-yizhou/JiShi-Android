@@ -25,14 +25,12 @@ import me.yihtseu.jishi.vm.IdentifyViewModel
 @Composable
 fun IdentifyScreen(
     controller: NavHostController,
-    modifier: Modifier = Modifier,
     viewModel: IdentifyViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val host = remember { SnackbarHostState() }
 
     Scaffold(
-        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = {
@@ -56,7 +54,7 @@ fun IdentifyScreen(
             is State.Success -> {
                 val data = (state as State.Success).data
                 Column(
-                    modifier = modifier.padding(paddingValue).fillMaxSize(),
+                    modifier = Modifier.padding(paddingValue).fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {

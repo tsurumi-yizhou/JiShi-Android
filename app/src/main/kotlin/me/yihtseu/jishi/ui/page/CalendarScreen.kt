@@ -2,11 +2,13 @@
 
 package me.yihtseu.jishi.ui.page
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material3.*
@@ -15,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -27,14 +28,12 @@ import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.ui.component.box.LoadingBox
 import me.yihtseu.jishi.ui.component.card.InfoCard
 import me.yihtseu.jishi.ui.component.card.LessonCard
-import me.yihtseu.jishi.ui.theme.shapes
 import me.yihtseu.jishi.utils.time.weeksPast
 import me.yihtseu.jishi.vm.CalendarViewModel
 
 @Composable
 fun CalendarScreen(
     controller: NavHostController,
-    modifier: Modifier = Modifier,
     viewModel: CalendarViewModel = hiltViewModel()
 ) {
     val term by viewModel.term.collectAsState()
@@ -87,20 +86,10 @@ fun CalendarScreen(
         snackbarHost = {
             SnackbarHost(host)
         },
-        floatingActionButton = {
-            Button(
-                shape = shapes.extraSmall,
-                modifier = Modifier.size(60.dp),
-                onClick = {
-                }
-            ) {
-                Icon(Icons.Outlined.Add, null)
-            }
-        }
     ) { paddingValues ->
 
         Column(
-            modifier = modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues)
         ) {
             when (lessons) {
                 is State.Success -> (lessons as State.Success).let {

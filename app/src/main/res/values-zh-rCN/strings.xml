@@ -51,4 +51,9 @@
     <string name="date_select">日期</string>
     <string name="start_select">开始节次</string>
     <string name="end_select">结束节次</string>
+    <string name="exit">退出</string>
+    <string name="contributors">贡献者</string>
+    <string name="app_desc">可能是最好的第三方吉林大学生活助手</string>
+    <string name="update_error">更新错误！</string>
+    <string name="contact">联系方式</string>
 </resources>

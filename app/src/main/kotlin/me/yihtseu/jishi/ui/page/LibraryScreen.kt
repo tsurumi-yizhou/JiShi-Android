@@ -21,11 +21,9 @@ import me.yihtseu.jishi.vm.LibraryViewModel
 @Composable
 fun LibraryScreen(
     controller: NavHostController,
-    modifier: Modifier = Modifier,
     viewModel: LibraryViewModel = hiltViewModel()
 ) {
     Scaffold(
-        modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
@@ -55,7 +53,7 @@ fun LibraryScreen(
             }
             EntryCard(stringResource(R.string.floor4)) {
                 EntryItem(Icons.Outlined.Article, stringResource(R.string.journal_space) + " A") {}
-                EntryItem(Icons.Outlined.Article, stringResource(R.string.journal_space) + " A") {}
+                EntryItem(Icons.Outlined.Article, stringResource(R.string.journal_space) + " B") {}
             }
             EntryCard(stringResource(R.string.floor5)) {
                 EntryItem(Icons.Outlined.Interests, stringResource(R.string.interactif_space) + " A"){}

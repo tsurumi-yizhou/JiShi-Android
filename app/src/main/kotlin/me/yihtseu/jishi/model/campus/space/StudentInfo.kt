@@ -11,7 +11,7 @@ data class StudentInfo(
     @SerialName("XM")
     val name: String,
     @SerialName("DWMC")
-    val dWMC: String,
+    val school: String,
     @SerialName("ZYMC")
     val major: String
 )

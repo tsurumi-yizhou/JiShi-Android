@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="campus_account">JLU Email</string>
-    <string name="campus_card_account">Campus Card</string>
     <string name="chaoxing_account">Chaoxing Account</string>
     <string name="theme_subscription">Theme Subscription</string>
     <string name="about_this_app">About App</string>

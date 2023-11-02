@@ -32,5 +32,20 @@ fun AppScreen() {
         composable(Navigation.ScoreScreen.id.toString()) {
             ScoreScreen(controller)
         }
+        composable(Navigation.CampusEmailScreen.id.toString()) {
+            CampusEmailScreen(controller)
+        }
+        composable(Navigation.CampusCardScreen.id.toString()) {
+            CampusCardScreen(controller)
+        }
+        composable(Navigation.AboutScreen.id.toString()) {
+            AboutScreen(controller)
+        }
+        composable(Navigation.SubscriptionScreen.id.toString()) {
+            SubscriptionScreen(controller)
+        }
+        composable(Navigation.LicenseScreen.id.toString()) {
+            LicenseScreen(controller)
+        }
     }
 }

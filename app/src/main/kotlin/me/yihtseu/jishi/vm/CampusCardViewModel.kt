@@ -5,5 +5,5 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsViewModel @Inject constructor(): ViewModel() {
+class CampusCardViewModel @Inject constructor() : ViewModel() {
 }

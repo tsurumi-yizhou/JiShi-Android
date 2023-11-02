@@ -138,12 +138,10 @@ dependencies {
     implementation("androidx.room:room-paging:$roomVersion")
     testImplementation("androidx.room:room-testing:$roomVersion")
 
-
     implementation("androidx.navigation:navigation-compose:2.7.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("org.jsoup:jsoup:1.16.1")
-    implementation("com.prof18.rssparser:rssparser:6.0.3")
     implementation("com.github.liangjingkanji:Net:3.6.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")

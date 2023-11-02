@@ -25,4 +25,14 @@ sealed class Navigation(
     object ClassroomScreen: Navigation(R.string.classroom)
 
     object ScoreScreen: Navigation(R.string.score)
+
+    object CampusEmailScreen : Navigation(R.string.campus_account)
+
+    object CampusCardScreen : Navigation(R.string.campus_card_account)
+
+    object AboutScreen : Navigation(R.string.about)
+
+    object SubscriptionScreen : Navigation(R.string.theme_subscription)
+
+    object LicenseScreen : Navigation(R.string.opensource_license)
 }

@@ -9,4 +9,6 @@
     <string name="date_select">Date Select</string>
     <string name="start_select">Start Select</string>
     <string name="end_select">End Select</string>
+    <string name="contributors">Contributors</string>
+    <string name="contact">Contact Us</string>
 </resources>

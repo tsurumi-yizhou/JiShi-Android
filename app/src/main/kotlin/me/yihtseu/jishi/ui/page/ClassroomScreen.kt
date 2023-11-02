@@ -33,7 +33,6 @@ import me.yihtseu.jishi.vm.ClassroomViewModel
 @Composable
 fun ClassroomScreen(
     controller: NavHostController,
-    modifier: Modifier = Modifier,
     viewModel: ClassroomViewModel = hiltViewModel()
 ) {
     val host = remember { SnackbarHostState() }
@@ -79,7 +78,7 @@ fun ClassroomScreen(
         when (classrooms) {
             is State.Success -> (classrooms as State.Success).let {
                 LazyColumn(
-                    modifier = modifier.padding(paddingValues),
+                    modifier = Modifier.padding(paddingValues),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ) {
