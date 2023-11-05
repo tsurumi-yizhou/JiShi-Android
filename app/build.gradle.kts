@@ -13,12 +13,6 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
-if(gradle.startParameter.taskRequests.toString().contains("google")) {
-    apply(plugin = "com.google.gms.google-services")
-} else if (gradle.startParameter.taskRequests.toString().contains("huawei")) {
-    apply(plugin = "com.huawei.agconnect")
-}
-
 android {
     namespace = "me.yihtseu.jishi"
     compileSdk = 34
@@ -37,30 +31,36 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", "BUILD_TIME", "\"${SimpleDateFormat("yyyy-MM-dd").format(Date())}\"")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     flavorDimensions += "service"
 
     productFlavors {
@@ -68,6 +68,7 @@ android {
             dimension = "service"
             applicationIdSuffix = ".google"
             multiDexEnabled = true
+            apply(plugin = "com.google.gms.google-services")
         }
         create("foss") {
             dimension = "service"
@@ -78,6 +79,7 @@ android {
             dimension = "service"
             applicationIdSuffix = ".huawei"
             multiDexEnabled = true
+            apply(plugin = "com.huawei.agconnect")
         }
     }
 }

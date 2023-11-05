@@ -17,9 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.component.box.LoadingBox
 import me.yihtseu.jishi.ui.theme.typography
 
@@ -75,13 +73,7 @@ fun Compact(
                         show.value = !show.value
                     }
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(Icons.Outlined.ExpandLess, null)
-                        Text(text = stringResource(R.string.expand), style = typography.labelMedium)
-                    }
+                    Icon(Icons.Outlined.ExpandLess, null)
                 }
             }
         },
