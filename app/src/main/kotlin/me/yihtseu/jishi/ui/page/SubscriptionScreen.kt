@@ -2,44 +2,27 @@
 
 package me.yihtseu.jishi.ui.page
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.ui.component.box.LoadingBox
+import me.yihtseu.jishi.ui.framework.Compact
 
 @Composable
 fun SubscriptionScreen(
     controller: NavHostController
 ) {
-    val host = remember { SnackbarHostState() }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.theme_subscription))
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            controller.popBackStack()
-                        }
-                    ) {
-                        Icon(Icons.Outlined.ArrowBack, null)
-                    }
-                }
+    val message = remember { mutableStateOf<String?>(null) }
 
-            )
-        },
-        snackbarHost = {
-            SnackbarHost(host)
-        }
-    ) { paddingValues -> LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize()) }
+    Compact(
+        title = stringResource(R.string.theme_subscription),
+        controller = controller,
+        message = message.value,
+        loading = true
+    ) {
+
+    }
 }

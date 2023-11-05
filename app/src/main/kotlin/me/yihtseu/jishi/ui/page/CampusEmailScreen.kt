@@ -5,9 +5,10 @@ package me.yihtseu.jishi.ui.page
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +22,7 @@ import androidx.navigation.NavHostController
 import me.yihtseu.jishi.MainActivity
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.model.jishi.State
-import me.yihtseu.jishi.ui.component.box.LoadingBox
+import me.yihtseu.jishi.ui.framework.Compact
 import me.yihtseu.jishi.ui.theme.*
 import me.yihtseu.jishi.vm.CampusEmailViewModel
 
@@ -30,38 +31,19 @@ fun CampusEmailScreen(
     controller: NavHostController,
     viewModel: CampusEmailViewModel = hiltViewModel()
 ) {
-    val host = remember { SnackbarHostState() }
     val context = LocalContext.current
     val state by viewModel.state.collectAsState()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.campus_account))
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            controller.popBackStack()
-                        }
-                    ) {
-                        Icon(Icons.Outlined.ArrowBack, null)
-                    }
-                }
-            )
-        },
-        snackbarHost = {
-            SnackbarHost(host)
-        }
-    ) { paddingValues ->
+    val message = remember { mutableStateOf<String?>(null) }
+
+    Compact(
+        title = stringResource(R.string.campus_account),
+        controller = controller,
+        message = message.value,
+        loading = state is State.Loading
+    ) {
         if (state is State.Success) (state as State.Success).let {
-            Column(
-                modifier = Modifier.padding(paddingValues).fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
-            ) {
+            item {
                 ElevatedCard(
                     modifier = Modifier.padding(HorizontalCardPadding, VerticalCardPadding).fillMaxWidth(),
                     shape = shapes.small
@@ -104,10 +86,9 @@ fun CampusEmailScreen(
                     }
                 }
             }
-        } else {
-            LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize())
         }
     }
+
     LaunchedEffect(viewModel) {
         viewModel.init()
     }

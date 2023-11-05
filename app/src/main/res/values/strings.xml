@@ -8,4 +8,5 @@
     <string name="passwd">Password</string>
     <string name="reload">Reload</string>
     <string name="exit">Exit</string>
+    <string name="expand">Expand</string>
 </resources>
