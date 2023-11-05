@@ -11,17 +11,21 @@ import me.yihtseu.jishi.model.github.Contributor
 import me.yihtseu.jishi.repo.GithubRepository
 import javax.inject.Inject
 
+data class AboutState(
+    val contributors: List<Contributor> = emptyList()
+)
+
 @HiltViewModel
 class AboutViewModel @Inject constructor(
 ) : ViewModel() {
-    private val _contributors = MutableStateFlow<List<Contributor>>(emptyList())
-    val contributors = _contributors.asStateFlow()
+    private val _state = MutableStateFlow(AboutState())
+    val state = _state.asStateFlow()
 
     fun init() = viewModelScope.launch {
         try {
-            _contributors.update { GithubRepository.fetchContributors() }
+            _state.update { it.copy(contributors = GithubRepository.fetchContributors()) }
         } catch (e: Exception) {
-            _contributors.update { emptyList() }
+            _state.update { it.copy(contributors = emptyList()) }
         }
     }
 

@@ -21,62 +21,65 @@ import me.yihtseu.jishi.utils.time.startTime
 import me.yihtseu.jishi.utils.time.weeksPast
 import javax.inject.Inject
 
+data class CalendarState(
+    val loading: Boolean = true,
+    val message: String? = null,
+    val term: TermResult.Datas.Cxjcs.Row? = null,
+    val lessons: List<LessonResult.Datas.studentLessonTable.Row> = emptyList(),
+)
+
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
-    private val _lessons = MutableStateFlow<State<List<LessonResult.Datas.studentLessonTable.Row>>>(State.Loading)
-    val lessons = _lessons.asStateFlow()
-    private val _term = MutableStateFlow<State<TermResult.Datas.Cxjcs.Row>>(State.Loading)
-    val term = _term.asStateFlow()
+    private val _state = MutableStateFlow(CalendarState())
+    val state = _state.asStateFlow()
 
     fun fetchTerm() = viewModelScope.launch {
 
     }
 
     fun init() = viewModelScope.launch {
-        _lessons.update { State.Loading }
-        _term.update { State.Loading }
+        _state.update { it.copy(loading = true) }
         try {
-            val termInfo = EduRepository.getTerm().latest()
-            _term.update { State.Success(termInfo) }
-            _lessons.update {
-                State.Success(
-                    EduRepository.getLessons(
-                        termInfo.yearRange,
-                        termInfo.term,
-                        weeksPast(termInfo.startDate)
-                    )
+            val term = EduRepository.getTerm().latest()
+            val lessons = EduRepository.getLessons(term.yearRange, term.term, weeksPast(term.startDate))
+            _state.update {
+                it.copy(
+                    loading = false,
+                    term = term,
+                    lessons = lessons
                 )
             }
         } catch (e: Exception) {
-            _lessons.update {
-                State.Error(e.localizedMessage)
+            _state.update {
+                it.copy(
+                    loading = false,
+                    message = e.localizedMessage
+                )
             }
         }
     }
 
     fun setCalendar() = viewModelScope.launch {
         try {
-            if (lessons.value is State.Success) {
-                (_lessons.value as State.Success).data.forEach {
-                    val date = parse("yyyy年MM月dd日", "2023年${it.date}")
-                    if (!checkEvent(
-                            context,
-                            it.lessonName,
-                            date + startTime(it.startLessonNum),
-                            date + endTime(it.endLessonNum)
-                        )
-                    ) {
-                        insertEvent(
-                            context,
-                            it.lessonName,
-                            date + startTime(it.startLessonNum),
-                            date + endTime(it.endLessonNum),
-                            it.classroomName.orEmpty(),
-                            it.teacherName.orEmpty()
-                        )
-                    }
+            state.value.lessons.forEach {
+                val date = parse("yyyy年MM月dd日", "2023年${it.date}")
+                if (!checkEvent(
+                        context,
+                        it.lessonName,
+                        date + startTime(it.startLessonNum),
+                        date + endTime(it.endLessonNum)
+                    )
+                ) {
+                    insertEvent(
+                        context,
+                        it.lessonName,
+                        date + startTime(it.startLessonNum),
+                        date + endTime(it.endLessonNum),
+                        it.classroomName.orEmpty(),
+                        it.teacherName.orEmpty()
+                    )
                 }
             }
         } catch (e: Exception) {

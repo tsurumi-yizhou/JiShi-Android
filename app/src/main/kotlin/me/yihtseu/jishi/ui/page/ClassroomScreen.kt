@@ -5,8 +5,10 @@ package me.yihtseu.jishi.ui.page
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -14,7 +16,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.model.campus.edu.Building
-import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.ui.component.box.QueryDrawer
 import me.yihtseu.jishi.ui.component.card.RoomCard
 import me.yihtseu.jishi.ui.framework.Compact
@@ -26,24 +27,19 @@ fun ClassroomScreen(
     controller: NavHostController,
     viewModel: ClassroomViewModel = hiltViewModel()
 ) {
-    val message = remember { mutableStateOf<String?>(null) }
+    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
-    val sheetState = rememberModalBottomSheetState()
-    val showBottomSheet = remember { mutableStateOf(true) }
-
-    val buildings by viewModel.buildings.collectAsState()
-    val classrooms by viewModel.classrooms.collectAsState()
 
     Compact(
         title = stringResource(R.string.classroom),
         controller = controller,
-        message = message.value,
-        loading = classrooms is State.Loading,
+        message = state.message,
+        loading = state.loading,
         drawer = {
-            if (buildings is State.Success) {
+            if (state.buildings.isNotEmpty()) {
                 QueryDrawer(
                     modifier = Modifier.fillMaxWidth(),
-                    buildings = (buildings as State.Success).data.map {
+                    buildings = state.buildings.map {
                         Building(
                             zone = it.otherFields.zoneCode.toInt(),
                             id = it.id,
@@ -52,13 +48,11 @@ fun ClassroomScreen(
                     }
                 ) { zone, code, date, start, end ->
                     viewModel.query(zone, code, date, start, end)
-                    showBottomSheet.value = false
                 }
             }
         }
     ) {
-        if (classrooms is State.Success) (classrooms as State.Success).let {
-            items(it.data) {
+        items(state.classrooms) {
                 RoomCard(
                     building = it.building,
                     name = it.name,
@@ -67,23 +61,6 @@ fun ClassroomScreen(
                     onClick = {}
                 )
             }
-        }
-    }
-
-    if (buildings is State.Error) {
-        (buildings as State.Error).message?.let {
-            LaunchedEffect(it) {
-                message.value = it
-            }
-        }
-    }
-
-    if (classrooms is State.Error) {
-        (classrooms as State.Error).message?.let {
-            LaunchedEffect(it) {
-                message.value = it
-            }
-        }
     }
 
     LaunchedEffect(viewModel) {

@@ -9,35 +9,38 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.campus.space.StudentInfo
 import me.yihtseu.jishi.model.jishi.DataStore
-import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.repo.CasRepository
 import javax.inject.Inject
 
 data class CampusEmailState(
-    val profile: StudentInfo,
-    val avatar: ByteArray
+    val message: String? = null,
+    val loading: Boolean = true,
+    val profile: StudentInfo? = null,
+    val avatar: ByteArray? = null
 )
 
 @HiltViewModel
 class CampusEmailViewModel @Inject constructor() : ViewModel() {
 
-    private val _state = MutableStateFlow<State<CampusEmailState>>(State.Loading)
+    private val _state = MutableStateFlow(CampusEmailState())
     val state = _state.asStateFlow()
 
     fun init() = viewModelScope.launch {
-        _state.update { State.Loading }
+        _state.update { it.copy(loading = true) }
         try {
             _state.update {
-                State.Success(
-                    CampusEmailState(
-                        profile = CasRepository.fetchProfile(),
-                        avatar = CasRepository.fetchPicture()
-                    )
+                it.copy(
+                    loading = false,
+                    profile = CasRepository.fetchProfile(),
+                    avatar = CasRepository.fetchPicture()
                 )
             }
         } catch (e: Exception) {
             _state.update {
-                State.Error(e.localizedMessage)
+                it.copy(
+                    loading = false,
+                    message = e.localizedMessage
+                )
             }
         }
     }

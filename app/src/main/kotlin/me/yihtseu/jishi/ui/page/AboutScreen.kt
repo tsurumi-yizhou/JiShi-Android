@@ -39,7 +39,7 @@ fun AboutScreen(
     viewModel: AboutViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val contributors by viewModel.contributors.collectAsState()
+    val state by viewModel.state.collectAsState()
 
     Compact(
         title = stringResource(R.string.about_this_app),
@@ -86,9 +86,9 @@ fun AboutScreen(
         }
 
         item {
-            if (contributors.isNotEmpty()) {
+            if (state.contributors.isNotEmpty()) {
                 EntryCard(stringResource(R.string.contributors)) {
-                    contributors.forEach {
+                    state.contributors.forEach {
                         EntryItem(Uri.parse(it.avatarUrl), it.login) {
                             val intent = Intent().apply {
                                 action = Intent.ACTION_VIEW
