@@ -36,31 +36,29 @@ fun ClassroomScreen(
         message = state.message,
         loading = state.loading,
         drawer = {
-            if (state.buildings.isNotEmpty()) {
-                QueryDrawer(
-                    modifier = Modifier.fillMaxWidth(),
-                    buildings = state.buildings.map {
-                        Building(
-                            zone = it.otherFields.zoneCode.toInt(),
-                            id = it.id,
-                            name = it.name
-                        )
-                    }
-                ) { zone, code, date, start, end ->
-                    viewModel.query(zone, code, date, start, end)
+            QueryDrawer(
+                modifier = Modifier.fillMaxWidth(),
+                buildings = state.buildings.map {
+                    Building(
+                        zone = it.otherFields.zoneCode.toInt(),
+                        id = it.id,
+                        name = it.name
+                    )
                 }
+            ) { zone, code, date, start, end ->
+                viewModel.query(zone, code, date, start, end)
             }
         }
     ) {
         items(state.classrooms) {
-                RoomCard(
-                    building = it.building,
-                    name = it.name,
-                    duration = it.duration,
-                    share = { share(context, it) },
-                    onClick = {}
-                )
-            }
+            RoomCard(
+                building = it.building,
+                name = it.name,
+                duration = it.duration,
+                share = { share(context, it) },
+                onClick = {}
+            )
+        }
     }
 
     LaunchedEffect(viewModel) {

@@ -29,11 +29,12 @@ import me.yihtseu.jishi.ui.theme.typography
 
 @Composable
 fun LoginBox(
+    account: String?, passwd: String?,
     modifier: Modifier = Modifier,
     onLogin: (String, String) -> Unit
 ) {
-    val username = rememberSaveable { mutableStateOf("") }
-    val password = rememberSaveable { mutableStateOf("") }
+    val username = rememberSaveable { mutableStateOf(account.orEmpty()) }
+    val password = rememberSaveable { mutableStateOf(passwd.orEmpty()) }
 
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),

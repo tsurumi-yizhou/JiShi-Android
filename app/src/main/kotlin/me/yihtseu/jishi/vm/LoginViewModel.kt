@@ -9,43 +9,57 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.jishi.DataStore
-import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.repo.CasRepository
 import javax.inject.Inject
+
+data class LoginState(
+    val loading: Boolean = true,
+    val success: Boolean = false,
+    val message: String? = null,
+    val username: String? = null,
+    val password: String? = null
+)
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<State<Boolean>>(State.Loading)
+    private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
 
     fun preLogin() = viewModelScope.launch {
+        _state.update { it.copy(loading = true) }
         try {
             val username = DataStore.getString("jlu_username").first()
             val password = DataStore.getString("jlu_password").first()
-            if (username.isNullOrBlank() || password.isNullOrBlank()) {
-                _state.update { State.Error(null) }
-            } else {
+            _state.update {
+                it.copy(loading = false, username = username, password = password)
+            }
+            if (username != null && password != null) {
                 login(username, password)
             }
         } catch (e: Exception) {
-            _state.update { State.Error(null) }
+            _state.update { it.copy(loading = false, message = e.localizedMessage) }
         }
     }
 
     fun login(username: String, password: String) = viewModelScope.launch {
-        _state.update { State.Loading }
+        _state.update { it.copy(loading = true) }
         try {
-            if (CasRepository.checkLogin(username, password)) {
+            val result = CasRepository.checkLogin(username, password)
+            if (result) {
                 DataStore.setString("jlu_username", username)
                 DataStore.setString("jlu_password", password)
-                _state.update { State.Success(true) }
+                _state.update {
+                    it.copy(loading = true, success = true)
+                }
             } else {
-                _state.update { State.Error("Login Err!") }
+                _state.update {
+                    it.copy(loading = false, success = false)
+                }
             }
         } catch (e: Exception) {
-            _state.update { State.Error(e.localizedMessage.orEmpty()) }
+            _state.update { it.copy(loading = false, success = false, message = e.localizedMessage) }
         }
     }
 }

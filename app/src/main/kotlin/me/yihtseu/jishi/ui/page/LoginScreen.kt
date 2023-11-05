@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.box.LoadingBox
 import me.yihtseu.jishi.ui.component.box.LoginBox
@@ -25,52 +24,53 @@ fun LoginScreen(
     controller: NavHostController,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
-    val status by viewModel.state.collectAsState()
     val host = remember { SnackbarHostState() }
+    val state by viewModel.state.collectAsState()
 
     Scaffold(
         snackbarHost = {
             SnackbarHost(host)
         }
     ) { paddingValues ->
-        when (status) {
-            is State.Error -> (status as State.Error).let {
-                Column(
-                    modifier = Modifier.padding(paddingValues),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top
-                ) {
-                    LoginBox(
-                        modifier = Modifier.padding(
-                            top = VerticalCardPadding,
-                            start = HorizontalCardPadding,
-                            end = HorizontalCardPadding
-                        ),
-                        onLogin = { username, password ->
-                            viewModel.login(username, password)
-                        }
-                    )
-                }
-                LaunchedEffect(it.message) {
-                    it.message?.let {
-                        host.showSnackbar(it)
+        if (state.loading) {
+            LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize())
+        } else {
+            Column(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                LoginBox(
+                    account = state.username,
+                    passwd = state.password,
+                    modifier = Modifier
+                        .padding(HorizontalCardPadding, VerticalCardPadding),
+                    onLogin = { username, password ->
+                        viewModel.login(username, password)
                     }
-                }
+                )
             }
+        }
+    }
 
-            State.Loading -> LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize())
-            is State.Success -> (status as State.Success).let {
-                LoadingBox(modifier = Modifier.padding(paddingValues).fillMaxSize())
-                LaunchedEffect(it.data) {
-                    controller.navigate(Navigation.MainScreen.id.toString()) {
-                        popUpTo(0)
-                    }
-                }
-            }
+    LaunchedEffect(state.message) {
+        state.message?.let {
+            host.showSnackbar(it)
+        }
+    }
+
+    LaunchedEffect(state.success) {
+        if (state.success) {
+            controller.navigate(Navigation.MainScreen.id.toString())
         }
     }
 
     LaunchedEffect(viewModel) {
         viewModel.preLogin()
+        if (state.username != null && state.password != null) {
+            viewModel.login(state.username!!, state.password!!)
+        }
     }
 }
