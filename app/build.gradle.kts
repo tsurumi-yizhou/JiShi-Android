@@ -11,7 +11,6 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.dagger.hilt.android")
-    id("com.huawei.agconnect")
 }
 
 android {
