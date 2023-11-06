@@ -3,8 +3,7 @@ package me.yihtseu.jishi.vm
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
+import com.huawei.hms.push.HmsMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,10 +38,10 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     fun add(topic: String) = viewModelScope.launch {
-        Firebase.messaging.subscribeToTopic(topic)
+        HmsMessaging.getInstance(context).subscribe(topic)
             .addOnSuccessListener {
                 _state.update {
-                    it.copy(topics = state.value.topics + topic, message = context.getString(R.string.success))
+                    it.copy(message = context.getString(R.string.success), topics = state.value.topics + topic)
                 }
             }
             .addOnFailureListener { error ->
