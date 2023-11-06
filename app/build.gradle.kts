@@ -68,7 +68,6 @@ android {
             dimension = "service"
             applicationIdSuffix = ".google"
             multiDexEnabled = true
-            apply(plugin = "com.google.gms.google-services")
         }
         create("foss") {
             dimension = "service"
@@ -79,7 +78,6 @@ android {
             dimension = "service"
             applicationIdSuffix = ".huawei"
             multiDexEnabled = true
-            apply(plugin = "com.huawei.agconnect")
         }
     }
 }
