@@ -11,6 +11,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -68,7 +69,6 @@ android {
             dimension = "service"
             applicationIdSuffix = ".google"
             multiDexEnabled = true
-            apply(plugin = "com.google.gms.google-services")
         }
         create("foss") {
             dimension = "service"
@@ -79,7 +79,6 @@ android {
             dimension = "service"
             applicationIdSuffix = ".huawei"
             multiDexEnabled = true
-            apply(plugin = "com.huawei.agconnect")
         }
     }
 }
