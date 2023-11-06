@@ -31,6 +31,8 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
+      - run: mv ${{ steps.foss.outputs.signedReleaseFile }} foss.apk
+
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -38,4 +40,4 @@ jobs:
           prerelease: true
           title: "Nightly Release"
           files: |
-            ${{ steps.foss.outputs.signedReleaseFile }}
+            foss.apk
