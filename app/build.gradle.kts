@@ -11,7 +11,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.dagger.hilt.android")
-    id("com.huawei.agconnect")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -19,7 +19,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "me.yihtseu.jishi"
+        applicationId = "me.yihtseu.jishi.google"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
@@ -59,28 +59,6 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    flavorDimensions += "service"
-
-    productFlavors {
-        create("google") {
-            dimension = "service"
-            applicationIdSuffix = ".google"
-            multiDexEnabled = true
-            apply(plugin = "com.google.gms.google-services")
-        }
-        create("foss") {
-            dimension = "service"
-            applicationIdSuffix = ".foss"
-            multiDexEnabled = true
-        }
-        create("huawei") {
-            dimension = "service"
-            applicationIdSuffix = ".huawei"
-            multiDexEnabled = true
-            apply(plugin = "com.huawei.agconnect")
         }
     }
 }
@@ -149,14 +127,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
 
-    "googleImplementation"(platform("com.google.firebase:firebase-bom:32.2.2"))
-    "googleImplementation"("com.google.firebase:firebase-analytics-ktx")
-    "googleImplementation"("com.google.firebase:firebase-messaging-ktx")
-
-    val huaweiVersion = "6.12.0.300"
-    "huaweiImplementation"("com.huawei.hms:push:$huaweiVersion")
-    "huaweiImplementation"("com.huawei.hms:hmscoreinstaller:$huaweiVersion")
-    "huaweiImplementation"("com.huawei.hms:hianalytics:$huaweiVersion")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 }
 
 kapt {

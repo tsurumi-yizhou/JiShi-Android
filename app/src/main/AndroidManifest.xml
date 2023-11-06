@@ -33,7 +33,12 @@
 
         <service
                 android:name=".PushService"
-                android:exported="false"/>
+                android:exported="false"
+                android:directBootAware="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
         <meta-data
                 android:name="androidx.lifecycle.ViewModelStoreOwner"
