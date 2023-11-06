@@ -31,6 +31,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = true
+            buildConfigField("String", "BUILD_TIME", "\"${SimpleDateFormat("yyyy-MM-dd").format(Date())}\"")
+
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
