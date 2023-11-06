@@ -18,7 +18,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "me.yihtseu.jishi"
+        applicationId = "me.yihtseu.jishi.foss"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
@@ -30,6 +30,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = true
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -58,26 +61,6 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    flavorDimensions += "service"
-
-    productFlavors {
-        create("google") {
-            dimension = "service"
-            applicationIdSuffix = ".google"
-            multiDexEnabled = true
-        }
-        create("foss") {
-            dimension = "service"
-            applicationIdSuffix = ".foss"
-            multiDexEnabled = true
-        }
-        create("huawei") {
-            dimension = "service"
-            applicationIdSuffix = ".huawei"
-            multiDexEnabled = true
         }
     }
 }
@@ -145,15 +128,6 @@ dependencies {
     implementation("com.github.liangjingkanji:Net:3.6.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
-
-    "googleImplementation"(platform("com.google.firebase:firebase-bom:32.2.2"))
-    "googleImplementation"("com.google.firebase:firebase-analytics-ktx")
-    "googleImplementation"("com.google.firebase:firebase-messaging-ktx")
-
-    val huaweiVersion = "6.12.0.300"
-    "huaweiImplementation"("com.huawei.hms:push:$huaweiVersion")
-    "huaweiImplementation"("com.huawei.hms:hmscoreinstaller:$huaweiVersion")
-    "huaweiImplementation"("com.huawei.hms:hianalytics:$huaweiVersion")
 }
 
 kapt {

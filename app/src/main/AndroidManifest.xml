@@ -31,10 +31,6 @@
             </intent-filter>
         </activity>
 
-        <service
-                android:name=".PushService"
-                android:exported="false"/>
-
         <meta-data
                 android:name="androidx.lifecycle.ViewModelStoreOwner"
                 android:value="androidx.lifecycle.ViewModelStoreOwner"/>
