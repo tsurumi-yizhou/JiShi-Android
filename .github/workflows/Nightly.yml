@@ -4,7 +4,7 @@ on:
     - cron: "23 0 * * *"
   push:
     branches:
-      main
+      foss
 
 jobs:
   build:
