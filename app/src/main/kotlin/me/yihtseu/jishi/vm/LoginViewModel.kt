@@ -30,8 +30,8 @@ class LoginViewModel @Inject constructor(
     fun preLogin() = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
-            val username = DataStore.getString("jlu_username").first()
-            val password = DataStore.getString("jlu_password").first()
+            val username = DataStore.getString("jlu_username")?.first()
+            val password = DataStore.getString("jlu_password")?.first()
             _state.update {
                 it.copy(loading = false, username = username, password = password)
             }

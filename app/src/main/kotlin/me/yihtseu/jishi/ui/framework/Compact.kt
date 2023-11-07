@@ -37,6 +37,7 @@ fun Compact(
     val behavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             LargeTopAppBar(
                 scrollBehavior = behavior,

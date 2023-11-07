@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
@@ -20,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,17 +41,18 @@ fun IdentifyScreen(
         message = state.message,
         loading = state.loading
     ) {
-        state.image?.let {
-            item {
+        item {
+            state.image?.let {
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillParentMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Image(
                         bitmap = BitmapFactory.decodeByteArray(it, 0, it.size).asImageBitmap(),
                         contentDescription = null,
-                        modifier = Modifier.size(300.dp, 300.dp)
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.size(200.dp, 200.dp)
                     )
                     IconButton(
                         onClick = { viewModel.load() }

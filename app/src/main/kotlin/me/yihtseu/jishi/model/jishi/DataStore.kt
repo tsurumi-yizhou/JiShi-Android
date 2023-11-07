@@ -19,20 +19,20 @@ object DataStore {
         dataStore = application.dataStore
     }
 
-    fun getString(name: String): Flow<String?> {
+    fun getString(name: String): Flow<String?>? {
         return dataStore?.data?.map {
-            it[stringPreferencesKey(name)]!!
-        }!!
+            it[stringPreferencesKey(name)]
+        }
     }
 
     suspend fun setString(name: String, value: String) = dataStore?.edit {
         it[stringPreferencesKey(name)] = value
     }
 
-    fun getStringSet(name: String): Flow<Set<String>> {
+    fun getStringSet(name: String): Flow<Set<String>>? {
         return dataStore?.data?.map {
-            it[stringSetPreferencesKey(name)]!!
-        }!!
+            it[stringSetPreferencesKey(name)].orEmpty()
+        }
     }
 
     suspend fun setStringSet(name: String, value: Set<String>) = dataStore?.edit {
