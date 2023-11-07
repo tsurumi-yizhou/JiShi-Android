@@ -28,7 +28,7 @@ class SubscriptionViewModel @Inject constructor(
     private val _state = MutableStateFlow(SubscriptionState())
     val state = _state.asStateFlow()
     fun load() = viewModelScope.launch {
-        DataStore.getStringSet("subscription_topics").collect { set ->
+        DataStore.getStringSet("subscription_topics")?.collect { set ->
             set?.let {
                 _state.update {
                     it.copy(topics = set)
