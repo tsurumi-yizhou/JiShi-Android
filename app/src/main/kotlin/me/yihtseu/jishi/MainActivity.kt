@@ -19,8 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = Intent(this, PushService::class.java)
-        startService(intent)
+        startService(Intent(this, PushService::class.java))
 
         DataStore.initialize(application)
 
