@@ -10,5 +10,8 @@ data class Entry(
     @ColumnInfo val feedId: String,
     @ColumnInfo val title: String,
     @ColumnInfo val abstract: String,
+    @ColumnInfo val image: String?,
+    @ColumnInfo val updated: String,
+    @ColumnInfo val link: String,
     @ColumnInfo val content: String
 )

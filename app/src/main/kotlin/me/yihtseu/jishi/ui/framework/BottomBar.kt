@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.Navigation
+import me.yihtseu.jishi.ui.theme.typography
 
 @Composable
 fun BottomBar(id: String, controller: NavHostController) {
@@ -21,7 +22,7 @@ fun BottomBar(id: String, controller: NavHostController) {
             selected = id == Navigation.HomeScreen.id.toString(),
             alwaysShowLabel = id == Navigation.HomeScreen.id.toString(),
             label = {
-                Text(text = stringResource(R.string.home))
+                Text(text = stringResource(R.string.home), style = typography.labelSmall)
             },
             icon = {
                 Icon(Icons.Outlined.Home, null)
@@ -36,7 +37,7 @@ fun BottomBar(id: String, controller: NavHostController) {
             selected = id == Navigation.NewsScreen.id.toString(),
             alwaysShowLabel = id == Navigation.NewsScreen.id.toString(),
             label = {
-                Text(text = stringResource(R.string.news))
+                Text(text = stringResource(R.string.news), style = typography.labelSmall)
             },
             icon = {
                 Icon(Icons.Outlined.Newspaper, null)
@@ -51,7 +52,7 @@ fun BottomBar(id: String, controller: NavHostController) {
             selected = id == Navigation.SettingScreen.id.toString(),
             alwaysShowLabel = id == Navigation.SettingScreen.id.toString(),
             label = {
-                Text(text = stringResource(R.string.setting))
+                Text(text = stringResource(R.string.setting), style = typography.labelSmall)
             },
             icon = {
                 Icon(Icons.Outlined.Settings, null)
