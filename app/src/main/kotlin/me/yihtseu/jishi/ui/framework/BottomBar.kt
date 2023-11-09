@@ -28,8 +28,10 @@ fun BottomBar(id: String, controller: NavHostController) {
                 Icon(Icons.Outlined.Home, null)
             },
             onClick = {
-                controller.navigate(Navigation.HomeScreen.id.toString()) {
-                    popUpTo(0)
+                if (id != Navigation.HomeScreen.id.toString()) {
+                    controller.navigate(Navigation.HomeScreen.id.toString()) {
+                        popUpTo(0)
+                    }
                 }
             }
         )
@@ -43,8 +45,10 @@ fun BottomBar(id: String, controller: NavHostController) {
                 Icon(Icons.Outlined.Newspaper, null)
             },
             onClick = {
-                controller.navigate(Navigation.NewsScreen.id.toString()) {
-                    popUpTo(0)
+                if (id != Navigation.NewsScreen.id.toString()) {
+                    controller.navigate(Navigation.NewsScreen.id.toString()) {
+                        popUpTo(0)
+                    }
                 }
             }
         )
@@ -58,8 +62,10 @@ fun BottomBar(id: String, controller: NavHostController) {
                 Icon(Icons.Outlined.Settings, null)
             },
             onClick = {
-                controller.navigate(Navigation.SettingScreen.id.toString()) {
-                    popUpTo(0)
+                if (id != Navigation.SettingScreen.id.toString()) {
+                    controller.navigate(Navigation.SettingScreen.id.toString()) {
+                        popUpTo(0)
+                    }
                 }
             }
         )

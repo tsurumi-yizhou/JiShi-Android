@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.ContactMail
+import androidx.compose.material.icons.outlined.ContactSupport
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedCard
@@ -86,6 +87,25 @@ fun AboutScreen(
         }
 
         item {
+            EntryCard(stringResource(R.string.contact)) {
+                EntryItem(Icons.Outlined.ContactMail, "Email") {
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_SENDTO
+                        data = Uri.parse("mailto:tongyz2922@mails.jlu.edu.cn")
+                    }
+                    context.startActivity(intent)
+                }
+                EntryItem(Icons.Outlined.ContactSupport, "Github") {
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        data = Uri.parse("https://github.com/tsurumi-yizhou/JiShi-Android")
+                    }
+                    context.startActivity(intent)
+                }
+            }
+        }
+
+        item {
             if (state.contributors.isNotEmpty()) {
                 EntryCard(stringResource(R.string.contributors)) {
                     state.contributors.forEach {
@@ -97,25 +117,6 @@ fun AboutScreen(
                             context.startActivity(intent)
                         }
                     }
-                }
-            }
-        }
-
-        item {
-            EntryCard(stringResource(R.string.contact)) {
-                EntryItem(Icons.Outlined.Check, "Email") {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_SENDTO
-                        data = Uri.parse("mailto:tongyz2922@mails.jlu.edu.cn")
-                    }
-                    context.startActivity(intent)
-                }
-                EntryItem(Icons.Outlined.Check, "Github") {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse("https://github.com/tsurumi-yizhou/JiShi-Android")
-                    }
-                    context.startActivity(intent)
                 }
             }
         }

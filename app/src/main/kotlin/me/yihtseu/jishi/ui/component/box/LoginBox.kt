@@ -59,7 +59,7 @@ fun LoginBox(
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 singleLine = true,
-                shape = shapes.large
+                shape = shapes.extraSmall
             )
             OutlinedTextField(
                 value = password.value,
@@ -77,12 +77,12 @@ fun LoginBox(
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 singleLine = true,
-                shape = shapes.large
+                shape = shapes.extraSmall
             )
             Button(
                 modifier = Modifier.padding(HorizontalCardPadding, VerticalCardPadding).fillMaxWidth(),
                 onClick = { onLogin(username.value, password.value) },
-                shape = shapes.large
+                shape = shapes.small
             ) {
                 Text(text = stringResource(R.string.confirm), style = typography.labelMedium)
             }

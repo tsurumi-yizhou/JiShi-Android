@@ -18,7 +18,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "me.yihtseu.jishi.foss"
+        applicationId = "me.yihtseu.jishi.huawei"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
