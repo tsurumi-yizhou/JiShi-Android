@@ -21,12 +21,12 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
-          arguments: assembleFossRelease
+          arguments: assembleRelease
 
       - uses: r0adkll/sign-android-release@v1
         id: foss
         with:
-          releaseDirectory: app/build/outputs/apk/foss/release
+          releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}

@@ -63,7 +63,7 @@ fun LoginScreen(
 
     LaunchedEffect(state.success) {
         if (state.success) {
-            controller.navigate(Navigation.MainScreen.id.toString()) {
+            controller.navigate(Navigation.HomeScreen.id.toString()) {
                 popUpTo(0)
             }
         }

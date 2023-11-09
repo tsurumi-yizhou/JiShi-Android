@@ -17,14 +17,16 @@ data class IdentifyState(
 )
 
 @HiltViewModel
-class IdentifyViewModel @Inject constructor(): ViewModel() {
+class IdentifyViewModel @Inject constructor(
+    private val hallRepository: HallRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(IdentifyState())
     val state = _state.asStateFlow()
 
     fun load() = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
-            _state.update { it.copy(loading = false, image = HallRepository.qrcode()) }
+            _state.update { it.copy(loading = false, image = hallRepository.qrcode()) }
         } catch (e: Exception) {
             _state.update { it.copy(message = e.localizedMessage) }
         }

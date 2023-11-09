@@ -1,14 +1,8 @@
 package me.yihtseu.jishi.ui.page
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -16,19 +10,22 @@ import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.card.EntryItem
+import me.yihtseu.jishi.ui.framework.BottomBar
+import me.yihtseu.jishi.ui.framework.Compact
 import me.yihtseu.jishi.vm.SettingViewModel
 
 @Composable
 fun SettingScreen(
     controller: NavHostController,
-    modifier: Modifier = Modifier,
     viewModel: SettingViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+    Compact(
+        title = stringResource(R.string.setting),
+        loading = false,
+        message = null,
+        bottom = {
+            BottomBar(Navigation.SettingScreen.id.toString(), controller)
+        }
     ) {
         item {
             EntryCard(stringResource(R.string.account)) {

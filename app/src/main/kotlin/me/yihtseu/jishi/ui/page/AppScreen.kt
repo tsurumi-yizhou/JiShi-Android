@@ -14,8 +14,14 @@ fun AppScreen() {
         composable(Navigation.LoginScreen.id.toString()) {
             LoginScreen(controller)
         }
-        composable(Navigation.MainScreen.id.toString()) {
-            MainScreen(controller)
+        composable(Navigation.HomeScreen.id.toString()) { entry ->
+            HomeScreen(controller)
+        }
+        composable(Navigation.NewsScreen.id.toString()) { entry ->
+            NewsScreen(controller)
+        }
+        composable(Navigation.SettingScreen.id.toString()) { entry ->
+            SettingScreen(controller)
         }
         composable(Navigation.IdentifyScreen.id.toString()) {
             IdentifyScreen(controller)

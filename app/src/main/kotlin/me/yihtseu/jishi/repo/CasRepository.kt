@@ -8,8 +8,13 @@ import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.model.campus.space.StudentInfo
 import me.yihtseu.jishi.utils.crypto.strEnc
 import org.jsoup.Jsoup
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object CasRepository {
+@Singleton
+class CasRepository @Inject constructor(
+
+) {
     private lateinit var lt: String
     private lateinit var execution: String
     private lateinit var event: String
