@@ -15,7 +15,7 @@ fun EntryCard(title: String, content: @Composable ColumnScope.() -> Unit) {
         modifier = Modifier
             .padding(horizontal = HorizontalCardPadding, vertical = VerticalCardPadding)
             .fillMaxWidth(),
-        shape = shapes.large
+        shape = shapes.small
     ) {
         Text(text = title, modifier = Modifier.padding(start = InnerCardPadding, top = InnerCardPadding), style = typography.labelMedium)
         content()

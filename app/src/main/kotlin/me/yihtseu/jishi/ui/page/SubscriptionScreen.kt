@@ -2,20 +2,16 @@
 
 package me.yihtseu.jishi.ui.page
 
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Tag
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
@@ -29,49 +25,73 @@ fun SubscriptionScreen(
     viewModel: SubscriptionViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val newTopic = rememberSaveable { mutableStateOf("") }
+    val link = rememberSaveable { mutableStateOf("") }
+    val showDrawer = remember { mutableStateOf(false) }
+
     Compact(
         title = stringResource(R.string.theme_subscription),
         controller = controller,
         message = state.message,
-        loading = state.loading
+        loading = state.loading,
+        actions = mapOf(
+            Icons.Outlined.Add to {
+                showDrawer.value = true
+            }
+        ),
+        drawer = {
+
+        }
     ) {
         item {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
                 OutlinedTextField(
-                    value = newTopic.value,
-                    onValueChange = { newTopic.value = it },
-                    shape = shapes.extraSmall,
-                    leadingIcon = {
-                        Icon(Icons.Outlined.Tag, null)
+                    value = link.value,
+                    onValueChange = {
+                        link.value = it
                     },
+                    modifier = Modifier
+                        .padding(HorizontalCardPadding, VerticalCardPadding)
+                        .fillMaxWidth(),
+                    shape = shapes.extraSmall,
+                    singleLine = true,
                     trailingIcon = {
                         IconButton(
                             onClick = {
-                                viewModel.add(newTopic.value)
-                                newTopic.value = ""
+                                viewModel.add(link.value)
+                                link.value = ""
                             }
                         ) {
                             Icon(Icons.Outlined.Add, null)
                         }
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Ascii
-                    ),
-                    modifier = Modifier
-                        .padding(HorizontalCardPadding, VerticalCardPadding)
-                        .fillMaxWidth()
+                    }
                 )
-        }
-        item {
-            FlowRow {
-                state.topics.forEach {
-                    if (it.isNotBlank()) {
+                FlowRow(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    state.feeds.forEach {
                         AssistChip(
-                            onClick = {},
                             label = {
-                                Text(text = it, style = typography.labelMedium)
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceEvenly
+                                ) {
+                                    Text(text = it.title, style = typography.labelSmall)
+                                    IconButton(
+                                        onClick = {
+                                            viewModel.sub(it)
+                                        }
+                                    ) {
+                                        Icon(Icons.Outlined.Delete, null)
+                                    }
+                                }
                             },
-                            modifier = Modifier.padding(HorizontalChipPadding, VerticalChipPadding)
+                            onClick = {},
+                            enabled = true,
+                            modifier = Modifier.padding(HorizontalCardPadding, VerticalChipPadding)
                         )
                     }
                 }
@@ -80,6 +100,6 @@ fun SubscriptionScreen(
     }
 
     LaunchedEffect(viewModel) {
-        viewModel.load()
+        viewModel.init()
     }
 }

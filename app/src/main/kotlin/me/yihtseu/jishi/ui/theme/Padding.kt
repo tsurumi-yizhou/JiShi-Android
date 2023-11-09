@@ -9,6 +9,7 @@ val HorizontalTextPadding = 20.dp
 val VerticalTextPadding = 10.dp
 val HorizontalChipPadding = 5.dp
 val VerticalChipPadding = 2.dp
+val ImagePadding = 10.dp
 
-val ImageWidth = 194.dp
-val ImageHeight = 100.dp
+val ImageWidth = 100.dp
+val ImageHeight = 150.dp

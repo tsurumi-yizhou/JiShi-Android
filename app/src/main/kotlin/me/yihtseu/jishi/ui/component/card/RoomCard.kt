@@ -24,7 +24,7 @@ fun RoomCard(
         modifier = modifier
             .padding(HorizontalCardPadding, VerticalCardPadding)
             .fillMaxWidth(),
-        shape = shapes.large
+        shape = shapes.small
     ) {
         Row(
             modifier = Modifier

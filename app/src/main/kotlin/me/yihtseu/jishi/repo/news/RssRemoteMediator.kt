@@ -28,6 +28,9 @@ class RssRemoteMediator(
                         feedId = feed.id,
                         title = it.title!!,
                         abstract = it.description.orEmpty(),
+                        image = it.image,
+                        updated = it.pubDate!!,
+                        link = it.link!!,
                         content = it.content.orEmpty()
                     )
                 )
@@ -39,9 +42,10 @@ class RssRemoteMediator(
     }
 
     override suspend fun initialize(): InitializeAction {
-        return if (abs(feed.updated - System.currentTimeMillis()) > 5 * 60 * 1000)
+        return if (abs(feed.updated - System.currentTimeMillis()) > 5 * 60 * 1000) {
             InitializeAction.LAUNCH_INITIAL_REFRESH
-        else
+        } else {
             InitializeAction.SKIP_INITIAL_REFRESH
+        }
     }
 }

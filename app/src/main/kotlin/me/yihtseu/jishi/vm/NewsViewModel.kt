@@ -49,4 +49,23 @@ class NewsViewModel @Inject constructor(
             _state.update { it.copy(loading = false, message = e.localizedMessage) }
         }
     }
+
+    fun load(feed: Feed) = viewModelScope.launch {
+        _state.update { it.copy(loading = true) }
+        try {
+            _state.update {
+                it.copy(
+                    loading = false,
+                    entries = Pager(
+                        config = PagingConfig(50, enablePlaceholders = false),
+                        remoteMediator = RssRemoteMediator(feed, entryDao)
+                    ) {
+                        entryDao.queryByFeedId(feed.id)
+                    }.flow.cachedIn(viewModelScope)
+                )
+            }
+        } catch (e: Exception) {
+            _state.update { it.copy(loading = false, message = e.localizedMessage) }
+        }
+    }
 }
