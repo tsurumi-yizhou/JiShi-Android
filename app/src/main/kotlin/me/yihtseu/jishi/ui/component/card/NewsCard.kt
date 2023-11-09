@@ -7,57 +7,55 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import me.yihtseu.jishi.ui.theme.*
 
 
 @Composable
 fun NewsCard(
-    title: String, origin: String?, desc: String?, image: String?,
+    title: String, time: String, desc: String?, image: String?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
     ElevatedCard(
         modifier = modifier
             .padding(HorizontalCardPadding, VerticalCardPadding)
-            .fillMaxWidth()
-            .clickable { onClick() },
-        shape = shapes.large
+            .fillMaxWidth(),
+        shape = shapes.small
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onClick() },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             image?.let {
                 AsyncImage(
                     it, null,
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .padding(vertical = VerticalTextPadding)
+                        .padding(ImagePadding)
                         .size(ImageWidth, ImageHeight)
-                        .clip(shapes.extraLarge)
                 )
             }
             Column (
                 horizontalAlignment = Alignment.Start
             ) {
-                origin?.let {
-                    Text(
-                        text = it, maxLines = 2, minLines = 1,
-                        style = typography.labelSmall,
-                        modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
-                    )
-                }
                 Text(
-                    text = title, style = typography.titleMedium, maxLines = 2, minLines = 1,
+                    text = title, style = typography.titleSmall,
                     modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+                )
+                Text(
+                    text = time,
+                    style = typography.labelSmall,
+                    modifier = Modifier.padding(HorizontalTextPadding, 0.dp)
                 )
                 desc?.let {
                     Text(
-                        text = it, maxLines = 2, minLines = 2,
+                        text = it, maxLines = 2,
                         style = typography.bodySmall,
                         modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding),
                     )
