@@ -17,13 +17,14 @@ data class AboutState(
 
 @HiltViewModel
 class AboutViewModel @Inject constructor(
+    private val githubRepository: GithubRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(AboutState())
     val state = _state.asStateFlow()
 
     fun init() = viewModelScope.launch {
         try {
-            _state.update { it.copy(contributors = GithubRepository.fetchContributors()) }
+            _state.update { it.copy(contributors = githubRepository.fetchContributors()) }
         } catch (e: Exception) {
             _state.update { it.copy(contributors = emptyList()) }
         }

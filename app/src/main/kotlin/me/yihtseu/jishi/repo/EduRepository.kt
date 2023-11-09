@@ -6,8 +6,13 @@ import com.drake.net.Post
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.model.campus.edu.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object EduRepository {
+@Singleton
+class EduRepository @Inject constructor(
+
+) {
     private val json = Json {
         isLenient = true
         ignoreUnknownKeys = true
