@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="chaoxing_account">Chaoxing Account</string>
-    <string name="theme_subscription">Theme Subscription</string>
+    <string name="theme_subscription">Subscriptions</string>
     <string name="about_this_app">About App</string>
     <string name="opensource_license">Public License</string>
     <string name="privacy">Privacy Policy</string>
