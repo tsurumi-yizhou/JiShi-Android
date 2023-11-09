@@ -3,6 +3,8 @@ package me.yihtseu.jishi.ui.page
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -19,10 +21,12 @@ fun SettingScreen(
     controller: NavHostController,
     viewModel: SettingViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsState()
+
     Compact(
         title = stringResource(R.string.setting),
         loading = false,
-        message = null,
+        message = state.message,
         bottom = {
             BottomBar(Navigation.SettingScreen.id.toString(), controller)
         }
@@ -49,8 +53,11 @@ fun SettingScreen(
                 EntryItem(Icons.Outlined.Info, stringResource(R.string.about_this_app)) {
                     controller.navigate(Navigation.AboutScreen.id.toString())
                 }
-                EntryItem(Icons.Outlined.Adjust, stringResource(R.string.opensource_license)) {
+                EntryItem(Icons.Outlined.Bookmark, stringResource(R.string.opensource_license)) {
                     controller.navigate(Navigation.LicenseScreen.id.toString())
+                }
+                EntryItem(Icons.Outlined.Update, stringResource(R.string.check_update)) {
+                    viewModel.checkUpdate()
                 }
             }
         }

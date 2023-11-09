@@ -1,45 +1,36 @@
 package me.yihtseu.jishi.vm
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.repo.GithubRepository
 import javax.inject.Inject
+
+data class SettingState(
+    val message: String? = null
+)
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     @ApplicationContext val context: Context,
     private val githubRepository: GithubRepository
 ) : ViewModel() {
-    fun checkUpdate(host: SnackbarHostState) = viewModelScope.launch {
+    private val _state = MutableStateFlow(SettingState())
+    val state = _state.asStateFlow()
+
+    fun checkUpdate() = viewModelScope.launch {
         try {
-            val latest = githubRepository.fetchLatestRelease("formal")
-            val result = host.showSnackbar(
-                message = latest.name,
-                actionLabel = "Download",
-                duration = SnackbarDuration.Indefinite
-            )
-            when (result) {
-                SnackbarResult.ActionPerformed -> {}
-                SnackbarResult.Dismissed -> {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse(latest.assets.first().browserDownloadUrl)
-                    }
-                    context.startActivity(intent)
-                }
-            }
+            val latest = githubRepository.fetchLatestRelease("nightly")
+            _state.update { it.copy(message = latest.name) }
         } catch (e: Exception) {
-            host.showSnackbar(context.getString(R.string.update_error))
+            _state.update { it.copy(message = context.getString(R.string.update_error)) }
         }
     }
 }
