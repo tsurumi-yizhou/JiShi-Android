@@ -26,21 +26,12 @@ fun SubscriptionScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val link = rememberSaveable { mutableStateOf("") }
-    val showDrawer = remember { mutableStateOf(false) }
 
     Compact(
         title = stringResource(R.string.theme_subscription),
         controller = controller,
         message = state.message,
         loading = state.loading,
-        actions = mapOf(
-            Icons.Outlined.Add to {
-                showDrawer.value = true
-            }
-        ),
-        drawer = {
-
-        }
     ) {
         item {
             Column(
