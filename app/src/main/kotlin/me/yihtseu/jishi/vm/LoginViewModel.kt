@@ -22,6 +22,7 @@ data class LoginState(
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val casRepository: CasRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
@@ -46,7 +47,7 @@ class LoginViewModel @Inject constructor(
     fun login(username: String, password: String) = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
-            val result = CasRepository.checkLogin(username, password)
+            val result = casRepository.checkLogin(username, password)
             if (result) {
                 DataStore.setString("jlu_username", username)
                 DataStore.setString("jlu_password", password)

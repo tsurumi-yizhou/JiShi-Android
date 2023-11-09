@@ -25,7 +25,8 @@ data class ScoreState(
 
 @HiltViewModel
 class ScoreViewModel @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    private val eduRepository: EduRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(ScoreState())
     val state = _state.asStateFlow()
@@ -33,7 +34,7 @@ class ScoreViewModel @Inject constructor(
     fun load() = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
-            val result = EduRepository.getScore()
+            val result = eduRepository.getScore()
             _state.update {
                 it.copy(
                     loading = false,

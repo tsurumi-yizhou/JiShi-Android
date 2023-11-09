@@ -5,8 +5,13 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.model.github.Contributor
 import me.yihtseu.jishi.model.github.Release
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object GithubRepository {
+@Singleton
+class GithubRepository @Inject constructor(
+
+) {
     private val json = Json {
         isLenient = true
         ignoreUnknownKeys = true

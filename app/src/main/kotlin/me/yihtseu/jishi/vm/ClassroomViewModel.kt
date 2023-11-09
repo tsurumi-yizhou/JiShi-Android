@@ -20,7 +20,9 @@ data class ClassroomState(
 )
 
 @HiltViewModel
-class ClassroomViewModel @Inject constructor() : ViewModel() {
+class ClassroomViewModel @Inject constructor(
+    private val eduRepository: EduRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow(ClassroomState())
     val state = _state.asStateFlow()
@@ -31,7 +33,7 @@ class ClassroomViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(
                     loading = false,
-                    classrooms = EduRepository.getClassrooms(zone, code, date, start, end)
+                    classrooms = eduRepository.getClassrooms(zone, code, date, start, end)
                 )
             }
         } catch (e: Exception) {
@@ -50,7 +52,7 @@ class ClassroomViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(
                     loading = false,
-                    buildings = EduRepository.getBuildings()
+                    buildings = eduRepository.getBuildings()
                 )
             }
         } catch (e: Exception) {

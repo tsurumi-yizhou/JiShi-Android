@@ -17,11 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    private val githubRepository: GithubRepository
 ) : ViewModel() {
     fun checkUpdate(host: SnackbarHostState) = viewModelScope.launch {
         try {
-            val latest = GithubRepository.fetchLatestRelease("formal")
+            val latest = githubRepository.fetchLatestRelease("formal")
             val result = host.showSnackbar(
                 message = latest.name,
                 actionLabel = "Download",
