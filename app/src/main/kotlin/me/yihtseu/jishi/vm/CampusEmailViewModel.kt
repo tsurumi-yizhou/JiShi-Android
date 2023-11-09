@@ -20,7 +20,9 @@ data class CampusEmailState(
 )
 
 @HiltViewModel
-class CampusEmailViewModel @Inject constructor() : ViewModel() {
+class CampusEmailViewModel @Inject constructor(
+    private val casRepository: CasRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow(CampusEmailState())
     val state = _state.asStateFlow()
@@ -31,8 +33,8 @@ class CampusEmailViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(
                     loading = false,
-                    profile = CasRepository.fetchProfile(),
-                    avatar = CasRepository.fetchPicture()
+                    profile = casRepository.fetchProfile(),
+                    avatar = casRepository.fetchPicture()
                 )
             }
         } catch (e: Exception) {

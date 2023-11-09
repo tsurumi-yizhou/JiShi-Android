@@ -30,7 +30,8 @@ data class CalendarState(
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val eduRepository: EduRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(CalendarState())
     val state = _state.asStateFlow()
@@ -42,8 +43,8 @@ class CalendarViewModel @Inject constructor(
     fun init() = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
-            val term = EduRepository.getTerm().latest()
-            val lessons = EduRepository.getLessons(term.yearRange, term.term, weeksPast(term.startDate))
+            val term = eduRepository.getTerm().latest()
+            val lessons = eduRepository.getLessons(term.yearRange, term.term, weeksPast(term.startDate))
             _state.update {
                 it.copy(
                     loading = false,

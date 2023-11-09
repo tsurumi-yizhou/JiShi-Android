@@ -11,7 +11,6 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.dagger.hilt.android")
-    id("com.huawei.agconnect")
 }
 
 android {
@@ -19,7 +18,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "me.yihtseu.jishi.huawei"
+        applicationId = "me.yihtseu.jishi.foss"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
@@ -33,8 +32,6 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BUILD_TIME", "\"${SimpleDateFormat("yyyy-MM-dd").format(Date())}\"")
         }
         release {
             isMinifyEnabled = true
@@ -103,7 +100,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     val hiltVersion = "2.44"
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
@@ -124,18 +121,19 @@ dependencies {
     implementation("androidx.room:room-paging:$roomVersion")
     testImplementation("androidx.room:room-testing:$roomVersion")
 
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    val huaweiVersion = "6.12.0.300"
+    implementation("com.huawei.hms:push:$huaweiVersion")
+    implementation("com.huawei.hms:hmscoreinstaller:$huaweiVersion")
+    implementation("com.huawei.hms:hianalytics:$huaweiVersion")
+
+    implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("org.jsoup:jsoup:1.16.1")
     implementation("com.github.liangjingkanji:Net:3.6.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
-
-    val huaweiVersion = "6.12.0.300"
-    implementation("com.huawei.hms:push:$huaweiVersion")
-    implementation("com.huawei.hms:hmscoreinstaller:$huaweiVersion")
-    implementation("com.huawei.hms:hianalytics:$huaweiVersion")
+    implementation("com.prof18.rssparser:rssparser:6.0.4")
 }
 
 kapt {

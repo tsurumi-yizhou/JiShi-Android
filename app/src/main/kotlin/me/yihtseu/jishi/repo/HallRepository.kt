@@ -5,8 +5,11 @@ import com.drake.net.Get
 import kotlinx.coroutines.coroutineScope
 import me.yihtseu.jishi.model.campus.ehall.Api
 import org.jsoup.Jsoup
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object HallRepository {
+@Singleton
+class HallRepository @Inject constructor() {
     suspend fun qrcode(): ByteArray = coroutineScope {
 
             val resp = Get<String>(Api.identifyCodeUrl){

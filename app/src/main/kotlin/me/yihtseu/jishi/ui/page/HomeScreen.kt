@@ -1,29 +1,28 @@
 package me.yihtseu.jishi.ui.page
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.card.EntryItem
+import me.yihtseu.jishi.ui.framework.BottomBar
+import me.yihtseu.jishi.ui.framework.Compact
 
 @Composable
 fun HomeScreen(
     controller: NavHostController,
-    modifier: Modifier = Modifier
 ) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+    Compact(
+        title = stringResource(R.string.home),
+        loading = false,
+        message = null,
+        bottom = {
+            BottomBar(Navigation.HomeScreen.id.toString(), controller)
+        }
     ) {
         item {
             EntryCard(stringResource(R.string.study)) {
