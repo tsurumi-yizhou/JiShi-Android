@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.huawei.hms.push.HmsMessageService
+import com.huawei.hms.push.HmsMessaging
 import com.huawei.hms.push.RemoteMessage
 
 class PushService : HmsMessageService() {
@@ -28,6 +29,10 @@ class PushService : HmsMessageService() {
 
     override fun onCreate() {
         super.onCreate()
+        HmsMessaging.getInstance(this).apply {
+            turnOffPush()
+            isAutoInitEnabled = true
+        }
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channel = NotificationChannel(CHANNEL_ID, "JiShi_Channel", NotificationManager.IMPORTANCE_DEFAULT)
         manager.createNotificationChannel(channel)

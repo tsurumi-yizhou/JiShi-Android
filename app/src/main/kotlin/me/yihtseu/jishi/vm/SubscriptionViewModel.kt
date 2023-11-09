@@ -3,6 +3,7 @@ package me.yihtseu.jishi.vm
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.huawei.hms.push.HmsMessaging
 import com.prof18.rssparser.RssParserBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.news.Feed
 import me.yihtseu.jishi.repo.news.FeedDao
+import me.yihtseu.jishi.utils.crypto.md5
 import javax.inject.Inject
 
 data class SubscriptionState(
@@ -39,7 +41,7 @@ class SubscriptionViewModel @Inject constructor(
         _state.update { it.copy(loading = true) }
         try {
             val channel = parser.getRssChannel(link)
-            feedDao.insert(
+            val feed =
                 Feed(
                     title = channel.title.orEmpty(),
                     subtitle = channel.description.orEmpty(),
@@ -47,8 +49,15 @@ class SubscriptionViewModel @Inject constructor(
                     id = link,
                     updated = System.currentTimeMillis()
                 )
-            )
-            _state.update { it.copy(loading = false, feeds = feedDao.queryAll()) }
+            HmsMessaging.getInstance(context).subscribe(md5(feed.id))
+                .addOnSuccessListener {
+                    feedDao.insert(feed)
+                    _state.update { it.copy(loading = false, feeds = feedDao.queryAll()) }
+                }
+                .addOnFailureListener {
+                    _state.update { it.copy(loading = false, message = it.message) }
+                }
+
         } catch (e: Exception) {
             _state.update { it.copy(loading = false, message = e.localizedMessage) }
         }
