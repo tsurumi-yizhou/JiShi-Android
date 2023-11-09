@@ -7,14 +7,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.huawei.hms.push.HmsMessageService
-import com.huawei.hms.push.HmsMessaging
 import com.huawei.hms.push.RemoteMessage
-import me.yihtseu.jishi.utils.push.Pusher
 
-class PushService : Pusher, HmsMessageService() {
-    override fun subscribe(topic: String) {
-        HmsMessaging.getInstance(this).subscribe(topic).isSuccessful
-    }
+class PushService : HmsMessageService() {
 
     override fun onMessageReceived(message: RemoteMessage?) {
         message ?: return
