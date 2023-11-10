@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startService(Intent(this, PushService::class.java))
 
         startService(Intent(this, PushService::class.java))
 

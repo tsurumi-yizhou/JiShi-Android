@@ -43,12 +43,6 @@
         <meta-data
                 android:name="push_kit_auto_init_enabled"
                 android:value="true"/>
-        <meta-data android:name="com.huawei.hms.client.appid"
-                   android:value="appid=109555113"/>
-        <meta-data
-                android:name="com.huawei.hms.client.cpid"
-                android:value="cpid=30086000610853628">
-        </meta-data>
 
         <meta-data
                 android:name="androidx.lifecycle.ViewModelStoreOwner"

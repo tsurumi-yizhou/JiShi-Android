@@ -1,11 +1,9 @@
 package me.yihtseu.jishi.vm
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
+import com.huawei.hms.push.HmsMessaging
 import com.prof18.rssparser.RssParserBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -53,8 +51,7 @@ class SubscriptionViewModel @Inject constructor(
                 .removePrefix("https://")
                 .filter { it.isLetterOrDigit() }
                 .substring(0, 10)
-            Log.d("topic", topic)
-            Firebase.messaging.subscribeToTopic(topic)
+            HmsMessaging.getInstance(context).subscribe(topic)
                 .addOnSuccessListener {
                     feedDao.insert(feed)
                     _state.update { it.copy(loading = false, feeds = feedDao.queryAll()) }
@@ -72,7 +69,7 @@ class SubscriptionViewModel @Inject constructor(
             .removePrefix("https://")
             .filter { it.isLetterOrDigit() }
             .substring(0, 10)
-        Firebase.messaging.unsubscribeFromTopic(topic)
+        HmsMessaging.getInstance(context).unsubscribe(topic)
             .addOnSuccessListener {
                 feedDao.delete(feed)
                 _state.update { it.copy(feeds = feedDao.queryAll()) }
