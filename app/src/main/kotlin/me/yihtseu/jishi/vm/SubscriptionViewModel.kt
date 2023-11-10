@@ -1,6 +1,7 @@
 package me.yihtseu.jishi.vm
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.ktx.Firebase
@@ -14,7 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.news.Feed
 import me.yihtseu.jishi.repo.news.FeedDao
-import me.yihtseu.jishi.utils.crypto.md5
 import javax.inject.Inject
 
 data class SubscriptionState(
@@ -49,7 +49,12 @@ class SubscriptionViewModel @Inject constructor(
                 id = link,
                 updated = System.currentTimeMillis()
             )
-            Firebase.messaging.subscribeToTopic(md5(feed.id))
+            val topic = feed.link
+                .removePrefix("https://")
+                .filter { it.isLetterOrDigit() }
+                .substring(0, 10)
+            Log.d("topic", topic)
+            Firebase.messaging.subscribeToTopic(topic)
                 .addOnSuccessListener {
                     feedDao.insert(feed)
                     _state.update { it.copy(loading = false, feeds = feedDao.queryAll()) }
@@ -63,7 +68,17 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     fun sub(feed: Feed) = viewModelScope.launch {
-        feedDao.delete(feed)
-        _state.update { it.copy(feeds = feedDao.queryAll()) }
+        val topic = feed.link
+            .removePrefix("https://")
+            .filter { it.isLetterOrDigit() }
+            .substring(0, 10)
+        Firebase.messaging.unsubscribeFromTopic(topic)
+            .addOnSuccessListener {
+                feedDao.delete(feed)
+                _state.update { it.copy(feeds = feedDao.queryAll()) }
+            }
+            .addOnFailureListener {
+                _state.update { it.copy(loading = false, message = it.message) }
+            }
     }
 }
