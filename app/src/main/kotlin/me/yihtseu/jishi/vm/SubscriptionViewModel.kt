@@ -1,9 +1,11 @@
 package me.yihtseu.jishi.vm
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.huawei.hms.push.HmsMessaging
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.prof18.rssparser.RssParserBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -13,7 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.news.Feed
 import me.yihtseu.jishi.repo.news.FeedDao
-import me.yihtseu.jishi.utils.crypto.md5
 import javax.inject.Inject
 
 data class SubscriptionState(
@@ -41,15 +42,19 @@ class SubscriptionViewModel @Inject constructor(
         _state.update { it.copy(loading = true) }
         try {
             val channel = parser.getRssChannel(link)
-            val feed =
-                Feed(
-                    title = channel.title.orEmpty(),
-                    subtitle = channel.description.orEmpty(),
-                    link = link,
-                    id = link,
-                    updated = System.currentTimeMillis()
-                )
-            HmsMessaging.getInstance(context).subscribe(md5(feed.id))
+            val feed = Feed(
+                title = channel.title.orEmpty(),
+                subtitle = channel.description.orEmpty(),
+                link = link,
+                id = link,
+                updated = System.currentTimeMillis()
+            )
+            val topic = feed.link
+                .removePrefix("https://")
+                .filter { it.isLetterOrDigit() }
+                .substring(0, 10)
+            Log.d("topic", topic)
+            Firebase.messaging.subscribeToTopic(topic)
                 .addOnSuccessListener {
                     feedDao.insert(feed)
                     _state.update { it.copy(loading = false, feeds = feedDao.queryAll()) }
@@ -57,14 +62,23 @@ class SubscriptionViewModel @Inject constructor(
                 .addOnFailureListener {
                     _state.update { it.copy(loading = false, message = it.message) }
                 }
-
         } catch (e: Exception) {
             _state.update { it.copy(loading = false, message = e.localizedMessage) }
         }
     }
 
     fun sub(feed: Feed) = viewModelScope.launch {
-        feedDao.delete(feed)
-        _state.update { it.copy(feeds = feedDao.queryAll()) }
+        val topic = feed.link
+            .removePrefix("https://")
+            .filter { it.isLetterOrDigit() }
+            .substring(0, 10)
+        Firebase.messaging.unsubscribeFromTopic(topic)
+            .addOnSuccessListener {
+                feedDao.delete(feed)
+                _state.update { it.copy(feeds = feedDao.queryAll()) }
+            }
+            .addOnFailureListener {
+                _state.update { it.copy(loading = false, message = it.message) }
+            }
     }
 }
