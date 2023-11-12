@@ -34,13 +34,13 @@ android {
         debug {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BUILD_NAME", "\"foss\"")
+            buildConfigField("String", "BUILD_NAME", "\"google\"")
             buildConfigField("String", "BUILD_TIME", "\"${SimpleDateFormat("yyyy-MM-dd").format(Date())}\"")
         }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BUILD_NAME", "\"foss\"")
+            buildConfigField("String", "BUILD_NAME", "\"google\"")
             buildConfigField("String", "BUILD_TIME", "\"${SimpleDateFormat("yyyy-MM-dd").format(Date())}\"")
         }
     }

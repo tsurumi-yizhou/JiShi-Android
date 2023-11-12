@@ -3,9 +3,7 @@
 package me.yihtseu.jishi.ui.page
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
@@ -15,7 +13,6 @@ import me.yihtseu.jishi.ui.framework.Compact
 fun CampusCardScreen(
     controller: NavHostController
 ) {
-    val host = remember { SnackbarHostState() }
     Compact(
         title = stringResource(R.string.campus_card_account),
         controller = controller,
