@@ -24,7 +24,7 @@ fun ChipGroup(
 ) {
     val selected = rememberSaveable { mutableStateOf<String?>(null) }
     FlowRow {
-        chips.forEachIndexed { index, chip ->
+        chips.forEach { chip ->
             FilterChip(
                 selected = selected.value == chip,
                 enabled = true,
