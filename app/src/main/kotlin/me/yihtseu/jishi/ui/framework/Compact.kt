@@ -122,8 +122,7 @@ fun Compact(
             action?.let {
                 val result = host.showSnackbar(
                     message = message,
-                    actionLabel = context.getString(R.string.download),
-                    duration = SnackbarDuration.Indefinite
+                    actionLabel = context.getString(R.string.download)
                 )
                 when (result) {
                     SnackbarResult.ActionPerformed -> {
