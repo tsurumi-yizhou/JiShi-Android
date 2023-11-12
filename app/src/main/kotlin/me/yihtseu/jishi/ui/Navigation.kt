@@ -33,6 +33,4 @@ sealed class Navigation(
     object SubscriptionScreen : Navigation(R.string.theme_subscription)
 
     object LicenseScreen : Navigation(R.string.opensource_license)
-
-    object NfcCardScreen : Navigation(R.string.nfc_card)
 }

@@ -53,8 +53,5 @@ fun AppScreen() {
         composable(Navigation.LicenseScreen.id.toString()) {
             LicenseScreen(controller)
         }
-        composable(Navigation.NfcCardScreen.id.toString()) {
-            NfcCardScreen(controller)
-        }
     }
 }

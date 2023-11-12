@@ -11,5 +11,4 @@
     <string name="end_select">End Select</string>
     <string name="contributors">Contributors</string>
     <string name="contact">Contact Us</string>
-    <string name="nfc_card_desc" translatable="false">Campus NFC Card</string>
 </resources>
