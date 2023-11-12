@@ -27,6 +27,7 @@ fun SettingScreen(
         title = stringResource(R.string.setting),
         loading = false,
         message = state.message,
+        action = state.url,
         bottom = {
             BottomBar(Navigation.SettingScreen.id.toString(), controller)
         }
