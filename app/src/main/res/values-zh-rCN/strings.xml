@@ -56,4 +56,10 @@
     <string name="app_desc">可能是最好的第三方吉林大学生活助手</string>
     <string name="update_error">更新错误！</string>
     <string name="contact">联系方式</string>
+    <string name="nfc_card">门禁卡</string>
+    <string name="nfc_read_mode">正处于读模式</string>
+    <string name="nfc_write_mode">NFC正在工作。</string>
+    <string name="new_version">发现新版本</string>
+    <string name="no_new_version">您的应用已经最新</string>
+    <string name="download">下载</string>
 </resources>

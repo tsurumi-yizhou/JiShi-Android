@@ -56,4 +56,10 @@
     <string name="contributors">貢獻者</string>
     <string name="update_error">更新出錯！</string>
     <string name="contact">聯絡方法</string>
+    <string name="nfc_card">門禁卡</string>
+    <string name="nfc_read_mode">正處於讀模式</string>
+    <string name="nfc_write_mode">已經可以使用卡了。</string>
+    <string name="new_version">發現新版本</string>
+    <string name="no_new_version">您的應用已更新</string>
+    <string name="download">下載</string>
 </resources>
