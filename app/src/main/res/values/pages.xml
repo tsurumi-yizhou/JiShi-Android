@@ -13,4 +13,5 @@
     <string name="about">About</string>
     <string name="campus_account">JLU Email</string>
     <string name="campus_card_account">Campus Card</string>
+    <string name="nfc_card">NFC Campus Card</string>
 </resources>

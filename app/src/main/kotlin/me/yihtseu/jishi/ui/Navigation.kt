@@ -6,8 +6,6 @@ import me.yihtseu.jishi.R
 sealed class Navigation(
     @StringRes val id: Int
 ) {
-    object MainScreen: Navigation(R.string.main)
-
     object LoginScreen: Navigation(R.string.login)
 
     object HomeScreen: Navigation(R.string.home)
@@ -35,4 +33,6 @@ sealed class Navigation(
     object SubscriptionScreen : Navigation(R.string.theme_subscription)
 
     object LicenseScreen : Navigation(R.string.opensource_license)
+
+    object NfcCardScreen : Navigation(R.string.nfc_card)
 }

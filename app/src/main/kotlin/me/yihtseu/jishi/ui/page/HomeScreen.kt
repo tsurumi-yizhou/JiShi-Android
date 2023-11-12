@@ -45,6 +45,9 @@ fun HomeScreen(
                 EntryItem(Icons.Outlined.QrCode, stringResource(R.string.qrcode)) {
                     controller.navigate(Navigation.IdentifyScreen.id.toString())
                 }
+                EntryItem(Icons.Outlined.Nfc, stringResource(R.string.nfc_card)) {
+                    controller.navigate(Navigation.NfcCardScreen.id.toString())
+                }
             }
         }
     }

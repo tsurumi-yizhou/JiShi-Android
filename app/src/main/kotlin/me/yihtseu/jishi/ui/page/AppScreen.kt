@@ -14,13 +14,13 @@ fun AppScreen() {
         composable(Navigation.LoginScreen.id.toString()) {
             LoginScreen(controller)
         }
-        composable(Navigation.HomeScreen.id.toString()) { entry ->
+        composable(Navigation.HomeScreen.id.toString()) {
             HomeScreen(controller)
         }
-        composable(Navigation.NewsScreen.id.toString()) { entry ->
+        composable(Navigation.NewsScreen.id.toString()) {
             NewsScreen(controller)
         }
-        composable(Navigation.SettingScreen.id.toString()) { entry ->
+        composable(Navigation.SettingScreen.id.toString()) {
             SettingScreen(controller)
         }
         composable(Navigation.IdentifyScreen.id.toString()) {
@@ -52,6 +52,9 @@ fun AppScreen() {
         }
         composable(Navigation.LicenseScreen.id.toString()) {
             LicenseScreen(controller)
+        }
+        composable(Navigation.NfcCardScreen.id.toString()) {
+            NfcCardScreen(controller)
         }
     }
 }
