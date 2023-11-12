@@ -14,8 +14,10 @@ import me.yihtseu.jishi.ui.theme.AppTheme
 import me.yihtseu.jishi.utils.network.JsonConverter
 import java.util.concurrent.TimeUnit
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

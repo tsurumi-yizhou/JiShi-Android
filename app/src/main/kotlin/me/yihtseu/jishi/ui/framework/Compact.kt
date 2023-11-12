@@ -2,6 +2,8 @@
 
 package me.yihtseu.jishi.ui.framework
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -17,7 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.component.box.LoadingBox
 import me.yihtseu.jishi.ui.theme.typography
 
@@ -29,9 +33,11 @@ fun Compact(
     bottom: @Composable () -> Unit = {},
     drawer: @Composable (ColumnScope.() -> Unit)? = null,
     message: String?,
+    action: Uri? = null,
     loading: Boolean,
     content: LazyListScope.() -> Unit
 ) {
+    val context = LocalContext.current
     val host = remember { SnackbarHostState() }
     val show = remember { mutableStateOf(true) }
     val behavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -112,8 +118,28 @@ fun Compact(
     }
 
     LaunchedEffect(message) {
-        message?.let {
-            host.showSnackbar(it)
+        message?.let { message ->
+            action?.let {
+                val result = host.showSnackbar(
+                    message = message,
+                    actionLabel = context.getString(R.string.download),
+                    duration = SnackbarDuration.Indefinite
+                )
+                when (result) {
+                    SnackbarResult.ActionPerformed -> {
+                        val intent = Intent().apply {
+                            type = Intent.ACTION_VIEW
+                            data = it
+                        }
+                        context.startActivity(intent)
+                    }
+
+                    SnackbarResult.Dismissed -> {
+                    }
+                }
+            } ?: let {
+                host.showSnackbar(message)
+            }
         }
     }
 }

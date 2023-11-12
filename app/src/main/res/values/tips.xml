@@ -9,4 +9,6 @@
     <string name="update_error">Update Error!</string>
     <string name="score_result">Your score is %.2f</string>
     <string name="app_desc">JiShi would have been your best JLU school life assistant!</string>
+    <string name="new_version">New version found</string>
+    <string name="no_new_version">Your app is updated</string>
 </resources>

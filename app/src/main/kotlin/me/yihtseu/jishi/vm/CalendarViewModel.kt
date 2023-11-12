@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.model.campus.edu.LessonResult
 import me.yihtseu.jishi.model.campus.edu.TermResult
-import me.yihtseu.jishi.model.jishi.State
 import me.yihtseu.jishi.repo.EduRepository
 import me.yihtseu.jishi.utils.system.checkEvent
 import me.yihtseu.jishi.utils.system.insertEvent
@@ -84,7 +83,7 @@ class CalendarViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            State.Error(e.localizedMessage)
+            _state.update { it.copy(message = e.localizedMessage) }
         }
     }
 }
