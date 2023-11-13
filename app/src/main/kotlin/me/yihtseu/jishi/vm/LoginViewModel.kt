@@ -1,5 +1,6 @@
 package me.yihtseu.jishi.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,6 +49,7 @@ class LoginViewModel @Inject constructor(
         _state.update { it.copy(loading = true) }
         try {
             val result = casRepository.checkLogin(username, password)
+            Log.d("login", result.toString())
             if (result) {
                 DataStore.setString("jlu_username", username)
                 DataStore.setString("jlu_password", password)

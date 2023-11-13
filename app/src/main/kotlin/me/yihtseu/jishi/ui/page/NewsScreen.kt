@@ -2,8 +2,6 @@
 
 package me.yihtseu.jishi.ui.page
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
@@ -20,12 +18,14 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import me.yihtseu.jishi.R
+import me.yihtseu.jishi.model.jishi.PageState
 import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.card.NewsCard
 import me.yihtseu.jishi.ui.framework.BottomBar
 import me.yihtseu.jishi.ui.framework.Compact
 import me.yihtseu.jishi.ui.theme.typography
 import me.yihtseu.jishi.vm.NewsViewModel
+import org.jsoup.Jsoup
 
 @Composable
 fun NewsScreen(
@@ -76,14 +76,13 @@ fun NewsScreen(
                     NewsCard(
                         title = entry.title,
                         time = entry.updated,
-                        desc = entry.abstract,
+                        desc = Jsoup.parse(entry.abstract).text(),
                         image = entry.image
                     ) {
-                        val intent = Intent().apply {
-                            action = Intent.ACTION_VIEW
-                            data = Uri.parse(entry.link)
-                        }
-                        context.startActivity(intent)
+                        PageState.title = entry.title
+                        PageState.content = entry.content
+                        PageState.url = entry.link
+                        controller.navigate("detail")
                     }
                 }
             }

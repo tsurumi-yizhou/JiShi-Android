@@ -55,7 +55,7 @@ fun NewsCard(
                 )
                 desc?.let {
                     Text(
-                        text = it, maxLines = 2,
+                        text = it + "...", maxLines = 4,
                         style = typography.bodySmall,
                         modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding),
                     )
