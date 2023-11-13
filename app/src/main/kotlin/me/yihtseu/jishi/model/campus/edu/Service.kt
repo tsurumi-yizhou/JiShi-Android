@@ -1,7 +1,6 @@
 package me.yihtseu.jishi.model.campus.edu
 
 import kotlinx.serialization.Serializable
-import me.yihtseu.jishi.error.DataError
 
 @Serializable
 data class Service(
@@ -26,6 +25,6 @@ data class Service(
                 }
             }
         }
-        throw DataError()
+        throw Exception("Data Error")
     }
 }
