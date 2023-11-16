@@ -12,7 +12,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.card.EntryItem
 import me.yihtseu.jishi.ui.framework.BottomBar
@@ -27,7 +26,7 @@ fun HomeScreen(
         loading = false,
         message = null,
         bottom = {
-            BottomBar(Navigation.HomeScreen.id.toString(), controller)
+            BottomBar("home", controller)
         }
     ) {
         LazyColumn(
@@ -38,23 +37,23 @@ fun HomeScreen(
             item {
                 EntryCard(stringResource(R.string.study)) {
                     EntryItem(Icons.Outlined.CalendarViewWeek, stringResource(R.string.calendar)) {
-                        controller.navigate(Navigation.CalendarScreen.id.toString())
+                        controller.navigate("calendar")
                     }
                     EntryItem(Icons.Outlined.Score, stringResource(R.string.score)) {
-                        controller.navigate(Navigation.ScoreScreen.id.toString())
+                        controller.navigate("score")
                     }
                 }
                 EntryCard(stringResource(R.string.learn)) {
                     EntryItem(Icons.Outlined.AirlineSeatIndividualSuite, stringResource(R.string.classroom)) {
-                        controller.navigate(Navigation.ClassroomScreen.id.toString())
+                        controller.navigate("classrooms")
                     }
                     EntryItem(Icons.Outlined.Book, stringResource(R.string.library)) {
-                        controller.navigate(Navigation.LibraryScreen.id.toString())
+                        controller.navigate("library")
                     }
                 }
                 EntryCard(stringResource(R.string.life)) {
                     EntryItem(Icons.Outlined.QrCode, stringResource(R.string.qrcode)) {
-                        controller.navigate(Navigation.IdentifyScreen.id.toString())
+                        controller.navigate("qrcode")
                     }
                 }
             }

@@ -12,15 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.theme.typography
 
 @Composable
 fun BottomBar(id: String, controller: NavHostController) {
     BottomAppBar {
         NavigationBarItem(
-            selected = id == Navigation.HomeScreen.id.toString(),
-            alwaysShowLabel = id == Navigation.HomeScreen.id.toString(),
+            selected = id == "home",
+            alwaysShowLabel = id == "home",
             label = {
                 Text(text = stringResource(R.string.home), style = typography.labelSmall)
             },
@@ -28,16 +27,16 @@ fun BottomBar(id: String, controller: NavHostController) {
                 Icon(Icons.Outlined.Home, null)
             },
             onClick = {
-                if (id != Navigation.HomeScreen.id.toString()) {
-                    controller.navigate(Navigation.HomeScreen.id.toString()) {
+                if (id != "home") {
+                    controller.navigate("home") {
                         popUpTo(0)
                     }
                 }
             }
         )
         NavigationBarItem(
-            selected = id == Navigation.NewsScreen.id.toString(),
-            alwaysShowLabel = id == Navigation.NewsScreen.id.toString(),
+            selected = id == "news",
+            alwaysShowLabel = id == "news",
             label = {
                 Text(text = stringResource(R.string.news), style = typography.labelSmall)
             },
@@ -45,16 +44,16 @@ fun BottomBar(id: String, controller: NavHostController) {
                 Icon(Icons.Outlined.Newspaper, null)
             },
             onClick = {
-                if (id != Navigation.NewsScreen.id.toString()) {
-                    controller.navigate(Navigation.NewsScreen.id.toString()) {
+                if (id != "news") {
+                    controller.navigate("news") {
                         popUpTo(0)
                     }
                 }
             }
         )
         NavigationBarItem(
-            selected = id == Navigation.SettingScreen.id.toString(),
-            alwaysShowLabel = id == Navigation.SettingScreen.id.toString(),
+            selected = id == "setting",
+            alwaysShowLabel = id == "setting",
             label = {
                 Text(text = stringResource(R.string.setting), style = typography.labelSmall)
             },
@@ -62,8 +61,8 @@ fun BottomBar(id: String, controller: NavHostController) {
                 Icon(Icons.Outlined.Settings, null)
             },
             onClick = {
-                if (id != Navigation.SettingScreen.id.toString()) {
-                    controller.navigate(Navigation.SettingScreen.id.toString()) {
+                if (id != "setting") {
+                    controller.navigate("setting") {
                         popUpTo(0)
                     }
                 }
