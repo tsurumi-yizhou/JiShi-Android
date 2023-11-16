@@ -1,6 +1,7 @@
 package me.yihtseu.jishi.ui.framework
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -25,14 +26,21 @@ fun Html(element: Element, modifier: Modifier = Modifier) {
         "h2" -> Text(text = element.text(), style = typography.titleMedium, modifier = modifier)
         "h3" -> Text(text = element.text(), style = typography.titleSmall, modifier = modifier)
         "i" -> Text(text = element.text(), style = typography.bodyMedium, modifier = modifier)
-        "p" -> Text(text = element.text(), style = typography.bodyMedium, modifier = modifier)
-        "strong" -> Text(text = element.text(), style = typography.displayMedium, modifier = modifier)
+        "p" -> {
+            Text(text = element.text(), style = typography.bodyMedium, modifier = modifier)
+            element.children().forEach {
+                Html(it, modifier)
+            }
+        }
         "li" -> Text(text = element.text(), style = typography.labelSmall, modifier = modifier.clickable { })
         "img" -> {
             val url =
-                if (element.attributes()["src"].startsWith("http")) element.attributes()["src"] else "https://" + Uri.parse(
-                    PageState.url
-                ).host + element.attributes()["src"]
+                if (element.attributes()["src"].startsWith("http")) {
+                    element.attributes()["src"]
+                } else {
+                    "https://" + Uri.parse(PageState.url).host + element.attributes()["src"]
+                }
+            Log.d("image", url)
             AsyncImage(url, null, modifier)
         }
 
