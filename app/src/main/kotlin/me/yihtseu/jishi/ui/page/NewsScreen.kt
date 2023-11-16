@@ -26,7 +26,6 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.model.jishi.PageState
-import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.card.NewsCard
 import me.yihtseu.jishi.ui.framework.BottomBar
 import me.yihtseu.jishi.ui.framework.Compact
@@ -49,7 +48,7 @@ fun NewsScreen(
         loading = state.loading,
         message = state.message,
         bottom = {
-            BottomBar(Navigation.NewsScreen.id.toString(), controller)
+            BottomBar("news", controller)
         }
     ) {
         Column(
@@ -97,7 +96,7 @@ fun NewsScreen(
                                 PageState.title = entry.title
                                 PageState.content = entry.content
                                 PageState.url = entry.link
-                                controller.navigate("detail")
+                                controller.navigate("news_detail")
                             }
                         }
                     }

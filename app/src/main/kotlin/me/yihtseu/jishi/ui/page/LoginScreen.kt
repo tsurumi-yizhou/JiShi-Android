@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.box.LoadingBox
 import me.yihtseu.jishi.ui.component.box.LoginBox
 import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
@@ -63,7 +62,7 @@ fun LoginScreen(
 
     LaunchedEffect(state.success) {
         if (state.success) {
-            controller.navigate(Navigation.HomeScreen.id.toString()) {
+            controller.navigate("home") {
                 popUpTo(0)
             }
         }
