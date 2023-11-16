@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -41,23 +44,29 @@ fun IdentifyScreen(
         message = state.message,
         loading = state.loading
     ) {
-        item {
-            state.image?.let {
-                Column(
-                    modifier = Modifier.fillParentMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Image(
-                        bitmap = BitmapFactory.decodeByteArray(it, 0, it.size).asImageBitmap(),
-                        contentDescription = null,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(200.dp, 200.dp)
-                    )
-                    IconButton(
-                        onClick = { viewModel.load() }
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it).fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            item {
+                state.image?.let {
+                    Column(
+                        modifier = Modifier.fillParentMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Icon(Icons.Outlined.Refresh, null)
+                        Image(
+                            bitmap = BitmapFactory.decodeByteArray(it, 0, it.size).asImageBitmap(),
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier.size(200.dp, 200.dp)
+                        )
+                        IconButton(
+                            onClick = { viewModel.load() }
+                        ) {
+                            Icon(Icons.Outlined.Refresh, null)
+                        }
                     }
                 }
             }

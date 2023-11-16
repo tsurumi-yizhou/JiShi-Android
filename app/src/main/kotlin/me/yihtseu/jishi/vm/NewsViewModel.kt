@@ -36,21 +36,13 @@ class NewsViewModel @Inject constructor(
         _state.update { it.copy(loading = true) }
         try {
             val feeds = feedDao.queryAll()
-            val entries =
-                if (feeds.isNotEmpty()) Pager(
-                    config = PagingConfig(50, enablePlaceholders = false),
-                    remoteMediator = RssRemoteMediator(feeds.first(), entryDao)
-                ) {
-                    entryDao.queryByFeedId(feeds.first().id)
-                }.flow.cachedIn(viewModelScope) else null
-
-            _state.update { it.copy(loading = false, feeds = feeds, entries = entries) }
+            _state.update { it.copy(loading = false, feeds = feeds) }
         } catch (e: Exception) {
             _state.update { it.copy(loading = false, message = e.localizedMessage) }
         }
     }
 
-    fun load(feed: Feed) = viewModelScope.launch {
+    fun load(num: Int) = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
             _state.update {
@@ -58,9 +50,9 @@ class NewsViewModel @Inject constructor(
                     loading = false,
                     entries = Pager(
                         config = PagingConfig(50, enablePlaceholders = false),
-                        remoteMediator = RssRemoteMediator(feed, entryDao)
+                        remoteMediator = RssRemoteMediator(state.value.feeds[num], entryDao)
                     ) {
-                        entryDao.queryByFeedId(feed.id)
+                        entryDao.queryByFeedId(state.value.feeds[num].id)
                     }.flow.cachedIn(viewModelScope)
                 )
             }

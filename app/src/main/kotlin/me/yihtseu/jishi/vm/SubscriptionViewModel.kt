@@ -1,7 +1,6 @@
 package me.yihtseu.jishi.vm
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.ktx.Firebase
@@ -39,21 +38,21 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     fun add(link: String) = viewModelScope.launch {
+        val url = if (link.startsWith("http")) link else "https://" + link
         _state.update { it.copy(loading = true) }
         try {
-            val channel = parser.getRssChannel(link)
+            val channel = parser.getRssChannel(url)
             val feed = Feed(
                 title = channel.title.orEmpty(),
                 subtitle = channel.description.orEmpty(),
-                link = link,
-                id = link,
+                link = url,
+                id = url,
                 updated = System.currentTimeMillis()
             )
             val topic = feed.link
                 .removePrefix("https://")
                 .filter { it.isLetterOrDigit() }
                 .substring(0, 10)
-            Log.d("topic", topic)
             Firebase.messaging.subscribeToTopic(topic)
                 .addOnSuccessListener {
                     feedDao.insert(feed)
