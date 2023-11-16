@@ -2,8 +2,13 @@ package me.yihtseu.jishi.ui.framework
 
 import android.net.Uri
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ListAlt
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,15 +37,23 @@ fun Html(element: Element, modifier: Modifier = Modifier) {
         }
 
         "ol" -> element.children().forEachIndexed { index, element ->
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
                 Text(text = "${index + 1}. ", style = typography.bodySmall, modifier = modifier)
                 Html(element, modifier)
             }
         }
 
         "ul" -> element.children().forEach { element ->
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "·", style = typography.bodySmall, modifier = modifier)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Icon(Icons.Outlined.ListAlt, null)
                 Html(element, modifier)
             }
         }

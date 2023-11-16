@@ -4,9 +4,9 @@ package me.yihtseu.jishi.ui.framework
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ExpandLess
@@ -15,10 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
@@ -35,7 +34,7 @@ fun Compact(
     message: String?,
     action: Uri? = null,
     loading: Boolean,
-    content: LazyListScope.() -> Unit
+    content: @Composable (NestedScrollConnection) -> Unit
 ) {
     val context = LocalContext.current
     val host = remember { SnackbarHostState() }
@@ -95,16 +94,12 @@ fun Compact(
                     .fillMaxSize()
             )
         } else {
-            LazyColumn(
-                contentPadding = paddingValues,
-                modifier = Modifier.nestedScroll(behavior.nestedScrollConnection),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top,
+            Surface(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize()
             ) {
-                content()
-                item {
-                    Spacer(modifier = Modifier)
-                }
+                content(behavior.nestedScrollConnection)
             }
         }
         if (drawer != null && show.value) {
