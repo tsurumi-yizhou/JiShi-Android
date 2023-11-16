@@ -1,9 +1,9 @@
 package me.yihtseu.jishi
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,8 +13,7 @@ import com.drake.net.cookie.PersistentCookieJar
 import com.drake.net.okhttp.setConverter
 import dagger.hilt.android.AndroidEntryPoint
 import me.yihtseu.jishi.model.jishi.DataStore
-import me.yihtseu.jishi.ui.Navigation
-import me.yihtseu.jishi.ui.page.*
+import me.yihtseu.jishi.ui.page.pages
 import me.yihtseu.jishi.ui.theme.AppTheme
 import me.yihtseu.jishi.utils.network.JsonConverter
 import java.util.concurrent.TimeUnit
@@ -27,6 +26,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         DataStore.initialize(application)
 
@@ -41,58 +41,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             controller = rememberNavController()
             AppTheme {
-                NavHost(controller, startDestination = Navigation.LoginScreen.id.toString()) {
-                    composable(Navigation.LoginScreen.id.toString()) {
-                        LoginScreen(controller)
-                    }
-                    composable(Navigation.HomeScreen.id.toString()) {
-                        HomeScreen(controller)
-                    }
-                    composable(Navigation.NewsScreen.id.toString()) {
-                        NewsScreen(controller)
-                    }
-                    composable(Navigation.SettingScreen.id.toString()) {
-                        SettingScreen(controller)
-                    }
-                    composable(Navigation.IdentifyScreen.id.toString()) {
-                        IdentifyScreen(controller)
-                    }
-                    composable(Navigation.CalendarScreen.id.toString()) {
-                        CalendarScreen(controller)
-                    }
-                    composable(Navigation.LibraryScreen.id.toString()) {
-                        LibraryScreen(controller)
-                    }
-                    composable(Navigation.ClassroomScreen.id.toString()) {
-                        ClassroomScreen(controller)
-                    }
-                    composable(Navigation.ScoreScreen.id.toString()) {
-                        ScoreScreen(controller)
-                    }
-                    composable(Navigation.CampusEmailScreen.id.toString()) {
-                        CampusEmailScreen(controller)
-                    }
-                    composable(Navigation.CampusCardScreen.id.toString()) {
-                        CampusCardScreen(controller)
-                    }
-                    composable(Navigation.AboutScreen.id.toString()) {
-                        AboutScreen(controller)
-                    }
-                    composable(Navigation.SubscriptionScreen.id.toString()) {
-                        SubscriptionScreen(controller)
-                    }
-                    composable(Navigation.LicenseScreen.id.toString()) {
-                        LicenseScreen(controller)
-                    }
-                    composable("detail") {
-                        NewsDetailScreen(controller)
+                NavHost(controller, startDestination = "login") {
+                    pages.forEach { (id, page) ->
+                        composable(route = id) {
+                            page.show(controller)
+                        }
                     }
                 }
             }
         }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
     }
 }

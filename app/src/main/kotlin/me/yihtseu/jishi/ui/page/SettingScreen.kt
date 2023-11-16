@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.ui.Navigation
 import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.card.EntryItem
 import me.yihtseu.jishi.ui.framework.BottomBar
@@ -35,7 +34,7 @@ fun SettingScreen(
         message = state.message,
         action = state.url,
         bottom = {
-            BottomBar(Navigation.SettingScreen.id.toString(), controller)
+            BottomBar("setting", controller)
         }
     ) {
         LazyColumn(
@@ -46,27 +45,27 @@ fun SettingScreen(
             item {
                 EntryCard(stringResource(R.string.account)) {
                     EntryItem(Icons.Outlined.School, stringResource(R.string.campus_account)) {
-                        controller.navigate(Navigation.CampusEmailScreen.id.toString())
+                        controller.navigate("campus_email")
                     }
                     EntryItem(Icons.Outlined.CardGiftcard, stringResource(R.string.campus_card_account)) {
-                        controller.navigate(Navigation.CampusCardScreen.id.toString())
+                        controller.navigate("campus_card")
                     }
                 }
             }
             item {
                 EntryCard(stringResource(R.string.news)) {
                     EntryItem(Icons.Outlined.Subscriptions, stringResource(R.string.theme_subscription)) {
-                        controller.navigate(Navigation.SubscriptionScreen.id.toString())
+                        controller.navigate("subscription")
                     }
                 }
             }
             item {
                 EntryCard(stringResource(R.string.about)) {
                     EntryItem(Icons.Outlined.Info, stringResource(R.string.about_this_app)) {
-                        controller.navigate(Navigation.AboutScreen.id.toString())
+                        controller.navigate("about")
                     }
                     EntryItem(Icons.Outlined.Bookmark, stringResource(R.string.opensource_license)) {
-                        controller.navigate(Navigation.LicenseScreen.id.toString())
+                        controller.navigate("license")
                     }
                     EntryItem(Icons.Outlined.Update, stringResource(R.string.check_update)) {
                         viewModel.checkUpdate()
