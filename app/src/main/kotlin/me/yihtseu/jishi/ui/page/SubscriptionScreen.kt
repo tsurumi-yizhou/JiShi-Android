@@ -3,6 +3,7 @@
 package me.yihtseu.jishi.ui.page
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Delete
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -33,57 +35,63 @@ fun SubscriptionScreen(
         message = state.message,
         loading = state.loading,
     ) {
-        item {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                OutlinedTextField(
-                    value = link.value,
-                    onValueChange = {
-                        link.value = it
-                    },
-                    modifier = Modifier
-                        .padding(HorizontalCardPadding, VerticalCardPadding)
-                        .fillMaxWidth(),
-                    shape = shapes.extraSmall,
-                    singleLine = true,
-                    trailingIcon = {
-                        IconButton(
-                            onClick = {
-                                viewModel.add(link.value)
-                                link.value = ""
-                            }
-                        ) {
-                            Icon(Icons.Outlined.Add, null)
-                        }
-                    }
-                )
-                FlowRow(
-                    modifier = Modifier.fillMaxSize()
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            item {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    state.feeds.forEach {
-                        AssistChip(
-                            label = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceEvenly
-                                ) {
-                                    Text(text = it.title, style = typography.labelSmall)
-                                    IconButton(
-                                        onClick = {
-                                            viewModel.sub(it)
-                                        }
-                                    ) {
-                                        Icon(Icons.Outlined.Delete, null)
-                                    }
+                    OutlinedTextField(
+                        value = link.value,
+                        onValueChange = {
+                            link.value = it
+                        },
+                        modifier = Modifier
+                            .padding(HorizontalCardPadding, VerticalCardPadding)
+                            .fillMaxWidth(),
+                        shape = shapes.extraSmall,
+                        singleLine = true,
+                        trailingIcon = {
+                            IconButton(
+                                onClick = {
+                                    viewModel.add(link.value)
+                                    link.value = ""
                                 }
-                            },
-                            onClick = {},
-                            enabled = true,
-                            modifier = Modifier.padding(HorizontalCardPadding, VerticalChipPadding)
-                        )
+                            ) {
+                                Icon(Icons.Outlined.Add, null)
+                            }
+                        }
+                    )
+                    FlowRow(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        state.feeds.forEach {
+                            AssistChip(
+                                label = {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.SpaceEvenly
+                                    ) {
+                                        Text(text = it.title, style = typography.labelSmall)
+                                        IconButton(
+                                            onClick = {
+                                                viewModel.sub(it)
+                                            }
+                                        ) {
+                                            Icon(Icons.Outlined.Delete, null)
+                                        }
+                                    }
+                                },
+                                onClick = {},
+                                enabled = true,
+                                modifier = Modifier.padding(HorizontalCardPadding, VerticalChipPadding)
+                            )
+                        }
                     }
                 }
             }

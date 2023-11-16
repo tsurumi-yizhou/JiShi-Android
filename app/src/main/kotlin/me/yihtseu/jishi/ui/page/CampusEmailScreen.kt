@@ -5,6 +5,7 @@ package me.yihtseu.jishi.ui.page
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -42,54 +44,60 @@ fun CampusEmailScreen(
         message = state.message,
         loading = state.loading
     ) {
-        item {
-            ElevatedCard(
-                modifier = Modifier.padding(HorizontalCardPadding, VerticalCardPadding).fillMaxWidth(),
-                shape = shapes.small
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            item {
+                ElevatedCard(
+                    modifier = Modifier.padding(HorizontalCardPadding, VerticalCardPadding).fillMaxWidth(),
+                    shape = shapes.small
                 ) {
-
-                    state.avatar?.let {
-                        Image(
-                            BitmapFactory.decodeByteArray(it, 0, it.size).asImageBitmap(),
-                            null,
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier.size(156.dp, 200.dp).padding(InnerCardPadding)
-                        )
-                    }
-
-                    state.profile?.let {
-
-                        Text(
-                            text = it.name, style = typography.labelLarge,
-                            modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
-                        )
-
-                        Text(
-                            text = it.number, style = typography.bodyMedium,
-                            modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
-                        )
-
-                        Text(
-                            text = it.school, style = typography.bodyMedium,
-                            modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
-                        )
-                    }
-
-                    OutlinedButton(
-                        modifier = Modifier
-                            .padding(HorizontalCardPadding, VerticalCardPadding)
-                            .fillMaxWidth(),
-                        onClick = {
-                            viewModel.exit()
-                            (context as MainActivity).finish()
-                        }
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        Text(text = stringResource(R.string.exit))
+
+                        state.avatar?.let {
+                            Image(
+                                BitmapFactory.decodeByteArray(it, 0, it.size).asImageBitmap(),
+                                null,
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier.size(156.dp, 200.dp).padding(InnerCardPadding)
+                            )
+                        }
+
+                        state.profile?.let {
+
+                            Text(
+                                text = it.name, style = typography.labelLarge,
+                                modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+                            )
+
+                            Text(
+                                text = it.number, style = typography.bodyMedium,
+                                modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+                            )
+
+                            Text(
+                                text = it.school, style = typography.bodyMedium,
+                                modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+                            )
+                        }
+
+                        OutlinedButton(
+                            modifier = Modifier
+                                .padding(HorizontalCardPadding, VerticalCardPadding)
+                                .fillMaxWidth(),
+                            onClick = {
+                                viewModel.exit()
+                                (context as MainActivity).finish()
+                            }
+                        ) {
+                            Text(text = stringResource(R.string.exit))
+                        }
                     }
                 }
             }

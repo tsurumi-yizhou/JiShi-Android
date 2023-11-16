@@ -1,10 +1,14 @@
 package me.yihtseu.jishi.ui.page
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.ui.framework.Compact
@@ -28,9 +32,15 @@ fun NewsDetailScreen(
         loading = false,
         message = null
     ) {
-        Jsoup.parse(state.content).body().children().forEach {
-            item {
-                Html(it, modifier = Modifier.padding(HorizontalTextPadding, VerticalCardPadding))
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Jsoup.parse(state.content).body().children().forEach {
+                item {
+                    Html(it, modifier = Modifier.padding(HorizontalTextPadding, VerticalCardPadding))
+                }
             }
         }
     }

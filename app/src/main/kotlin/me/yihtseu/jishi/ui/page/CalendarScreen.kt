@@ -2,12 +2,17 @@
 
 package me.yihtseu.jishi.ui.page
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -50,23 +55,29 @@ fun CalendarScreen(
         loading = state.loading,
         message = state.message
     ) {
-        item {
-            state.term?.let {
-                InfoCard(
-                    text = stringResource(R.string.week_past).format(weeksPast(it.startDate)),
-                    button = stringResource(R.string.reload),
-                    onClick = { viewModel.init() }
-                )
-            }
-        }
-        state.lessons.forEach { lesson ->
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
             item {
-                LessonCard(
-                    name = lesson.lessonName,
-                    teacher = lesson.teacherName.orEmpty(),
-                    place = lesson.classroomName.orEmpty(),
-                    time = lesson.startLessonNum.toString()
-                ) {
+                state.term?.let {
+                    InfoCard(
+                        text = stringResource(R.string.week_past).format(weeksPast(it.startDate)),
+                        button = stringResource(R.string.reload),
+                        onClick = { viewModel.init() }
+                    )
+                }
+            }
+            state.lessons.forEach { lesson ->
+                item {
+                    LessonCard(
+                        name = lesson.lessonName,
+                        teacher = lesson.teacherName.orEmpty(),
+                        place = lesson.classroomName.orEmpty(),
+                        time = lesson.startLessonNum.toString()
+                    ) {
+                    }
                 }
             }
         }

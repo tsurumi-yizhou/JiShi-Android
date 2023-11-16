@@ -2,12 +2,17 @@
 
 package me.yihtseu.jishi.ui.page
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -29,13 +34,19 @@ fun ScoreScreen(
         message = state.message,
         loading = state.loading
     ) {
-        items(state.subjects) { subject ->
-            ScoreChip(
-                name = subject.name,
-                type = subject.type,
-                checked = state.selected.contains(subject.name)
-            ) {
-                viewModel.select(it, subject.name)
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            items(state.subjects) { subject ->
+                ScoreChip(
+                    name = subject.name,
+                    type = subject.type,
+                    checked = state.selected.contains(subject.name)
+                ) {
+                    viewModel.select(it, subject.name)
+                }
             }
         }
     }

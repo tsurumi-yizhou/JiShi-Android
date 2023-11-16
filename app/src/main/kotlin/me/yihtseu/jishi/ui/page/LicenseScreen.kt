@@ -4,10 +4,15 @@ package me.yihtseu.jishi.ui.page
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
@@ -28,28 +33,34 @@ fun LicenseScreen(
         loading = false,
         controller = controller
     ) {
-        item {
-            EntryCard(stringResource(R.string.opensource_license)) {
-                EntryItem(Icons.Outlined.Bookmark, "MPL 2.0") {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse("https://www.mozilla.org/en-US/MPL/2.0/")
+        LazyColumn(
+            modifier = Modifier.nestedScroll(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            item {
+                EntryCard(stringResource(R.string.opensource_license)) {
+                    EntryItem(Icons.Outlined.Bookmark, "MPL 2.0") {
+                        val intent = Intent().apply {
+                            action = Intent.ACTION_VIEW
+                            data = Uri.parse("https://www.mozilla.org/en-US/MPL/2.0/")
+                        }
+                        context.startActivity(intent)
                     }
-                    context.startActivity(intent)
-                }
-                EntryItem(Icons.Outlined.Bookmark, "BSD 3.0") {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse("https://opensource.org/license/bsd-3-clause/")
+                    EntryItem(Icons.Outlined.Bookmark, "BSD 3.0") {
+                        val intent = Intent().apply {
+                            action = Intent.ACTION_VIEW
+                            data = Uri.parse("https://opensource.org/license/bsd-3-clause/")
+                        }
+                        context.startActivity(intent)
                     }
-                    context.startActivity(intent)
-                }
-                EntryItem(Icons.Outlined.Bookmark, "Apache 2.0") {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse("https://www.apache.org/licenses/LICENSE-2.0")
+                    EntryItem(Icons.Outlined.Bookmark, "Apache 2.0") {
+                        val intent = Intent().apply {
+                            action = Intent.ACTION_VIEW
+                            data = Uri.parse("https://www.apache.org/licenses/LICENSE-2.0")
+                        }
+                        context.startActivity(intent)
                     }
-                    context.startActivity(intent)
                 }
             }
         }
