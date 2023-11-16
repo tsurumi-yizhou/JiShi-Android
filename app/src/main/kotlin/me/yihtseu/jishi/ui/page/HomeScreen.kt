@@ -1,7 +1,7 @@
 package me.yihtseu.jishi.ui.page
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -31,7 +31,7 @@ fun HomeScreen(
         }
     ) {
         LazyColumn(
-            modifier = Modifier.nestedScroll(it).fillMaxSize(),
+            modifier = Modifier.nestedScroll(it).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {

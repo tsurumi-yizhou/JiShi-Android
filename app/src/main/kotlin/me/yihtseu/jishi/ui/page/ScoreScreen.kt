@@ -3,6 +3,7 @@
 package me.yihtseu.jishi.ui.page
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,7 +36,7 @@ fun ScoreScreen(
         loading = state.loading
     ) {
         LazyColumn(
-            modifier = Modifier.nestedScroll(it),
+            modifier = Modifier.nestedScroll(it).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {

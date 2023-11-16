@@ -60,12 +60,11 @@ fun AboutScreen(
         message = null
     ) {
         LazyColumn(
-            modifier = Modifier.nestedScroll(it),
+            modifier = Modifier.nestedScroll(it).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
             item {
-                // Project Homepage
                 OutlinedCard(
                     modifier = Modifier
                         .padding(HorizontalCardPadding, VerticalCardPadding)

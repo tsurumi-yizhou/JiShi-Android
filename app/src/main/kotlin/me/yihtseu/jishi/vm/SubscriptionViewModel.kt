@@ -37,14 +37,15 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     fun add(link: String) = viewModelScope.launch {
+        val url = if (link.startsWith("http")) link else "https://" + link
         _state.update { it.copy(loading = true) }
         try {
-            val channel = parser.getRssChannel(link)
+            val channel = parser.getRssChannel(url)
             val feed = Feed(
                 title = channel.title.orEmpty(),
                 subtitle = channel.description.orEmpty(),
-                link = link,
-                id = link,
+                link = url,
+                id = url,
                 updated = System.currentTimeMillis()
             )
             val topic = feed.link

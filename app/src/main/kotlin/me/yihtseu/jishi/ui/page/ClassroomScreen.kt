@@ -55,7 +55,7 @@ fun ClassroomScreen(
         }
     ) {
         LazyColumn(
-            modifier = Modifier.nestedScroll(it),
+            modifier = Modifier.nestedScroll(it).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
