@@ -7,7 +7,6 @@ import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ExpandLess
@@ -42,7 +41,6 @@ fun Compact(
     val host = remember { SnackbarHostState() }
     val show = remember { mutableStateOf(true) }
     val behavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-    val listState = rememberLazyListState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -98,7 +96,6 @@ fun Compact(
             )
         } else {
             LazyColumn(
-                state = listState,
                 contentPadding = paddingValues,
                 modifier = Modifier.nestedScroll(behavior.nestedScrollConnection),
                 horizontalAlignment = Alignment.CenterHorizontally,
