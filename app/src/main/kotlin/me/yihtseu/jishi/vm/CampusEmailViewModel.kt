@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import me.yihtseu.jishi.base.DataStore
 import me.yihtseu.jishi.model.campus.space.StudentInfo
-import me.yihtseu.jishi.model.jishi.DataStore
 import me.yihtseu.jishi.repo.CasRepository
 import javax.inject.Inject
 

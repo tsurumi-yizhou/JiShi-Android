@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.compose.AsyncImage
-import me.yihtseu.jishi.model.jishi.PageState
+import me.yihtseu.jishi.base.PageState
 import me.yihtseu.jishi.ui.theme.typography
 import org.jsoup.nodes.Element
 

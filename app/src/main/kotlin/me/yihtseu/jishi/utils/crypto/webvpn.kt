@@ -1,5 +1,6 @@
 package me.yihtseu.jishi.utils.crypto
 
+import android.net.Uri
 import java.net.URL
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
@@ -28,6 +29,6 @@ fun encryptUrl(baseUrl: String): String {
     return "https://vpn.jlu.edu.cn/$protocol/44696469646131313237446964696461$encryptedHost$path"
 }
 
-fun encryptUrl(status: Boolean, baseUrl: String): String {
-    return if (status) baseUrl else encryptUrl(baseUrl)
+fun encrypt(uri: Uri): String {
+    return encryptUrl(uri.host!!) + uri.path + "?" + uri.query
 }

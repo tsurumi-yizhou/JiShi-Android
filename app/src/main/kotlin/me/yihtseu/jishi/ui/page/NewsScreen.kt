@@ -25,7 +25,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.model.jishi.PageState
+import me.yihtseu.jishi.base.PageState
 import me.yihtseu.jishi.ui.component.card.NewsCard
 import me.yihtseu.jishi.ui.framework.BottomBar
 import me.yihtseu.jishi.ui.framework.Compact
