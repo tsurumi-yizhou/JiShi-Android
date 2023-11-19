@@ -1,4 +1,4 @@
-package me.yihtseu.jishi.model.jishi
+package me.yihtseu.jishi.base
 
 import android.app.Application
 import android.content.Context
