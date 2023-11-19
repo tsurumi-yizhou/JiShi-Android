@@ -12,7 +12,7 @@ import com.drake.net.NetConfig
 import com.drake.net.cookie.PersistentCookieJar
 import com.drake.net.okhttp.setConverter
 import dagger.hilt.android.AndroidEntryPoint
-import me.yihtseu.jishi.model.jishi.DataStore
+import me.yihtseu.jishi.base.DataStore
 import me.yihtseu.jishi.ui.page.pages
 import me.yihtseu.jishi.ui.theme.AppTheme
 import me.yihtseu.jishi.utils.network.JsonConverter
@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
 
         NetConfig.initialize {
             connectTimeout(10, TimeUnit.SECONDS)
-            readTimeout(30, TimeUnit.SECONDS)
-            writeTimeout(30, TimeUnit.SECONDS)
+            readTimeout(10, TimeUnit.SECONDS)
+            writeTimeout(10, TimeUnit.SECONDS)
             cookieJar(PersistentCookieJar(applicationContext))
             setConverter(JsonConverter())
         }

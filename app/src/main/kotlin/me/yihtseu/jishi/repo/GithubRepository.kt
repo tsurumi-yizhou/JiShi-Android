@@ -1,16 +1,16 @@
 package me.yihtseu.jishi.repo
 
-import com.drake.net.Get
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
+import me.yihtseu.jishi.base.Client
+import me.yihtseu.jishi.base.Endpoint
 import me.yihtseu.jishi.model.github.Contributor
-import me.yihtseu.jishi.model.github.Release
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class GithubRepository @Inject constructor(
-
+    val client: Client
 ) {
     private val json = Json {
         isLenient = true
@@ -21,23 +21,16 @@ class GithubRepository @Inject constructor(
     }
 
     suspend fun fetchContributors(): List<Contributor> = coroutineScope {
-        return@coroutineScope json.decodeFromString<List<Contributor>>(Get<String>(
-            "https://api.github.com/repos/tsurumi-yizhou/JiShi-Android/contributors"
-        ) {
-            addHeader("X-GitHub-Api-Version", "2022-11-28")
-            addHeader("Accept", "application/vnd.github+json")
-        }.await()
-        )
+        return@coroutineScope json.decodeFromString<List<Contributor>>(client.get(contributor).await())
     }
 
-    suspend fun fetchLatestRelease(channel: String): Release = coroutineScope {
-        val releases = json.decodeFromString<List<Release>>(Get<String>(
-            "https://api.github.com/repos/tsurumi-yizhou/JiShi-Android/releases"
-        ) {
-            addHeader("X-GitHub-Api-Version", "2022-11-28")
-            addHeader("Accept", "application/vnd.github+json")
-        }.await()
+    companion object {
+        val contributor = Endpoint(
+            url = "https://api.github.com/repos/tsurumi-yizhou/JiShi-Android/contributors",
+            headers = mapOf(
+                "Accept" to "application/vnd.github+json",
+                "X-GitHub-Api-Version" to "2022-11-28"
+            )
         )
-        return@coroutineScope releases.last { it.tagName == channel }
     }
 }
