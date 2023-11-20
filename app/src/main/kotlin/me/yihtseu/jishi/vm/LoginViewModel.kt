@@ -31,8 +31,8 @@ class LoginViewModel @Inject constructor(
     fun preLogin() = viewModelScope.launch {
         _state.update { it.copy(loading = true) }
         try {
-            val username = DataStore.getString("jlu_username")?.first()
-            val password = DataStore.getString("jlu_password")?.first()
+            val username = DataStore.getString(usernameKey)?.first()
+            val password = DataStore.getString(passwordKey)?.first()
             _state.update {
                 it.copy(loading = false, username = username, password = password)
             }
@@ -49,8 +49,8 @@ class LoginViewModel @Inject constructor(
         try {
             val result = casRepository.checkLogin(username, password)
             if (result) {
-                DataStore.setString("jlu_username", username)
-                DataStore.setString("jlu_password", password)
+                DataStore.setString(usernameKey, username)
+                DataStore.setString(passwordKey, password)
                 _state.update {
                     it.copy(loading = true, success = true)
                 }
@@ -62,5 +62,10 @@ class LoginViewModel @Inject constructor(
         } catch (e: Exception) {
             _state.update { it.copy(loading = false, success = false, message = e.localizedMessage) }
         }
+    }
+
+    companion object {
+        val usernameKey = "jlu_username"
+        val passwordKey = "jlu_password"
     }
 }

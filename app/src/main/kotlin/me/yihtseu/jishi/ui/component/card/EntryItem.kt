@@ -110,6 +110,7 @@ fun EntryItem(icon: Uri, title: String, detail: String, onClick: () -> Unit) {
 fun EntryInput(
     icon: ImageVector,
     title: String,
+    detail: String? = null,
     value: String,
     keyboardType: KeyboardType = KeyboardType.Number,
     onValueChanged: (String) -> Unit
@@ -123,11 +124,24 @@ fun EntryInput(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(icon, null, modifier = Modifier.padding(start = InnerCardPadding))
-            Text(
-                text = title,
-                modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding),
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Column(
+                modifier = Modifier.padding(vertical = InnerCardPadding),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = title,
+                    modifier = Modifier.padding(horizontal = HorizontalTextPadding),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                detail?.let { detail ->
+                    Text(
+                        text = detail,
+                        modifier = Modifier.padding(horizontal = HorizontalTextPadding),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
         }
         OutlinedTextField(
             value = value,
@@ -138,7 +152,7 @@ fun EntryInput(
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
-            textStyle = MaterialTheme.typography.bodyMedium
+            textStyle = MaterialTheme.typography.bodySmall
         )
     }
 }

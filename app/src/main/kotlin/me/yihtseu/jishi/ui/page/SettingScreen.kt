@@ -1,6 +1,7 @@
 package me.yihtseu.jishi.ui.page
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -14,10 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.component.card.EntryCard
+import me.yihtseu.jishi.ui.component.card.EntryInput
 import me.yihtseu.jishi.ui.component.card.EntryItem
 import me.yihtseu.jishi.ui.framework.BottomBar
 import me.yihtseu.jishi.ui.framework.Compact
@@ -56,34 +59,49 @@ fun SettingScreen(
             }
             item {
                 EntryCard(stringResource(R.string.network)) {
-                    val showDropdownMenu = remember { mutableStateOf(false) }
-                    EntryItem(Icons.Outlined.NetworkPing, stringResource(R.string.heartbeat)) {
-                        showDropdownMenu.value = !showDropdownMenu.value
+                    Box {
+                        val showDropdownMenu = remember { mutableStateOf(false) }
+                        EntryItem(Icons.Outlined.NetworkPing, stringResource(R.string.heartbeat)) {
+                            showDropdownMenu.value = !showDropdownMenu.value
+                        }
+                        DropdownMenu(
+                            expanded = showDropdownMenu.value,
+                            onDismissRequest = { showDropdownMenu.value = false },
+                        ) {
+                            DropdownMenuItem(text = {
+                                Text(text = "10s", style = MaterialTheme.typography.bodyMedium)
+                            }, onClick = {
+                                viewModel.setHeartbeat(10)
+                                showDropdownMenu.value = false
+                            })
+                            DropdownMenuItem(text = {
+                                Text(text = "15s", style = MaterialTheme.typography.bodyMedium)
+                            }, onClick = {
+                                viewModel.setHeartbeat(15)
+                                showDropdownMenu.value = false
+                            })
+                            DropdownMenuItem(text = {
+                                Text(text = "30s", style = MaterialTheme.typography.bodyMedium)
+                            }, onClick = {
+                                viewModel.setHeartbeat(30)
+                                showDropdownMenu.value = false
+                            })
+                        }
                     }
-                    DropdownMenu(
-                        expanded = showDropdownMenu.value,
-                        onDismissRequest = { showDropdownMenu.value = false },
+                    val timeout = remember { mutableStateOf(state.timeout.toString()) }
+                    EntryInput(
+                        Icons.Outlined.NetworkCheck,
+                        stringResource(R.string.timeout),
+                        stringResource(R.string.timeout_desc),
+                        timeout.value
                     ) {
-                        DropdownMenuItem(text = {
-                            Text(text = "10s", style = MaterialTheme.typography.bodyMedium)
-                        }, onClick = {
-                            viewModel.setHeartbeat(10)
-                            showDropdownMenu.value = false
-                        })
-                        DropdownMenuItem(text = {
-                            Text(text = "15s", style = MaterialTheme.typography.bodyMedium)
-                        }, onClick = {
-                            viewModel.setHeartbeat(15)
-                            showDropdownMenu.value = false
-                        })
-                        DropdownMenuItem(text = {
-                            Text(text = "30s", style = MaterialTheme.typography.bodyMedium)
-                        }, onClick = {
-                            viewModel.setHeartbeat(30)
-                            showDropdownMenu.value = false
-                        })
+                        if (it.isDigitsOnly() && it.isNotBlank()) {
+                            timeout.value = it
+                            viewModel.setTimeout(it.toLong())
+                        }
                     }
                 }
+
             }
             item {
                 EntryCard(stringResource(R.string.news)) {

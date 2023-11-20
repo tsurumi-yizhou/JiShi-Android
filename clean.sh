@@ -1,0 +1,1 @@
+rm -rf .gradle build gradle *.apk metadata.json app/build .idea
