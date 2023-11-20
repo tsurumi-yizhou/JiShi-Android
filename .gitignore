@@ -15,3 +15,5 @@ gradle/
 .cxx
 local.properties
 /.idea/
+*.apk
+metadata.json

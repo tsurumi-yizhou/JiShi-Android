@@ -15,13 +15,15 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.BuildConfig
 import me.yihtseu.jishi.R
+import me.yihtseu.jishi.base.DataStore
 import me.yihtseu.jishi.model.jishi.Version
 import me.yihtseu.jishi.utils.time.parse
 import javax.inject.Inject
 
 data class SettingState(
     val message: String? = null,
-    val url: Uri? = null
+    val url: Uri? = null,
+    val heartbeat: Long = 0
 )
 
 @HiltViewModel
@@ -30,6 +32,14 @@ class SettingViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingState())
     val state = _state.asStateFlow()
+
+    fun setHeartbeat(heartbeat: Long) = viewModelScope.launch {
+        try {
+            DataStore.setNumber("heartbeat", heartbeat)
+        } catch (e: Exception) {
+            _state.update { it.copy(message = e.localizedMessage) }
+        }
+    }
 
     fun checkUpdate() = viewModelScope.launch {
         try {
@@ -53,6 +63,14 @@ class SettingViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             _state.update { it.copy(message = e.localizedMessage) }
+        }
+    }
+
+    fun init() = viewModelScope.launch {
+        DataStore.getNumber("heartbeat")?.collect {
+            it?.let { duration ->
+                _state.update { it.copy(heartbeat = duration) }
+            }
         }
     }
 }

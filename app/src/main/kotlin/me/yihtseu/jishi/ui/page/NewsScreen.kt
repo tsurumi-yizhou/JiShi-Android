@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -29,7 +30,6 @@ import me.yihtseu.jishi.base.PageState
 import me.yihtseu.jishi.ui.component.card.NewsCard
 import me.yihtseu.jishi.ui.framework.BottomBar
 import me.yihtseu.jishi.ui.framework.Compact
-import me.yihtseu.jishi.ui.theme.typography
 import me.yihtseu.jishi.vm.NewsViewModel
 import org.jsoup.Jsoup
 
@@ -71,7 +71,7 @@ fun NewsScreen(
                                 }
                             },
                             text = {
-                                Text(text = feed.title, style = typography.labelSmall)
+                                Text(text = feed.title, style = MaterialTheme.typography.labelSmall)
                             }
                         )
                     }

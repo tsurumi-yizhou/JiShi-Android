@@ -20,9 +20,9 @@ class Proxy @Inject constructor() {
     var hasLoginVpn: Boolean = false
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(1, TimeUnit.SECONDS)
-        .readTimeout(1, TimeUnit.SECONDS)
-        .writeTimeout(1, TimeUnit.SECONDS)
+        .connectTimeout(timeout, TimeUnit.SECONDS)
+        .readTimeout(timeout, TimeUnit.SECONDS)
+        .writeTimeout(timeout, TimeUnit.SECONDS)
         .retryOnConnectionFailure(false)
         .build()
 
@@ -30,23 +30,29 @@ class Proxy @Inject constructor() {
         Thread {
             while (true) {
                 runBlocking {
-                    try {
-                        Get<String>(testUrl).await()
-                        shouldUseVpn = false
-                    } catch (e: NetSocketTimeoutException) {
-                        shouldUseVpn = true
-                    } finally {
-                        if (shouldUseVpn && !hasLoginVpn) {
-                            login(
-                                DataStore.getString("jlu_username")?.first()!!,
-                                DataStore.getString("jlu_password")?.first()!!
-                            )
-                        }
-                    }
-                    delay(retryTime * 60 * 1000)
+                    check()
+                    delay(1000 * (DataStore.getNumber("heartbeat")?.first() ?: heartbeat))
                 }
             }
         }.start()
+    }
+
+    suspend fun check() = coroutineScope {
+        try {
+            Get<String>(testUrl).await()
+            shouldUseVpn = false
+        } catch (e: NetSocketTimeoutException) {
+            shouldUseVpn = true
+        } catch (e: Exception) {
+
+        } finally {
+            if (shouldUseVpn && !hasLoginVpn) {
+                login(
+                    DataStore.getString("jlu_username")?.first()!!,
+                    DataStore.getString("jlu_password")?.first()!!
+                )
+            }
+        }
     }
 
     suspend fun login(username: String, password: String): Boolean = coroutineScope {
@@ -66,7 +72,8 @@ class Proxy @Inject constructor() {
     }
 
     companion object {
-        val retryTime = 5L
+        val heartbeat = 15L
+        val timeout = 10L
         val testUrl = "https://ip.jlu.edu.cn"
         val preLoginUrl = "https://vpn.jlu.edu.cn/login"
         val loginUrl = "https://vpn.jlu.edu.cn/do-login"

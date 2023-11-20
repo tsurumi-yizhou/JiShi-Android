@@ -14,4 +14,5 @@
     <string name="campus_account">JLU Email</string>
     <string name="campus_card_account">Campus Card</string>
     <string name="news_detail">News Detail</string>
+    <string name="exam_info">Exam Info</string>
 </resources>

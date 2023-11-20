@@ -22,5 +22,6 @@ val pages = mapOf(
     "about" to Page(R.string.about) { AboutScreen(it) },
     "subscription" to Page(R.string.theme_subscription) { SubscriptionScreen(it) },
     "license" to Page(R.string.opensource_license) { LicenseScreen(it) },
-    "news_detail" to Page(R.string.news_detail) { NewsDetailScreen(it) }
+    "news_detail" to Page(R.string.news_detail) { NewsDetailScreen(it) },
+    "exam" to Page(R.string.exam_info) { ExamScreen(it) }
 )

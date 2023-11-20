@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -53,6 +55,37 @@ fun SettingScreen(
                 }
             }
             item {
+                EntryCard(stringResource(R.string.network)) {
+                    val showDropdownMenu = remember { mutableStateOf(false) }
+                    EntryItem(Icons.Outlined.NetworkPing, stringResource(R.string.heartbeat)) {
+                        showDropdownMenu.value = !showDropdownMenu.value
+                    }
+                    DropdownMenu(
+                        expanded = showDropdownMenu.value,
+                        onDismissRequest = { showDropdownMenu.value = false },
+                    ) {
+                        DropdownMenuItem(text = {
+                            Text(text = "10s", style = MaterialTheme.typography.bodyMedium)
+                        }, onClick = {
+                            viewModel.setHeartbeat(10)
+                            showDropdownMenu.value = false
+                        })
+                        DropdownMenuItem(text = {
+                            Text(text = "15s", style = MaterialTheme.typography.bodyMedium)
+                        }, onClick = {
+                            viewModel.setHeartbeat(15)
+                            showDropdownMenu.value = false
+                        })
+                        DropdownMenuItem(text = {
+                            Text(text = "30s", style = MaterialTheme.typography.bodyMedium)
+                        }, onClick = {
+                            viewModel.setHeartbeat(30)
+                            showDropdownMenu.value = false
+                        })
+                    }
+                }
+            }
+            item {
                 EntryCard(stringResource(R.string.news)) {
                     EntryItem(Icons.Outlined.Subscriptions, stringResource(R.string.theme_subscription)) {
                         controller.navigate("subscription")
@@ -73,5 +106,9 @@ fun SettingScreen(
                 }
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.init()
     }
 }

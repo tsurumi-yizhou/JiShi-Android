@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.model.campus.edu.Building
+import me.yihtseu.jishi.model.campus.edu.EduBuilding
 import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.chip.ChipGroup
 import me.yihtseu.jishi.ui.component.chip.DateChip
@@ -25,7 +25,7 @@ val zones = listOf("前卫", "南岭", "新民", "朝阳", "南湖", "和平")
 @Composable
 fun QueryDrawer(
     modifier: Modifier = Modifier,
-    buildings: List<Building>,
+    buildings: List<EduBuilding>,
     query: (zone: String, code: String, date: String, start: Int, end: Int) -> Unit
 ) {
     val start = rememberSaveable { mutableIntStateOf(3) }

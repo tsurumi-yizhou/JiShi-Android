@@ -59,4 +59,8 @@
     <string name="new_version">發現新版本</string>
     <string name="no_new_version">您的應用已更新</string>
     <string name="download">下載</string>
+    <string name="network">網路</string>
+    <string name="heartbeat">Ping間隔</string>
+    <string name="news_detail">詳訊</string>
+    <string name="exam_info">考試訊息</string>
 </resources>

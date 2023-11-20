@@ -1,10 +1,7 @@
 package me.yihtseu.jishi.ui.component.card
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +23,7 @@ fun InfoCard(
         ) {
             Text(
                 text = text,
-                style = typography.labelLarge,
+                style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
             )
         }
@@ -51,7 +48,7 @@ fun InfoCard(
         ) {
             Text(
                 text = text,
-                style = typography.labelLarge,
+                style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
             )
 
@@ -62,7 +59,7 @@ fun InfoCard(
                     .padding(HorizontalTextPadding, VerticalTextPadding)
                     .fillMaxWidth()
             ) {
-                Text(text = button, style = typography.labelMedium)
+                Text(text = button, style = MaterialTheme.typography.labelMedium)
             }
         }
     }
@@ -88,7 +85,7 @@ fun InfoCard(
         ) {
             Text(
                 text = text,
-                style = typography.labelLarge,
+                style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
             )
             Row(
@@ -101,7 +98,7 @@ fun InfoCard(
                         .padding(HorizontalTextPadding, VerticalTextPadding)
                         .weight(.5f)
                 ) {
-                    Text(text = buttonLeft, style = typography.labelMedium)
+                    Text(text = buttonLeft, style = MaterialTheme.typography.labelMedium)
                 }
                 OutlinedButton(
                     shape = shapes.extraSmall,
@@ -110,7 +107,7 @@ fun InfoCard(
                         .padding(HorizontalTextPadding, VerticalTextPadding)
                         .weight(.5f)
                 ) {
-                    Text(text = buttonRight, style = typography.labelMedium)
+                    Text(text = buttonRight, style = MaterialTheme.typography.labelMedium)
                 }
             }
         }
