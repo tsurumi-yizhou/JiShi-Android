@@ -31,7 +31,7 @@ class Proxy @Inject constructor() {
             while (true) {
                 runBlocking {
                     check()
-                    delay(1000 * (DataStore.getNumber("heartbeat")?.first() ?: heartbeat))
+                    delay(1000 * (DataStore.getNumber(heartbeatKey)?.first() ?: heartbeat))
                 }
             }
         }.start()
@@ -48,8 +48,8 @@ class Proxy @Inject constructor() {
         } finally {
             if (shouldUseVpn && !hasLoginVpn) {
                 login(
-                    DataStore.getString("jlu_username")?.first()!!,
-                    DataStore.getString("jlu_password")?.first()!!
+                    DataStore.getString(usernameKey)?.first()!!,
+                    DataStore.getString(passwordKey)?.first()!!
                 )
             }
         }
@@ -77,5 +77,8 @@ class Proxy @Inject constructor() {
         val testUrl = "https://ip.jlu.edu.cn"
         val preLoginUrl = "https://vpn.jlu.edu.cn/login"
         val loginUrl = "https://vpn.jlu.edu.cn/do-login"
+        val usernameKey = "jlu_username"
+        val passwordKey = "jlu_password"
+        val heartbeatKey = "heartbeat"
     }
 }
