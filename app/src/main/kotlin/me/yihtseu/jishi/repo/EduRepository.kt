@@ -25,24 +25,25 @@ class EduRepository @Inject constructor(
     private lateinit var cjcx: String
 
     suspend fun init() = coroutineScope {
-        wdkb = json.decodeFromString<AppConfig>(client.get(wdkbConfig).await()).header.dropMenu.first().id
-        kxjas = json.decodeFromString<AppConfig>(client.get(kxjasConfig).await()).header.dropMenu.first().id
-        cjcx = json.decodeFromString<AppConfig>(client.get(cjcxConfig).await()).header.dropMenu.first().id
+        wdkb = json.decodeFromString<EduAppConfig>(client.get(wdkbConfig).await()).header.dropMenu.first().id
+        kxjas = json.decodeFromString<EduAppConfig>(client.get(kxjasConfig).await()).header.dropMenu.first().id
+        cjcx = json.decodeFromString<EduAppConfig>(client.get(cjcxConfig).await()).header.dropMenu.first().id
     }
 
     private suspend fun setRole(id: String) = coroutineScope {
         client.get(role, mapOf("ROLEID" to id)).await()
     }
 
-    suspend fun getTerm(): TermResult.Datas.Cxjcs = coroutineScope {
+    suspend fun getTerm(): EduTermResult.Datas.Cxjcs = coroutineScope {
         setRole(wdkb)
         val resp = client.get(term).await()
-        return@coroutineScope json.decodeFromString<TermResult>(resp).datas.cxjcs
+        return@coroutineScope json.decodeFromString<EduTermResult>(resp).datas.cxjcs
     }
 
-    suspend fun getLessons(year: String, term: String): List<LessonResult.Datas.studentLessonTable.Row> = coroutineScope {
+    suspend fun getLessons(year: String, term: String): List<EduLessonResult.Datas.studentLessonTable.Row> =
+        coroutineScope {
         setRole(wdkb)
-        val result = json.decodeFromString<LessonResult>(
+            val result = json.decodeFromString<EduLessonResult>(
             client.get(
                 lessons, mapOf(
                     "XNXQDM" to "$year-$term"
@@ -52,9 +53,10 @@ class EduRepository @Inject constructor(
         return@coroutineScope result.datas.lessonTable.rows
     }
 
-    suspend fun getLessons(year: String, term: String, week: Int): List<LessonResult.Datas.studentLessonTable.Row> = coroutineScope {
+    suspend fun getLessons(year: String, term: String, week: Int): List<EduLessonResult.Datas.studentLessonTable.Row> =
+        coroutineScope {
         setRole(wdkb)
-        val result = json.decodeFromString<LessonResult>(
+            val result = json.decodeFromString<EduLessonResult>(
             client.get(
                 lessons, mapOf(
                     "XNXQDM" to "$year-$term",
@@ -65,13 +67,13 @@ class EduRepository @Inject constructor(
         return@coroutineScope result.datas.lessonTable.rows
     }
 
-    suspend fun getBuildings(): List<BuildingResult.Datas.Code.Row> = coroutineScope {
+    suspend fun getBuildings(): List<EduBuildingResult.Datas.Code.Row> = coroutineScope {
         client.get(index).await()
         //client.post(buildingsPrepare, mapOf("SFQY" to "1", "APP" to "4768402106681759")).await()
         init()
         client.get(buildingsSet).await()
         setRole(kxjas)
-        val url = json.decodeFromString<Service>(client.get(buildingsQuery).await()).search()
+        val url = json.decodeFromString<EduService>(client.get(buildingsQuery).await()).search()
         val data = client.post(
             Endpoint(
                 "https://iedu.jlu.edu.cn${url}",
@@ -80,11 +82,17 @@ class EduRepository @Inject constructor(
             ),
             emptyMap()
         ).await()
-        return@coroutineScope json.decodeFromString<BuildingResult>(data).datas.code.rows
+        return@coroutineScope json.decodeFromString<EduBuildingResult>(data).datas.code.rows
     }
 
-    suspend fun getClassrooms(zone: String, building: String, date: String, start: Int, end: Int): List<RoomResult.Datas.Cxkxjs.Row> = coroutineScope {
-        return@coroutineScope json.decodeFromString<RoomResult>(
+    suspend fun getClassrooms(
+        zone: String,
+        building: String,
+        date: String,
+        start: Int,
+        end: Int
+    ): List<EduRoomResult.Datas.Cxkxjs.Row> = coroutineScope {
+        return@coroutineScope json.decodeFromString<EduRoomResult>(
             client.post(
                 classrooms, mapOf(
                     "XXXQDM" to zone,
@@ -101,9 +109,9 @@ class EduRepository @Inject constructor(
         ).datas.cxkxjs.rows
     }
 
-    suspend fun getScore(): List<ScoreResult.Datas.Xscjcx.Row> = coroutineScope {
+    suspend fun getScore(): List<EduScoreResult.Datas.Xscjcx.Row> = coroutineScope {
         setRole(cjcx)
-        return@coroutineScope json.decodeFromString<ScoreResult>(client.get(score).await()).datas.xscjcx.rows
+        return@coroutineScope json.decodeFromString<EduScoreResult>(client.get(score).await()).datas.xscjcx.rows
     }
 
     companion object {

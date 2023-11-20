@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AppConfig(
+data class EduAppConfig(
     @SerialName("MODULES")
     val modules: List<MODULES>,
     @SerialName("HEADER")

@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import me.yihtseu.jishi.model.campus.edu.LessonResult
-import me.yihtseu.jishi.model.campus.edu.TermResult
+import me.yihtseu.jishi.model.campus.edu.EduLessonResult
+import me.yihtseu.jishi.model.campus.edu.EduTermResult
 import me.yihtseu.jishi.repo.EduRepository
 import me.yihtseu.jishi.utils.system.checkEvent
 import me.yihtseu.jishi.utils.system.insertEvent
@@ -23,8 +23,8 @@ import javax.inject.Inject
 data class CalendarState(
     val loading: Boolean = true,
     val message: String? = null,
-    val term: TermResult.Datas.Cxjcs.Row? = null,
-    val lessons: List<LessonResult.Datas.studentLessonTable.Row> = emptyList(),
+    val term: EduTermResult.Datas.Cxjcs.Row? = null,
+    val lessons: List<EduLessonResult.Datas.studentLessonTable.Row> = emptyList(),
 )
 
 @HiltViewModel

@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.base.Client
 import me.yihtseu.jishi.base.Endpoint
 import me.yihtseu.jishi.base.Proxy
-import me.yihtseu.jishi.model.campus.space.StudentInfo
+import me.yihtseu.jishi.model.campus.IStudentInfo
 import me.yihtseu.jishi.utils.crypto.strEnc
 import org.jsoup.Jsoup
 import javax.inject.Inject
@@ -54,9 +54,9 @@ class CasRepository @Inject constructor(
         return@coroutineScope check()
     }
 
-    suspend fun fetchProfile(): StudentInfo = coroutineScope {
+    suspend fun fetchProfile(): IStudentInfo = coroutineScope {
         val data = client.post(profile, "{}").await()
-        return@coroutineScope json.decodeFromString<List<StudentInfo>>(data).first()
+        return@coroutineScope json.decodeFromString<List<IStudentInfo>>(data).first()
     }
 
     suspend fun fetchPicture(): ByteArray = coroutineScope {

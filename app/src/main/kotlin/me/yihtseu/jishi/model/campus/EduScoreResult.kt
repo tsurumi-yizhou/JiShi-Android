@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ScoreResult(
+data class EduScoreResult(
     val datas: Datas,
     val code: String
 ) {

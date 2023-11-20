@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.ui.component.autofill
+import me.yihtseu.jishi.ui.framework.autofill
 import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
 import me.yihtseu.jishi.ui.theme.VerticalCardPadding
 import me.yihtseu.jishi.ui.theme.shapes

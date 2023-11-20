@@ -1,11 +1,11 @@
-package me.yihtseu.jishi.model.campus.space
+package me.yihtseu.jishi.model.campus
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class StudentInfo(
+data class IStudentInfo(
     @SerialName("XH")
     val number: String,
     @SerialName("XM")

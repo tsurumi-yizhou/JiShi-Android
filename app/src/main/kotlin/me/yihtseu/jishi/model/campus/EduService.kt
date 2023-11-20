@@ -3,7 +3,7 @@ package me.yihtseu.jishi.model.campus.edu
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Service(
+data class EduService(
     val models: List<Model>
 ) {
     @Serializable

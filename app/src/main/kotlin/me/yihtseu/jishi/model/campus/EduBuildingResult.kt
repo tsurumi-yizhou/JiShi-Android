@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BuildingResult (
+data class EduBuildingResult(
     val datas: Datas
 ) {
     @Serializable
