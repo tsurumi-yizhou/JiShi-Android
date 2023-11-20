@@ -11,4 +11,5 @@
     <string name="app_desc">JiShi would have been your best JLU school life assistant!</string>
     <string name="new_version">New version found</string>
     <string name="no_new_version">Your app is updated</string>
+    <string name="timeout_desc">Only for those use proxy</string>
 </resources>

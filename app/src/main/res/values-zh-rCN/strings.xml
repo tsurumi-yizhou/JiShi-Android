@@ -28,7 +28,7 @@
     <string name="calendar">教学日历</string>
     <string name="library">图书馆</string>
     <string name="classroom">空闲教室</string>
-    <string name="score">绩点</string>
+    <string name="score">绩点计算器</string>
     <string name="about">关于</string>
     <string name="floor2">二楼</string>
     <string name="open_space">开放式学习空间</string>
@@ -63,4 +63,6 @@
     <string name="heartbeat">心跳间隔</string>
     <string name="news_detail">详情</string>
     <string name="exam_info">考试信息</string>
+    <string name="timeout">超时时长</string>
+    <string name="timeout_desc">除非您正在使用全局代理</string>
 </resources>

@@ -23,7 +23,8 @@ import javax.inject.Inject
 data class SettingState(
     val message: String? = null,
     val url: Uri? = null,
-    val heartbeat: Long = 0
+    val heartbeat: Long = 0,
+    val timeout: Long = 0
 )
 
 @HiltViewModel
@@ -35,7 +36,16 @@ class SettingViewModel @Inject constructor(
 
     fun setHeartbeat(heartbeat: Long) = viewModelScope.launch {
         try {
-            DataStore.setNumber("heartbeat", heartbeat)
+            DataStore.setNumber(heartbeatKey, heartbeat)
+        } catch (e: Exception) {
+            _state.update { it.copy(message = e.localizedMessage) }
+        }
+    }
+
+    fun setTimeout(timeout: Long) = viewModelScope.launch {
+        try {
+            DataStore.setNumber(timeoutKey, timeout)
+            _state.update { it.copy(timeout = timeout, message = "重启后生效") }
         } catch (e: Exception) {
             _state.update { it.copy(message = e.localizedMessage) }
         }
@@ -67,10 +77,20 @@ class SettingViewModel @Inject constructor(
     }
 
     fun init() = viewModelScope.launch {
-        DataStore.getNumber("heartbeat")?.collect {
+        DataStore.getNumber(heartbeatKey)?.collect {
             it?.let { duration ->
                 _state.update { it.copy(heartbeat = duration) }
             }
         }
+        DataStore.getNumber(timeoutKey)?.collect {
+            it?.let { timeout ->
+                _state.update { it.copy(timeout = timeout) }
+            }
+        }
+    }
+
+    companion object {
+        val heartbeatKey = "heartbeat"
+        val timeoutKey = "timeout"
     }
 }

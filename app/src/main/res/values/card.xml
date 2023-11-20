@@ -13,4 +13,5 @@
     <string name="contact">Contact Us</string>
     <string name="network">Network</string>
     <string name="heartbeat">Heartbeat Time</string>
+    <string name="timeout">Timeout</string>
 </resources>

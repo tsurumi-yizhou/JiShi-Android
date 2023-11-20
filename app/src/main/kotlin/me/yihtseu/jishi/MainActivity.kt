@@ -3,6 +3,8 @@ package me.yihtseu.jishi
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,6 +14,8 @@ import com.drake.net.NetConfig
 import com.drake.net.cookie.PersistentCookieJar
 import com.drake.net.okhttp.setConverter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import me.yihtseu.jishi.base.DataStore
 import me.yihtseu.jishi.ui.page.pages
 import me.yihtseu.jishi.ui.theme.AppTheme
@@ -29,6 +33,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         DataStore.initialize(application)
+        val timeout = runBlocking { DataStore.getNumber(timeoutKey)?.first() ?: 10L }
 
         NetConfig.initialize {
             connectTimeout(timeout, TimeUnit.SECONDS)
@@ -43,7 +48,15 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 NavHost(controller, startDestination = "login") {
                     pages.forEach { (id, page) ->
-                        composable(route = id) {
+                        composable(
+                            route = id,
+                            enterTransition = {
+                                fadeIn()
+                            },
+                            exitTransition = {
+                                fadeOut()
+                            }
+                        ) {
                             page.show(controller)
                         }
                     }
@@ -53,6 +66,6 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        val timeout = 10L
+        val timeoutKey = "timeout"
     }
 }
