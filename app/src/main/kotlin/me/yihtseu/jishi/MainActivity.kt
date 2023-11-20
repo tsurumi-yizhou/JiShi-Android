@@ -31,9 +31,9 @@ class MainActivity : ComponentActivity() {
         DataStore.initialize(application)
 
         NetConfig.initialize {
-            connectTimeout(10, TimeUnit.SECONDS)
-            readTimeout(10, TimeUnit.SECONDS)
-            writeTimeout(10, TimeUnit.SECONDS)
+            connectTimeout(timeout, TimeUnit.SECONDS)
+            readTimeout(timeout, TimeUnit.SECONDS)
+            writeTimeout(timeout, TimeUnit.SECONDS)
             cookieJar(PersistentCookieJar(applicationContext))
             setConverter(JsonConverter())
         }
@@ -50,5 +50,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        val timeout = 10L
     }
 }

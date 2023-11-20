@@ -3,10 +3,7 @@ package me.yihtseu.jishi.base
 import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.core.stringSetPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,6 +14,16 @@ object DataStore {
     private val Context.dataStore by preferencesDataStore(name = "jishi_preferences")
     fun initialize(application: Application) {
         dataStore = application.dataStore
+    }
+
+    fun getNumber(name: String): Flow<Long?>? {
+        return dataStore?.data?.map {
+            it[longPreferencesKey(name)] ?: 0
+        }
+    }
+
+    suspend fun setNumber(name: String, value: Long) = dataStore?.edit {
+        it[longPreferencesKey(name)] = value
     }
 
     fun getString(name: String): Flow<String?>? {

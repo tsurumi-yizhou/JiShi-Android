@@ -13,3 +13,5 @@ val ImagePadding = 10.dp
 
 val ImageWidth = 100.dp
 val ImageHeight = 150.dp
+
+val InputWidth = 100.dp
