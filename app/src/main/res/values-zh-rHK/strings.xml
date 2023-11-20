@@ -62,4 +62,5 @@
     <string name="network">網路</string>
     <string name="heartbeat">Ping間隔</string>
     <string name="news_detail">詳訊</string>
+    <string name="exam_info">考試訊息</string>
 </resources>

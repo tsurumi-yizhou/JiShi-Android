@@ -37,7 +37,7 @@ class CasRepository @Inject constructor(
     }
 
     suspend fun checkLogin(username: String, passwd: String): Boolean = coroutineScope {
-        if (proxy.shouldUseVpn && !proxy.hasLoginVpn) throw Exception("No vpn login")
+        if (proxy.shouldUseVpn && !proxy.hasLoginVpn) proxy.login(username, passwd)
         if (check()) return@coroutineScope true
         val rsa = strEnc("${username.trim()}${passwd.trim()}$lt", "1", "2", "3")
         client.post(

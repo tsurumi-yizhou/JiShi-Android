@@ -4,6 +4,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.base.Client
 import me.yihtseu.jishi.base.Endpoint
+import me.yihtseu.jishi.model.campus.EduExamResult
 import me.yihtseu.jishi.model.campus.edu.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,11 +24,13 @@ class EduRepository @Inject constructor(
     private lateinit var wdkb: String
     private lateinit var kxjas: String
     private lateinit var cjcx: String
+    private lateinit var wdksap: String
 
     suspend fun init() = coroutineScope {
         wdkb = json.decodeFromString<EduAppConfig>(client.get(wdkbConfig).await()).header.dropMenu.first().id
         kxjas = json.decodeFromString<EduAppConfig>(client.get(kxjasConfig).await()).header.dropMenu.first().id
         cjcx = json.decodeFromString<EduAppConfig>(client.get(cjcxConfig).await()).header.dropMenu.first().id
+        wdksap = json.decodeFromString<EduAppConfig>(client.get(wdksapConfig).await()).header.dropMenu.first().id
     }
 
     private suspend fun setRole(id: String) = coroutineScope {
@@ -114,16 +117,26 @@ class EduRepository @Inject constructor(
         return@coroutineScope json.decodeFromString<EduScoreResult>(client.get(score).await()).datas.xscjcx.rows
     }
 
+    suspend fun getExams(): List<EduExamResult.Datas.Cxxsksap.Row> = coroutineScope {
+        setRole(wdksap)
+        return@coroutineScope json.decodeFromString<EduExamResult>(
+            client.post(
+                exam, mapOf(
+                    "requestParamStr" to "{\"XNXQDM\":\"2023-2024-1\"}"
+                )
+            ).await()
+        ).datas.cxxsksap.rows
+    }
+
     companion object {
         val headers = mapOf(
             "Host" to "iedu.jlu.edu.cn",
             "User-Agent" to "JiShi-Android",
-            "Accept" to "application/json to text/javascript to */*; q=0.01",
             "Accept-Encoding" to "gzip to deflate to br",
             "X-Requested-With" to "XMLHttpRequest",
             "Origin" to "https://iedu.jlu.edu.cn",
             "Connection" to "keep-alive",
-            "Referer" to "https://iedu.jlu.edu.cn/jwapp/sys/kxjas/*default/index.do?THEME=green&EMAP_LANG=zh",
+            "Referer" to "https://iedu.jlu.edu.cn/jwapp/sys/kxjas/*default/index.do"
         )
         val wdkbConfig = Endpoint(
             "https://iedu.jlu.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/wdkb-4770397878132218.do",
@@ -138,6 +151,11 @@ class EduRepository @Inject constructor(
         val kxjasConfig = Endpoint(
             "https://iedu.jlu.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/kxjas-4770397878132218.do",
             vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/funauthapp/api/getAppConfig/kxjas-4770397878132218.do",
+            headers = headers
+        )
+        val wdksapConfig = Endpoint(
+            "https://iedu.jlu.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/studentWdksapApp-4768687067472349.do",
+            vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/funauthapp/api/getAppConfig/studentWdksapApp-4768687067472349.do",
             headers = headers
         )
         val role = Endpoint(
@@ -183,6 +201,11 @@ class EduRepository @Inject constructor(
         val term = Endpoint(
             "https://iedu.jlu.edu.cn/jwapp/sys/wdkb/modules/jshkcb/cxjcs.do",
             vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/wdkb/modules/jshkcb/cxjcs.do",
+            headers = headers
+        )
+        val exam = Endpoint(
+            "https://iedu.jlu.edu.cn/jwapp/sys/studentWdksapApp/WdksapController/cxxsksap.do",
+            vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/studentWdksapApp/WdksapController/cxxsksap.do",
             headers = headers
         )
     }
