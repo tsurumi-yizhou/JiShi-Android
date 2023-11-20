@@ -1,14 +1,12 @@
 package me.yihtseu.jishi.ui.component.chip
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import me.yihtseu.jishi.ui.theme.*
@@ -37,7 +35,7 @@ fun ScoreChip(
                         onChecked(it)
                     }
                 )
-                Text(text = type, style = typography.labelSmall)
+                Text(text = type, style = MaterialTheme.typography.labelSmall)
             }
             LazyRow (
                 modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding),
@@ -46,7 +44,7 @@ fun ScoreChip(
                 item {
                     Text(
                         text = name,
-                        style = typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium,
                         maxLines = 1
                     )
                 }

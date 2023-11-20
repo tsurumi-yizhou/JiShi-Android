@@ -21,11 +21,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.ui.component.autofill
+import me.yihtseu.jishi.ui.framework.autofill
 import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
 import me.yihtseu.jishi.ui.theme.VerticalCardPadding
 import me.yihtseu.jishi.ui.theme.shapes
-import me.yihtseu.jishi.ui.theme.typography
 
 @Composable
 fun LoginBox(
@@ -52,7 +51,7 @@ fun LoginBox(
                     onFill = { username.value = it }
                 ),
                 label = {
-                    Text(text = stringResource(R.string.account), style = typography.labelMedium)
+                    Text(text = stringResource(R.string.account), style = MaterialTheme.typography.labelMedium)
                 },
                 leadingIcon = {
                     Icon(Icons.Outlined.AccountCircle, null)
@@ -69,7 +68,7 @@ fun LoginBox(
                     onFill = { password.value = it }
                 ),
                 label = {
-                    Text(text = stringResource(R.string.passwd), style = typography.labelMedium)
+                    Text(text = stringResource(R.string.passwd), style = MaterialTheme.typography.labelMedium)
                 },
                 leadingIcon = {
                     Icon(Icons.Outlined.Key, null)
@@ -84,7 +83,7 @@ fun LoginBox(
                 onClick = { onLogin(username.value, password.value) },
                 shape = shapes.small
             ) {
-                Text(text = stringResource(R.string.confirm), style = typography.labelMedium)
+                Text(text = stringResource(R.string.confirm), style = MaterialTheme.typography.labelMedium)
             }
         }
     }

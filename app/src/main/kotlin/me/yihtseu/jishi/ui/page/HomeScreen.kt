@@ -49,6 +49,9 @@ fun HomeScreen(
                     EntryItem(Icons.Outlined.Score, stringResource(R.string.score)) {
                         controller.navigate("score")
                     }
+                    EntryItem(Icons.Outlined.Dangerous, stringResource(R.string.exam_info)) {
+                        controller.navigate("exam")
+                    }
                 }
                 EntryCard(stringResource(R.string.learn)) {
                     EntryItem(Icons.Outlined.AirlineSeatIndividualSuite, stringResource(R.string.classroom)) {

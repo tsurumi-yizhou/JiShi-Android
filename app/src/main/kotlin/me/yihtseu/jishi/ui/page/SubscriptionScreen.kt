@@ -18,13 +18,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.framework.Compact
-import me.yihtseu.jishi.ui.theme.*
+import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
+import me.yihtseu.jishi.ui.theme.VerticalCardPadding
+import me.yihtseu.jishi.ui.theme.VerticalChipPadding
+import me.yihtseu.jishi.ui.theme.shapes
 import me.yihtseu.jishi.vm.SubscriptionViewModel
 
 @Composable
 fun SubscriptionScreen(
-    controller: NavHostController,
-    viewModel: SubscriptionViewModel = hiltViewModel()
+    controller: NavHostController, viewModel: SubscriptionViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val link = rememberSaveable { mutableStateOf("") }
@@ -36,7 +38,7 @@ fun SubscriptionScreen(
         loading = state.loading,
     ) {
         LazyColumn(
-            modifier = Modifier.nestedScroll(it),
+            modifier = Modifier.nestedScroll(it).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -46,27 +48,21 @@ fun SubscriptionScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    OutlinedTextField(
-                        value = link.value,
+                    OutlinedTextField(value = link.value,
                         onValueChange = {
                             link.value = it
                         },
-                        modifier = Modifier
-                            .padding(HorizontalCardPadding, VerticalCardPadding)
-                            .fillMaxWidth(),
+                        modifier = Modifier.padding(HorizontalCardPadding, VerticalCardPadding).fillMaxWidth(),
                         shape = shapes.extraSmall,
                         singleLine = true,
                         trailingIcon = {
-                            IconButton(
-                                onClick = {
-                                    viewModel.add(link.value)
-                                    link.value = ""
-                                }
-                            ) {
+                            IconButton(onClick = {
+                                viewModel.add(link.value)
+                                link.value = ""
+                            }) {
                                 Icon(Icons.Outlined.Add, null)
                             }
-                        }
-                    )
+                        })
                     FlowRow(
                         modifier = Modifier.fillMaxSize()
                     ) {
@@ -77,12 +73,10 @@ fun SubscriptionScreen(
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.SpaceEvenly
                                     ) {
-                                        Text(text = it.title, style = typography.labelSmall)
-                                        IconButton(
-                                            onClick = {
-                                                viewModel.sub(it)
-                                            }
-                                        ) {
+                                        Text(text = it.title, style = MaterialTheme.typography.labelSmall)
+                                        IconButton(onClick = {
+                                            viewModel.sub(it)
+                                        }) {
                                             Icon(Icons.Outlined.Delete, null)
                                         }
                                     }

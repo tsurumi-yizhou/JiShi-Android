@@ -8,14 +8,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.base.DataStore
-import me.yihtseu.jishi.model.campus.space.StudentInfo
+import me.yihtseu.jishi.model.campus.IStudentInfo
 import me.yihtseu.jishi.repo.CasRepository
 import javax.inject.Inject
 
 data class CampusEmailState(
     val message: String? = null,
     val loading: Boolean = true,
-    val profile: StudentInfo? = null,
+    val profile: IStudentInfo? = null,
     val avatar: ByteArray? = null
 )
 

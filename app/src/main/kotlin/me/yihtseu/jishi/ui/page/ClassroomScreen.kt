@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.model.campus.edu.Building
+import me.yihtseu.jishi.model.campus.edu.EduBuilding
 import me.yihtseu.jishi.ui.component.box.QueryDrawer
 import me.yihtseu.jishi.ui.component.card.RoomCard
 import me.yihtseu.jishi.ui.framework.Compact
@@ -43,7 +43,7 @@ fun ClassroomScreen(
             QueryDrawer(
                 modifier = Modifier.fillMaxWidth(),
                 buildings = state.buildings.map {
-                    Building(
+                    EduBuilding(
                         zone = it.otherFields.zoneCode.toInt(),
                         id = it.id,
                         name = it.name

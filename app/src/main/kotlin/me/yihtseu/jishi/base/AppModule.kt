@@ -1,4 +1,4 @@
-package me.yihtseu.jishi
+package me.yihtseu.jishi.base
 
 import android.content.Context
 import androidx.room.Room

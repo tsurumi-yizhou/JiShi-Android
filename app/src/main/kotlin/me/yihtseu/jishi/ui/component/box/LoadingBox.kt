@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import me.yihtseu.jishi.ui.theme.typography
 
 val awaitSentences = arrayOf(
     "请坐和放宽，马上就好",
@@ -43,7 +43,7 @@ fun LoadingBox(
                 enter = slideInVertically() + fadeIn(),
                 exit = slideOutVertically() + fadeOut()
             ) {
-                Text(text = slogan.value, style = typography.labelMedium)
+                Text(text = slogan.value, style = MaterialTheme.typography.labelMedium)
             }
         }
     }

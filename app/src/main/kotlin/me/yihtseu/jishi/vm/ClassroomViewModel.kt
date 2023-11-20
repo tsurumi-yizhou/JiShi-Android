@@ -7,16 +7,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import me.yihtseu.jishi.model.campus.edu.BuildingResult
-import me.yihtseu.jishi.model.campus.edu.RoomResult
+import me.yihtseu.jishi.model.campus.edu.EduBuildingResult
+import me.yihtseu.jishi.model.campus.edu.EduRoomResult
 import me.yihtseu.jishi.repo.EduRepository
 import javax.inject.Inject
 
 data class ClassroomState(
     val loading: Boolean = true,
     val message: String? = null,
-    val buildings: List<BuildingResult.Datas.Code.Row> = emptyList(),
-    val classrooms: List<RoomResult.Datas.Cxkxjs.Row> = emptyList()
+    val buildings: List<EduBuildingResult.Datas.Code.Row> = emptyList(),
+    val classrooms: List<EduRoomResult.Datas.Cxkxjs.Row> = emptyList()
 )
 
 @HiltViewModel

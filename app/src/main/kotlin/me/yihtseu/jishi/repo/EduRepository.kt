@@ -4,6 +4,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.json.Json
 import me.yihtseu.jishi.base.Client
 import me.yihtseu.jishi.base.Endpoint
+import me.yihtseu.jishi.model.campus.EduExamResult
 import me.yihtseu.jishi.model.campus.edu.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,26 +24,29 @@ class EduRepository @Inject constructor(
     private lateinit var wdkb: String
     private lateinit var kxjas: String
     private lateinit var cjcx: String
+    private lateinit var wdksap: String
 
     suspend fun init() = coroutineScope {
-        wdkb = json.decodeFromString<AppConfig>(client.get(wdkbConfig).await()).header.dropMenu.first().id
-        kxjas = json.decodeFromString<AppConfig>(client.get(kxjasConfig).await()).header.dropMenu.first().id
-        cjcx = json.decodeFromString<AppConfig>(client.get(cjcxConfig).await()).header.dropMenu.first().id
+        wdkb = json.decodeFromString<EduAppConfig>(client.get(wdkbConfig).await()).header.dropMenu.first().id
+        kxjas = json.decodeFromString<EduAppConfig>(client.get(kxjasConfig).await()).header.dropMenu.first().id
+        cjcx = json.decodeFromString<EduAppConfig>(client.get(cjcxConfig).await()).header.dropMenu.first().id
+        wdksap = json.decodeFromString<EduAppConfig>(client.get(wdksapConfig).await()).header.dropMenu.first().id
     }
 
     private suspend fun setRole(id: String) = coroutineScope {
         client.get(role, mapOf("ROLEID" to id)).await()
     }
 
-    suspend fun getTerm(): TermResult.Datas.Cxjcs = coroutineScope {
+    suspend fun getTerm(): EduTermResult.Datas.Cxjcs = coroutineScope {
         setRole(wdkb)
         val resp = client.get(term).await()
-        return@coroutineScope json.decodeFromString<TermResult>(resp).datas.cxjcs
+        return@coroutineScope json.decodeFromString<EduTermResult>(resp).datas.cxjcs
     }
 
-    suspend fun getLessons(year: String, term: String): List<LessonResult.Datas.studentLessonTable.Row> = coroutineScope {
+    suspend fun getLessons(year: String, term: String): List<EduLessonResult.Datas.studentLessonTable.Row> =
+        coroutineScope {
         setRole(wdkb)
-        val result = json.decodeFromString<LessonResult>(
+            val result = json.decodeFromString<EduLessonResult>(
             client.get(
                 lessons, mapOf(
                     "XNXQDM" to "$year-$term"
@@ -52,9 +56,10 @@ class EduRepository @Inject constructor(
         return@coroutineScope result.datas.lessonTable.rows
     }
 
-    suspend fun getLessons(year: String, term: String, week: Int): List<LessonResult.Datas.studentLessonTable.Row> = coroutineScope {
+    suspend fun getLessons(year: String, term: String, week: Int): List<EduLessonResult.Datas.studentLessonTable.Row> =
+        coroutineScope {
         setRole(wdkb)
-        val result = json.decodeFromString<LessonResult>(
+            val result = json.decodeFromString<EduLessonResult>(
             client.get(
                 lessons, mapOf(
                     "XNXQDM" to "$year-$term",
@@ -65,13 +70,13 @@ class EduRepository @Inject constructor(
         return@coroutineScope result.datas.lessonTable.rows
     }
 
-    suspend fun getBuildings(): List<BuildingResult.Datas.Code.Row> = coroutineScope {
+    suspend fun getBuildings(): List<EduBuildingResult.Datas.Code.Row> = coroutineScope {
         client.get(index).await()
         //client.post(buildingsPrepare, mapOf("SFQY" to "1", "APP" to "4768402106681759")).await()
         init()
         client.get(buildingsSet).await()
         setRole(kxjas)
-        val url = json.decodeFromString<Service>(client.get(buildingsQuery).await()).search()
+        val url = json.decodeFromString<EduService>(client.get(buildingsQuery).await()).search()
         val data = client.post(
             Endpoint(
                 "https://iedu.jlu.edu.cn${url}",
@@ -80,11 +85,17 @@ class EduRepository @Inject constructor(
             ),
             emptyMap()
         ).await()
-        return@coroutineScope json.decodeFromString<BuildingResult>(data).datas.code.rows
+        return@coroutineScope json.decodeFromString<EduBuildingResult>(data).datas.code.rows
     }
 
-    suspend fun getClassrooms(zone: String, building: String, date: String, start: Int, end: Int): List<RoomResult.Datas.Cxkxjs.Row> = coroutineScope {
-        return@coroutineScope json.decodeFromString<RoomResult>(
+    suspend fun getClassrooms(
+        zone: String,
+        building: String,
+        date: String,
+        start: Int,
+        end: Int
+    ): List<EduRoomResult.Datas.Cxkxjs.Row> = coroutineScope {
+        return@coroutineScope json.decodeFromString<EduRoomResult>(
             client.post(
                 classrooms, mapOf(
                     "XXXQDM" to zone,
@@ -101,21 +112,31 @@ class EduRepository @Inject constructor(
         ).datas.cxkxjs.rows
     }
 
-    suspend fun getScore(): List<ScoreResult.Datas.Xscjcx.Row> = coroutineScope {
+    suspend fun getScore(): List<EduScoreResult.Datas.Xscjcx.Row> = coroutineScope {
         setRole(cjcx)
-        return@coroutineScope json.decodeFromString<ScoreResult>(client.get(score).await()).datas.xscjcx.rows
+        return@coroutineScope json.decodeFromString<EduScoreResult>(client.get(score).await()).datas.xscjcx.rows
+    }
+
+    suspend fun getExams(): List<EduExamResult.Datas.Cxxsksap.Row> = coroutineScope {
+        setRole(wdksap)
+        return@coroutineScope json.decodeFromString<EduExamResult>(
+            client.post(
+                exam, mapOf(
+                    "requestParamStr" to "{\"XNXQDM\":\"2023-2024-1\"}"
+                )
+            ).await()
+        ).datas.cxxsksap.rows
     }
 
     companion object {
         val headers = mapOf(
             "Host" to "iedu.jlu.edu.cn",
             "User-Agent" to "JiShi-Android",
-            "Accept" to "application/json to text/javascript to */*; q=0.01",
             "Accept-Encoding" to "gzip to deflate to br",
             "X-Requested-With" to "XMLHttpRequest",
             "Origin" to "https://iedu.jlu.edu.cn",
             "Connection" to "keep-alive",
-            "Referer" to "https://iedu.jlu.edu.cn/jwapp/sys/kxjas/*default/index.do?THEME=green&EMAP_LANG=zh",
+            "Referer" to "https://iedu.jlu.edu.cn/jwapp/sys/kxjas/*default/index.do"
         )
         val wdkbConfig = Endpoint(
             "https://iedu.jlu.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/wdkb-4770397878132218.do",
@@ -130,6 +151,11 @@ class EduRepository @Inject constructor(
         val kxjasConfig = Endpoint(
             "https://iedu.jlu.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/kxjas-4770397878132218.do",
             vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/funauthapp/api/getAppConfig/kxjas-4770397878132218.do",
+            headers = headers
+        )
+        val wdksapConfig = Endpoint(
+            "https://iedu.jlu.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/studentWdksapApp-4768687067472349.do",
+            vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/funauthapp/api/getAppConfig/studentWdksapApp-4768687067472349.do",
             headers = headers
         )
         val role = Endpoint(
@@ -175,6 +201,11 @@ class EduRepository @Inject constructor(
         val term = Endpoint(
             "https://iedu.jlu.edu.cn/jwapp/sys/wdkb/modules/jshkcb/cxjcs.do",
             vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/wdkb/modules/jshkcb/cxjcs.do",
+            headers = headers
+        )
+        val exam = Endpoint(
+            "https://iedu.jlu.edu.cn/jwapp/sys/studentWdksapApp/WdksapController/cxxsksap.do",
+            vpnUrl = "https://vpn.jlu.edu.cn/https/44696469646131313237446964696461a37df87d4dc2a702825ee37999669b/jwapp/sys/studentWdksapApp/WdksapController/cxxsksap.do",
             headers = headers
         )
     }

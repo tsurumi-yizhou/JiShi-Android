@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.yihtseu.jishi.R
-import me.yihtseu.jishi.model.campus.edu.ScoreResult
+import me.yihtseu.jishi.model.campus.edu.EduScoreResult
 import me.yihtseu.jishi.repo.EduRepository
 import javax.inject.Inject
 
 data class ScoreState(
     val loading: Boolean = true,
     val message: String? = null,
-    val subjects: List<ScoreResult.Datas.Xscjcx.Row> = emptyList(),
+    val subjects: List<EduScoreResult.Datas.Xscjcx.Row> = emptyList(),
     val score: Double = 0.0,
     val selected: List<String> = emptyList(),
     val weight: Boolean = true
@@ -70,7 +70,7 @@ class ScoreViewModel @Inject constructor(
         count()
     }
 
-    fun findByName(name: String): ScoreResult.Datas.Xscjcx.Row {
+    fun findByName(name: String): EduScoreResult.Datas.Xscjcx.Row {
         for (subject in state.value.subjects) {
             if (subject.name == name)
                 return subject

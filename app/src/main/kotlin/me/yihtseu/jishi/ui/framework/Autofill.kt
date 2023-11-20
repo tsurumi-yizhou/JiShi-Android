@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalComposeUiApi::class)
 
-package me.yihtseu.jishi.ui.component
+package me.yihtseu.jishi.ui.framework
 
 
 import androidx.compose.ui.ExperimentalComposeUiApi

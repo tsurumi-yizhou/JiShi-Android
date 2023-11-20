@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +32,16 @@ fun LessonCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Text(text = name, style = typography.labelLarge, modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding))
-            Text(text = teacher, style = typography.bodyMedium, modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding))
+            Text(
+                text = name,
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+            )
+            Text(
+                text = teacher,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+            )
         }
     }
 }

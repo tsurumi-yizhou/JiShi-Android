@@ -4,7 +4,7 @@ package me.yihtseu.jishi.model.campus.edu
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class QueryResult(
+data class EduQueryResult(
     val datas: Datas,
     val code: String
 ) {

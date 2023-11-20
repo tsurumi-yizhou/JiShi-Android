@@ -25,7 +25,7 @@ class Client @Inject constructor(
         .followSslRedirects(true)
         .retryOnConnectionFailure(false)
         .cookieJar(cookieJar)
-        .connectTimeout(10, TimeUnit.SECONDS)
+        .connectTimeout(timeout, TimeUnit.SECONDS)
         .build()
 
     fun get(endpoint: Endpoint, queries: Map<String, String> = emptyMap()): Deferred<String> {
@@ -113,6 +113,7 @@ class Client @Inject constructor(
     }
 
     companion object {
+        val timeout = 15L
         val storage = mutableMapOf<HttpUrl, MutableList<Cookie>>()
 
         object cookieJar : CookieJar {

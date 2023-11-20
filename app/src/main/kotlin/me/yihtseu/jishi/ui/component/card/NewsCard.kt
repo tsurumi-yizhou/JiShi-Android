@@ -3,6 +3,7 @@ package me.yihtseu.jishi.ui.component.card
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,18 +46,18 @@ fun NewsCard(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = title, style = typography.titleSmall,
+                    text = title, style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                 )
                 Text(
                     text = time,
-                    style = typography.labelSmall,
+                    style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(HorizontalTextPadding, 0.dp)
                 )
                 desc?.let {
                     Text(
                         text = it + "...", maxLines = 4,
-                        style = typography.bodySmall,
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding),
                     )
                 }

@@ -59,4 +59,8 @@
     <string name="new_version">发现新版本</string>
     <string name="no_new_version">您的应用已经最新</string>
     <string name="download">下载</string>
+    <string name="network">网络</string>
+    <string name="heartbeat">心跳间隔</string>
+    <string name="news_detail">详情</string>
+    <string name="exam_info">考试信息</string>
 </resources>

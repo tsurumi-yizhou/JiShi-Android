@@ -11,4 +11,6 @@
     <string name="end_select">End Select</string>
     <string name="contributors">Contributors</string>
     <string name="contact">Contact Us</string>
+    <string name="network">Network</string>
+    <string name="heartbeat">Heartbeat Time</string>
 </resources>
