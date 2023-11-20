@@ -8,26 +8,16 @@
 </div>
 
 ## Proprietates
-<div style="display: flex; justify-content: space-between;">
-    <img src="docs/1.jpg" style="width: 30%;">
-    <img src="docs/2.jpg" style="width: 30%;">
-    <img src="docs/3.jpg" style="width: 30%;">
-</div>
-<div style="display: flex; justify-content: space-between;">
-    <img src="docs/4.jpg" style="width: 30%;">
-    <img src="docs/5.jpg" style="width: 30%;">
-    <img src="docs/6.jpg" style="width: 30%;">
-</div>
 
-- 🔘 查看、收藏各网站通知（手动添加RSS订阅）
+- ✅ 查看各网站通知（需手动添加RSS订阅）
 - ✅ 出示吉大码
 - ✅ 同步教学日历
-- ❌ 获取学习通作业任务列表
-- ❌ 同步考试信息
+- ✅ 同步考试信息(非内网环境下暂不可用)
 - ✅ 查询绩点
-- ✅ 预约图书馆座位
 - ✅ 查询空余教室
+- ❌ 预约图书馆座位
 - ❌ 查询培养方案
+- ❌ 获取学习通作业任务列表
 
 ## Quote
 - [Library-One-Tap-Android](https://github.com/qhy040404/Library-One-Tap-Android) (Apache 2.0)
