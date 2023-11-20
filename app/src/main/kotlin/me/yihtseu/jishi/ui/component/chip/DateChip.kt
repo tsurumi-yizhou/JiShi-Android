@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.theme.HorizontalTextPadding
 import me.yihtseu.jishi.ui.theme.InnerCardPadding
-import me.yihtseu.jishi.ui.theme.typography
 import me.yihtseu.jishi.utils.time.format
 
 
@@ -35,7 +34,7 @@ fun DateChip(
                 show.value = false
                 onClick(format("yyyy-MM-dd", state.selectedDateMillis ?: System.currentTimeMillis()))
             }) {
-                Text(text = stringResource(R.string.confirm), style = typography.bodyMedium)
+                Text(text = stringResource(R.string.confirm), style = MaterialTheme.typography.bodyMedium)
             }
         }) {
             DatePicker(state)
@@ -51,12 +50,12 @@ fun DateChip(
             Text(
                 text = title,
                 modifier = Modifier.padding(horizontal = HorizontalTextPadding),
-                style = typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium
             )
         }
         Text(
             text = format("yyyy-MM-dd", state.selectedDateMillis ?: System.currentTimeMillis()),
-            style = typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding)
         )
     }

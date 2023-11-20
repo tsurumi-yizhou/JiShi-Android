@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,7 +21,6 @@ import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.card.EntryItem
 import me.yihtseu.jishi.ui.framework.BottomBar
 import me.yihtseu.jishi.ui.framework.Compact
-import me.yihtseu.jishi.ui.theme.typography
 import me.yihtseu.jishi.vm.SettingViewModel
 
 @Composable
@@ -65,19 +65,19 @@ fun SettingScreen(
                         onDismissRequest = { showDropdownMenu.value = false },
                     ) {
                         DropdownMenuItem(text = {
-                            Text(text = "10s", style = typography.bodyMedium)
+                            Text(text = "10s", style = MaterialTheme.typography.bodyMedium)
                         }, onClick = {
                             viewModel.setHeartbeat(10)
                             showDropdownMenu.value = false
                         })
                         DropdownMenuItem(text = {
-                            Text(text = "15s", style = typography.bodyMedium)
+                            Text(text = "15s", style = MaterialTheme.typography.bodyMedium)
                         }, onClick = {
                             viewModel.setHeartbeat(15)
                             showDropdownMenu.value = false
                         })
                         DropdownMenuItem(text = {
-                            Text(text = "30s", style = typography.bodyMedium)
+                            Text(text = "30s", style = MaterialTheme.typography.bodyMedium)
                         }, onClick = {
                             viewModel.setHeartbeat(30)
                             showDropdownMenu.value = false

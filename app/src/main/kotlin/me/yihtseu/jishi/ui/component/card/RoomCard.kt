@@ -4,10 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,40 +23,45 @@ fun RoomCard(
             .fillMaxWidth(),
         shape = shapes.small
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .clickable { onClick() }
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalAlignment = Alignment.Start,
         ) {
-            Column(
-                horizontalAlignment = Alignment.Start
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = building,
-                    style = typography.labelSmall,
-                    modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
-                )
-                Text(
-                    text = name.removePrefix("$building-"),
-                    style = typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = HorizontalTextPadding)
-                )
-                Text(
-                    text = duration,
-                    style = typography.bodyMedium,
-                    modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
-                )
+                Column(
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Text(
+                        text = building,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+                    )
+                    Text(
+                        text = name.removePrefix("$building-"),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(horizontal = HorizontalTextPadding)
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        share("[$name]: $duration")
+                    },
+                    modifier = Modifier.padding(HorizontalChipPadding, VerticalChipPadding)
+                ) {
+                    Icon(Icons.Outlined.Share, null)
+                }
             }
-            IconButton(
-                onClick = {
-                    share("[$name]: $duration")
-                },
-                modifier = Modifier.padding(HorizontalChipPadding, VerticalChipPadding)
-            ) {
-                Icon(Icons.Outlined.Share, null)
-            }
+            Text(
+                text = duration,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
+            )
         }
     }
 }

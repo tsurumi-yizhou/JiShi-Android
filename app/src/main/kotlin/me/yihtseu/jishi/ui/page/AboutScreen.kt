@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.ContactMail
 import androidx.compose.material.icons.outlined.ContactSupport
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +34,10 @@ import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.component.card.EntryCard
 import me.yihtseu.jishi.ui.component.card.EntryItem
 import me.yihtseu.jishi.ui.framework.Compact
-import me.yihtseu.jishi.ui.theme.*
+import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
+import me.yihtseu.jishi.ui.theme.HorizontalTextPadding
+import me.yihtseu.jishi.ui.theme.VerticalCardPadding
+import me.yihtseu.jishi.ui.theme.VerticalTextPadding
 import me.yihtseu.jishi.vm.AboutViewModel
 
 @Composable
@@ -76,16 +80,16 @@ fun AboutScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = stringResource(R.string.app_name), style = typography.titleLarge,
+                            text = stringResource(R.string.app_name), style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                         )
                         Text(
                             text = "${stringResource(R.string.version)}: ${BuildConfig.VERSION_NAME}",
-                            style = typography.labelMedium,
+                            style = MaterialTheme.typography.labelMedium,
                             modifier = Modifier.padding(HorizontalTextPadding, 0.dp)
                         )
                         Text(
-                            text = stringResource(R.string.app_desc), style = typography.bodyMedium,
+                            text = stringResource(R.string.app_desc), style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                         )
                     }

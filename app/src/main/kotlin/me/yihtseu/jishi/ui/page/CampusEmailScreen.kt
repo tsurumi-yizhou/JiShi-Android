@@ -6,10 +6,7 @@ import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -72,17 +69,17 @@ fun CampusEmailScreen(
                     state.profile?.let {
 
                         Text(
-                            text = it.name, style = typography.labelLarge,
+                            text = it.name, style = MaterialTheme.typography.labelLarge,
                             modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                         )
 
                         Text(
-                            text = it.number, style = typography.bodyMedium,
+                            text = it.number, style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                         )
 
                         Text(
-                            text = it.school, style = typography.bodyMedium,
+                            text = it.school, style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                         )
                     }

@@ -18,7 +18,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import me.yihtseu.jishi.R
 import me.yihtseu.jishi.ui.framework.Compact
-import me.yihtseu.jishi.ui.theme.*
+import me.yihtseu.jishi.ui.theme.HorizontalCardPadding
+import me.yihtseu.jishi.ui.theme.VerticalCardPadding
+import me.yihtseu.jishi.ui.theme.VerticalChipPadding
+import me.yihtseu.jishi.ui.theme.shapes
 import me.yihtseu.jishi.vm.SubscriptionViewModel
 
 @Composable
@@ -70,7 +73,7 @@ fun SubscriptionScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.SpaceEvenly
                                 ) {
-                                    Text(text = it.title, style = typography.labelSmall)
+                                    Text(text = it.title, style = MaterialTheme.typography.labelSmall)
                                     IconButton(onClick = {
                                         viewModel.sub(it)
                                     }) {

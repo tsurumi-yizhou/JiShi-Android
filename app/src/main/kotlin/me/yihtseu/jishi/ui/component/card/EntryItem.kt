@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +21,6 @@ import coil.transform.CircleCropTransformation
 import me.yihtseu.jishi.ui.theme.HorizontalTextPadding
 import me.yihtseu.jishi.ui.theme.InnerCardPadding
 import me.yihtseu.jishi.ui.theme.InputWidth
-import me.yihtseu.jishi.ui.theme.typography
 
 @Composable
 fun EntryItem(icon: ImageVector, title: String, onClick: () -> Unit) {
@@ -29,7 +29,11 @@ fun EntryItem(icon: ImageVector, title: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(icon, null, modifier = Modifier.padding(start = InnerCardPadding))
-        Text(text = title, modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding), style = typography.bodyMedium)
+        Text(
+            text = title,
+            modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding),
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
@@ -40,7 +44,11 @@ fun EntryItem(icon: Uri, title: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(ImageRequest.Builder(LocalContext.current).data(icon).transformations(CircleCropTransformation()).build(), contentDescription = null, modifier = Modifier.size(48.dp).padding(start = InnerCardPadding))
-        Text(text = title, modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding), style = typography.bodyMedium)
+        Text(
+            text = title,
+            modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding),
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
@@ -57,8 +65,16 @@ fun EntryItem(icon: ImageVector, title: String, detail: String, onClick: () -> U
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = title, modifier = Modifier.padding(horizontal = HorizontalTextPadding), style = typography.bodyMedium)
-            Text(text = detail, modifier = Modifier.padding(horizontal = HorizontalTextPadding), style = typography.bodySmall)
+            Text(
+                text = title,
+                modifier = Modifier.padding(horizontal = HorizontalTextPadding),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = detail,
+                modifier = Modifier.padding(horizontal = HorizontalTextPadding),
+                style = MaterialTheme.typography.bodySmall
+            )
         }
     }
 }
@@ -76,8 +92,16 @@ fun EntryItem(icon: Uri, title: String, detail: String, onClick: () -> Unit) {
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = title, modifier = Modifier.padding(horizontal = HorizontalTextPadding), style = typography.bodyMedium)
-            Text(text = detail, modifier = Modifier.padding(horizontal = HorizontalTextPadding), style = typography.bodySmall)
+            Text(
+                text = title,
+                modifier = Modifier.padding(horizontal = HorizontalTextPadding),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = detail,
+                modifier = Modifier.padding(horizontal = HorizontalTextPadding),
+                style = MaterialTheme.typography.bodySmall
+            )
         }
     }
 }
@@ -102,7 +126,7 @@ fun EntryInput(
             Text(
                 text = title,
                 modifier = Modifier.padding(horizontal = HorizontalTextPadding, vertical = InnerCardPadding),
-                style = typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium
             )
         }
         OutlinedTextField(
@@ -114,7 +138,7 @@ fun EntryInput(
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
-            textStyle = typography.bodyMedium
+            textStyle = MaterialTheme.typography.bodyMedium
         )
     }
 }
