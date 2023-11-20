@@ -39,14 +39,12 @@ fun RoomCard(
                 Text(
                     text = building,
                     style = typography.labelSmall,
-                    modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding),
-                    maxLines = 1
+                    modifier = Modifier.padding(HorizontalTextPadding, VerticalTextPadding)
                 )
                 Text(
                     text = name.removePrefix("$building-"),
                     style = typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = HorizontalTextPadding),
-                    maxLines = 1
+                    modifier = Modifier.padding(horizontal = HorizontalTextPadding)
                 )
                 Text(
                     text = duration,
