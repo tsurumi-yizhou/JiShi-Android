@@ -73,7 +73,7 @@ fun IdentifyScreen(
         }
     }
 
-    LaunchedEffect(controller) {
+    LaunchedEffect(Unit) {
         viewModel.load()
     }
 }

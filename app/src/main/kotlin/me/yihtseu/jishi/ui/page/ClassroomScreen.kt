@@ -71,7 +71,7 @@ fun ClassroomScreen(
         }
     }
 
-    LaunchedEffect(viewModel) {
+    LaunchedEffect(Unit) {
         viewModel.init()
     }
 }

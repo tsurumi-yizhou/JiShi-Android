@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -51,10 +53,10 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = id,
                             enterTransition = {
-                                fadeIn()
+                                slideInHorizontally { 200 } + fadeIn()
                             },
                             exitTransition = {
-                                fadeOut()
+                                slideOutHorizontally { 200 } + fadeOut()
                             }
                         ) {
                             page.show(controller)
