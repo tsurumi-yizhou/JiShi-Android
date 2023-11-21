@@ -52,7 +52,7 @@ fun ScoreScreen(
         }
     }
 
-    LaunchedEffect(viewModel) {
+    LaunchedEffect(Unit) {
         viewModel.load()
     }
 }
