@@ -47,7 +47,7 @@ fun Compact(
             LargeTopAppBar(
                 scrollBehavior = behavior,
                 title = {
-                    Text(text = title, style = typography.titleMedium)
+                    Text(text = title, style = typography.titleLarge)
                 },
                 navigationIcon = {
                     controller?.let {

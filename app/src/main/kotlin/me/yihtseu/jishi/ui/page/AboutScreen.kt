@@ -133,7 +133,7 @@ fun AboutScreen(
         }
     }
 
-    LaunchedEffect(viewModel) {
+    LaunchedEffect(Unit) {
         viewModel.init()
     }
 }

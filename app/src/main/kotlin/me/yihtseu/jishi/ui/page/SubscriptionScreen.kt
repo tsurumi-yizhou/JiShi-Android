@@ -92,7 +92,7 @@ fun SubscriptionScreen(
         }
     }
 
-    LaunchedEffect(viewModel) {
+    LaunchedEffect(Unit) {
         viewModel.init()
     }
 }

@@ -101,7 +101,7 @@ fun CampusEmailScreen(
         }
     }
 
-    LaunchedEffect(viewModel) {
+    LaunchedEffect(Unit) {
         viewModel.init()
     }
 }
