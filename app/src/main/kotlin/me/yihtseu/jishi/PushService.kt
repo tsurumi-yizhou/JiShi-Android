@@ -24,18 +24,18 @@ class PushService : FirebaseMessagingService() {
             setAutoCancel(true)
         }.build()
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.notify(NOTIFICATION_ID, notification)
+        manager.notify(System.currentTimeMillis().toInt(), notification)
     }
 
     override fun onCreate() {
         super.onCreate()
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channel = NotificationChannel(CHANNEL_ID, "JiShi_Channel", NotificationManager.IMPORTANCE_DEFAULT)
+        val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
         manager.createNotificationChannel(channel)
     }
 
     companion object {
-        private const val NOTIFICATION_ID = 114514
-        private const val CHANNEL_ID = "JiShiPushChannel"
+        private const val CHANNEL_ID = "f71be4a7-cc2f-4ee7-8892-2a4252149daa"
+        private const val CHANNEL_NAME = "推送通知通道"
     }
 }
